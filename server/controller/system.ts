@@ -23,8 +23,8 @@ export const getSystemInfo = async (event: H3Event) => {
     //         // },
     //     });
     //     console.log(result)
-
-    console.log(db)
+    const db = dbs()
+    console.log(db?.query?.system)
 
     // console.time('timeout')
     const [res1, res2] = await Promise.all([

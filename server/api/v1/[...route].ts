@@ -122,4 +122,15 @@ router.use('/auth', defineEventHandler(async (event) => {
     return list
 }))
 
+
+const startAt = Date.now()
+let count = 0
+
+router.use('/pageview', defineEventHandler(async (event) => {
+    return {
+        pageview: count++,
+        startAt,
+    }
+}))
+
 export default useBase('/api/v1', router.handler)

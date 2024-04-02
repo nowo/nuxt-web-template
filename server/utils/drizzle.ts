@@ -1,4 +1,4 @@
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle, MySql2Database } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
 import * as schema from '~/drizzle/schema';
 
@@ -10,4 +10,13 @@ const connection = await mysql.createConnection({
     uri: process.env.DB_URL
 });
 
-export const db = drizzle(connection, { schema, mode: 'default' });
+// export const db = drizzle(connection, { schema, mode: 'default' });
+
+let db: MySql2Database<typeof schema> | null = null
+
+export const dbs = () => {
+    if (!db) {
+        db = drizzle(connection, { schema, mode: 'default' });
+    }
+    return db
+}
