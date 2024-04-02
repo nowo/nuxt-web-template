@@ -1,19 +1,25 @@
 <script setup lang="ts">
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import { appName } from '~/config/constant'
 
 useHead({
     title: appName,
 })
+
+
 </script>
 
 <template>
-    <VitePwaManifest />
-    <NuxtLayout>
-        <NuxtPage />
-    </NuxtLayout>
+    <el-config-provider :locale="zhCn">
+        <VitePwaManifest />
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
+    </el-config-provider>
 </template>
 
-<style>
+<style lang="scss">
+@import url("~/assets/scss/element-plus.scss");
 html,
 body,
 #__nuxt {

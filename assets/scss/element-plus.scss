@@ -1,0 +1,30 @@
+:root {
+    --el-aside-width: auto;
+
+
+    --co-menu-width: 200px;
+}
+
+
+.el-menu {
+    width: var(--co-menu-width);
+    --el-menu-border-color: transparent;
+    // border-right: 0;
+    &.el-menu--vertical{
+        min-height: 100%;
+    }
+}
+
+.el-dropdown {
+
+    .el-tooltip__trigger:focus-visible {
+        outline: unset;
+    }
+}
+
+.el-scrollbar__view{
+    height: 100%;
+    .el-scrollbar__bar{
+        z-index: 5;
+    }
+}
