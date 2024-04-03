@@ -1,22 +1,20 @@
 <template>
-
-
-    <div>首页
+    <el-scrollbar>菜单管理
         <el-table :data="tableData">
             <el-table-column prop="date" label="Date" width="140" />
             <el-table-column prop="name" label="Name" width="120" />
             <el-table-column prop="address" label="Address" />
         </el-table>
-    </div>
+    </el-scrollbar>
 
 </template>
 
 <script setup lang="ts">
 definePageMeta({
     layout: 'admin',
-    title: '后台主页',
-    icon: 'i-ep-home-filled',
-    sort: -999
+    title: '菜单管理',
+    icon: 'i-ep-menu'
+
 })
 
 const item = {
@@ -24,5 +22,5 @@ const item = {
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
 }
-const tableData = ref(Array.from({ length: 30 }).fill(item))
+const tableData = ref(Array.from({ length: 20 }).fill(item))
 </script>

@@ -9,8 +9,9 @@
 .el-menu {
     width: var(--co-menu-width);
     --el-menu-border-color: transparent;
+
     // border-right: 0;
-    &.el-menu--vertical{
+    &.el-menu--vertical {
         min-height: 100%;
     }
 }
@@ -22,9 +23,12 @@
     }
 }
 
-.el-scrollbar__view{
-    height: 100%;
-    .el-scrollbar__bar{
+.el-scrollbar {
+    // .el-scrollbar__view {
+    //     height: 100%;
+    // }
+
+    .el-scrollbar__bar {
         z-index: 5;
     }
 }

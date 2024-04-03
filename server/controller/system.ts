@@ -14,45 +14,40 @@ export const getSystemInfo = async (event: H3Event) => {
     // 获取参数
     // const param = await getEventParams<LoginDataType>(event)
 
-    //   const a=await  db.query.system.findFirst({
-    //         where: (system, { eq }) => eq(system.id, 1),
-    //     })
-    //     const result = await db.query.system.findMany({
-    //         // with: {
-    //         //   posts: true      
-    //         // },
-    //     });
-    //     console.log(result)
-    const db = dbs()
-    console.log(db?.query?.system)
 
-    // console.time('timeout')
-    const [res1, res2] = await Promise.all([
-        db.query.system.findFirst({
-            where: (system, { eq }) => eq(system.id, 1),
-        }),
-        db.query.system.findFirst({
-            where: (system, { eq }) => eq(system.id, 2),
-        })
-        // prisma.system.findUnique({ where: { id: 1 } }),
-        // prisma.system.findUnique({ where: { id: 2 } }),
-    ])
-    // console.timeEnd('timeout')
-    if (res1 && res2) {
-        return {
-            code: 200,
-            data: {
-                ...res1,
-                // company_en: res2.company,
-                title_en: res2.title,
-                address_en: res2.address,
-                filing_en: res2.filing,
-                // copyright_en: res2.copyright,
-            },
-        }
-    } else {
-        return { msg: '获取数据有误' }
-    }
+    return { name: 1 }
+
+
+    // const db = dbs()
+    // console.log(db?.query?.system)
+
+    // // console.time('timeout')
+    // const [res1, res2] = await Promise.all([
+    //     db.query.system.findFirst({
+    //         where: (system, { eq }) => eq(system.id, 1),
+    //     }),
+    //     db.query.system.findFirst({
+    //         where: (system, { eq }) => eq(system.id, 2),
+    //     })
+    //     // prisma.system.findUnique({ where: { id: 1 } }),
+    //     // prisma.system.findUnique({ where: { id: 2 } }),
+    // ])
+    // // console.timeEnd('timeout')
+    // if (res1 && res2) {
+    //     return {
+    //         code: 200,
+    //         data: {
+    //             ...res1,
+    //             // company_en: res2.company,
+    //             title_en: res2.title,
+    //             address_en: res2.address,
+    //             filing_en: res2.filing,
+    //             // copyright_en: res2.copyright,
+    //         },
+    //     }
+    // } else {
+    //     return { msg: '获取数据有误' }
+    // }
 }
 
 /**
