@@ -7,7 +7,6 @@
             </div> -->
                 <div class="layout-user-item">
                     <i class="i-ic:sharp-text-fields" title="组件大小" />
-                    <!-- <i class="i-ic:sharp-text-format" title="组件大小" /> -->
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -19,13 +18,9 @@
                 </template>
             </el-dropdown>
             <div class="layout-user-item" @click="onLayoutSettingClick">
-                <!-- <i class="icon-skin iconfont" title="布局配置" /> -->
                 <i class="i-ep-operation" title="布局配置" />
             </div>
-            <div class="layout-navbars-breadcrumb-user-icon" @click="onSearchClick">
-                <!-- <el-icon title="菜单搜索">
-                <ele-Search />
-            </el-icon> -->
+            <div class="layout-user-item" @click="onSearchClick">
                 <i class="i-ep-search" title="菜单搜索" />
             </div>
             <el-popover placement="bottom" :width="300" trigger="click">
@@ -71,6 +66,9 @@
                 </template>
             </el-dropdown>
         </ClientOnly>
+        <Teleport to="body">
+            <LayoutOtherSetting v-model="isDrawer" />
+        </Teleport>
     </div>
 </template>
 

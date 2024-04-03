@@ -1,462 +1,461 @@
 <template>
-    <div>
-        <el-drawer v-model="isDrawer" title="布局配置" direction="rtl" destroy-on-close size="260px" @close="onDrawerClose">
-            <el-scrollbar class="px15px">
-                <!-- 全局主题 -->
-                <el-divider content-position="left">
-                    全局主题
-                </el-divider>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="color-primary flex-1">
-                        primary
-                    </div>
-                    <div>
-                        <el-color-picker v-model="getThemeConfig.primary" size="default" @change="onColorPickerChange" />
-                    </div>
+     <!-- v-model="isDrawer" -->
+    <el-drawer title="布局配置" direction="rtl" destroy-on-close size="260px" @close="onDrawerClose">
+        <el-scrollbar class="px20px">
+            <!-- 全局主题 -->
+            <el-divider content-position="left">
+                全局主题
+            </el-divider>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="color-primary flex-1">
+                    primary
                 </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        深色模式
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isIsDark" size="small" @change="onAddDarkChange" />
-                    </div>
+                <div>
+                    <el-color-picker v-model="getThemeConfig.primary" size="default" @change="onColorPickerChange" />
                 </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    深色模式
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isIsDark" size="small" @change="onAddDarkChange" />
+                </div>
+            </div>
 
-                <!-- 顶栏设置 -->
-                <el-divider content-position="left">
-                    顶栏设置
-                </el-divider>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        顶栏背景
-                    </div>
-                    <div>
-                        <el-color-picker v-model="getThemeConfig.topBar" size="default"
-                            @change="onBgColorPickerChange('topBar')" />
-                    </div>
+            <!-- 顶栏设置 -->
+            <el-divider content-position="left">
+                顶栏设置
+            </el-divider>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    顶栏背景
                 </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        顶栏默认字体颜色
-                    </div>
-                    <div>
-                        <el-color-picker v-model="getThemeConfig.topBarColor" size="default"
-                            @change="onBgColorPickerChange('topBarColor')" />
-                    </div>
+                <div>
+                    <el-color-picker v-model="getThemeConfig.topBar" size="default"
+                        @change="onBgColorPickerChange('topBar')" />
                 </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        顶栏背景渐变
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isTopBarColorGradual" size="small"
-                            @change="onTopBarGradualChange" />
-                    </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    顶栏默认字体颜色
                 </div>
+                <div>
+                    <el-color-picker v-model="getThemeConfig.topBarColor" size="default"
+                        @change="onBgColorPickerChange('topBarColor')" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    顶栏背景渐变
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isTopBarColorGradual" size="small"
+                        @change="onTopBarGradualChange" />
+                </div>
+            </div>
 
-                <!-- 菜单设置 -->
-                <el-divider content-position="left">
-                    菜单设置
-                </el-divider>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        菜单背景
-                    </div>
-                    <div class="mb5px min-h32px flex items-center">
-                        <el-color-picker v-model="getThemeConfig.menuBar" size="default"
-                            @change="onBgColorPickerChange('menuBar')" />
-                    </div>
+            <!-- 菜单设置 -->
+            <el-divider content-position="left">
+                菜单设置
+            </el-divider>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    菜单背景
                 </div>
                 <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        菜单默认字体颜色
-                    </div>
-                    <div>
-                        <el-color-picker v-model="getThemeConfig.menuBarColor" size="default"
-                            @change="onBgColorPickerChange('menuBarColor')" />
-                    </div>
+                    <el-color-picker v-model="getThemeConfig.menuBar" size="default"
+                        @change="onBgColorPickerChange('menuBar')" />
                 </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        菜单高亮背景色
-                    </div>
-                    <div>
-                        <el-color-picker v-model="getThemeConfig.menuBarActiveColor" size="default" show-alpha
-                            @change="onBgColorPickerChange('menuBarActiveColor')" />
-                    </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    菜单默认字体颜色
                 </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        菜单背景渐变
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isMenuBarColorGradual" size="small"
-                            @change="onMenuBarGradualChange" />
-                    </div>
+                <div>
+                    <el-color-picker v-model="getThemeConfig.menuBarColor" size="default"
+                        @change="onBgColorPickerChange('menuBarColor')" />
                 </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    菜单高亮背景色
+                </div>
+                <div>
+                    <el-color-picker v-model="getThemeConfig.menuBarActiveColor" size="default" show-alpha
+                        @change="onBgColorPickerChange('menuBarActiveColor')" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    菜单背景渐变
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isMenuBarColorGradual" size="small"
+                        @change="onMenuBarGradualChange" />
+                </div>
+            </div>
 
-                <!-- 分栏设置 -->
-                <el-divider content-position="left">
-                    分栏设置
-                </el-divider>
-                <div :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
-                    <div class="mb5px min-h32px flex items-center">
-                        <div class="flex-1">
-                            分栏菜单背景
-                        </div>
-                        <div>
-                            <el-color-picker v-model="getThemeConfig.columnsMenuBar" size="default"
-                                :disabled="getThemeConfig.layout !== 'columns'"
-                                @change="onBgColorPickerChange('columnsMenuBar')" />
-                        </div>
-                    </div>
-                    <div class="mb5px min-h32px flex items-center">
-                        <div class="flex-1">
-                            分栏菜单默认字体颜色
-                        </div>
-                        <div>
-                            <el-color-picker v-model="getThemeConfig.columnsMenuBarColor" size="default"
-                                :disabled="getThemeConfig.layout !== 'columns'"
-                                @change="onBgColorPickerChange('columnsMenuBarColor')" />
-                        </div>
-                    </div>
-                    <div class="mb5px min-h32px flex items-center">
-                        <div class="flex-1">
-                            分栏菜单背景渐变
-                        </div>
-                        <div>
-                            <el-switch v-model="getThemeConfig.isColumnsMenuBarColorGradual" size="small"
-                                :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuBarGradualChange" />
-                        </div>
-                    </div>
-                    <div class="mb5px min-h32px flex items-center">
-                        <div class="flex-1">
-                            分栏菜单鼠标悬停预加载
-                        </div>
-                        <div>
-                            <el-switch v-model="getThemeConfig.isColumnsMenuHoverPreload" size="small"
-                                :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuHoverPreloadChange" />
-                        </div>
-                    </div>
-                    <div class="mb5px min-h32px flex items-center">
-                        <div class="flex-1">
-                            分栏高亮风格
-                        </div>
-                        <div>
-                            <el-select v-model="getThemeConfig.columnsAsideStyle" placeholder="请选择" size="default"
-                                class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
-                                @change="setLocalThemeConfig">
-                                <el-option label="圆角" value="columns-round" />
-                                <el-option label="卡片" value="columns-card" />
-                            </el-select>
-                        </div>
-                    </div>
-                    <div class="mb5px min-h32px flex items-center">
-                        <div class="flex-1">
-                            分栏布局风格
-                        </div>
-                        <div>
-                            <el-select v-model="getThemeConfig.columnsAsideLayout" placeholder="请选择" size="default"
-                                class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
-                                @change="setLocalThemeConfig">
-                                <el-option label="水平" value="columns-horizontal" />
-                                <el-option label="垂直" value="columns-vertical" />
-                            </el-select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 界面设置 -->
-                <el-divider content-position="left">
-                    界面设置
-                </el-divider>
-                <div class="mb5px min-h32px flex items-center"
-                    :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+            <!-- 分栏设置 -->
+            <el-divider content-position="left">
+                分栏设置
+            </el-divider>
+            <div :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+                <div class="mb5px min-h32px flex items-center">
                     <div class="flex-1">
-                        菜单水平折叠
+                        分栏菜单背景
                     </div>
                     <div>
-                        <el-switch v-model="getThemeConfig.isCollapse" :disabled="getThemeConfig.layout === 'transverse'"
-                            size="small" @change="onThemeConfigChange" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center"
-                    :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
-                    <div class="flex-1">
-                        菜单手风琴
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isUniqueOpened"
-                            :disabled="getThemeConfig.layout === 'transverse'" size="small" @change="setLocalThemeConfig" />
+                        <el-color-picker v-model="getThemeConfig.columnsMenuBar" size="default"
+                            :disabled="getThemeConfig.layout !== 'columns'"
+                            @change="onBgColorPickerChange('columnsMenuBar')" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
                     <div class="flex-1">
-                        固定 Header
+                        分栏菜单默认字体颜色
                     </div>
                     <div>
-                        <el-switch v-model="getThemeConfig.isFixedHeader" size="small" @change="onIsFixedHeaderChange" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center"
-                    :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }">
-                    <div class="flex-1">
-                        经典布局分割菜单
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isClassicSplitMenu"
-                            :disabled="getThemeConfig.layout !== 'classic'" size="small"
-                            @change="onClassicSplitMenuChange" />
+                        <el-color-picker v-model="getThemeConfig.columnsMenuBarColor" size="default"
+                            :disabled="getThemeConfig.layout !== 'columns'"
+                            @change="onBgColorPickerChange('columnsMenuBarColor')" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
                     <div class="flex-1">
-                        开启锁屏
+                        分栏菜单背景渐变
                     </div>
                     <div>
-                        <el-switch v-model="getThemeConfig.isLockScreen" size="small" @change="setLocalThemeConfig" />
+                        <el-switch v-model="getThemeConfig.isColumnsMenuBarColorGradual" size="small"
+                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuBarGradualChange" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
                     <div class="flex-1">
-                        自动锁屏(s/秒)
+                        分栏菜单鼠标悬停预加载
                     </div>
                     <div>
-                        <el-input-number v-model="getThemeConfig.lockScreenTime" controls-position="right" :min="1"
-                            :max="9999" size="default" class="w90px!" @change="setLocalThemeConfig" />
-                    </div>
-                </div>
-
-                <!-- 界面显示 -->
-                <el-divider content-position="left">
-                    界面显示
-                </el-divider>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        侧边栏 Logo
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isShowLogo" size="small" @change="onIsShowLogoChange" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center"
-                    :style="{ opacity: getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
-                    <div class="flex-1">
-                        开启 Breadcrumb
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isBreadcrumb"
-                            :disabled="getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse'"
-                            size="small" @change="onIsBreadcrumbChange" />
+                        <el-switch v-model="getThemeConfig.isColumnsMenuHoverPreload" size="small"
+                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuHoverPreloadChange" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
                     <div class="flex-1">
-                        开启 Breadcrumb 图标
+                        分栏高亮风格
                     </div>
                     <div>
-                        <el-switch v-model="getThemeConfig.isBreadcrumbIcon" size="small" @change="setLocalThemeConfig" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        开启 TagsView
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isTagsView" size="small" @change="setLocalThemeConfig" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        开启 TagsView 图标
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isTagsViewIcon" size="small" @change="setLocalThemeConfig" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        开启 TagsView 缓存
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isCacheTagsView" size="small" @change="setLocalThemeConfig" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center" :style="{ opacity: state.isMobile ? 0.5 : 1 }">
-                    <div class="flex-1">
-                        开启 TagsView 拖拽
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isSortableTagsView" :disabled="state.isMobile ? true : false"
-                            size="small" @change="onSortableTagsViewChange" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        开启 TagsView 共用
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isShareTagsView" size="small" @change="onShareTagsViewChange" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        开启 Footer
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isFooter" size="small" @change="setLocalThemeConfig" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        灰色模式
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isGrayscale" size="small"
-                            @change="onAddFilterChange('grayscale')" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        色弱模式
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isInvert" size="small" @change="onAddFilterChange('invert')" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        开启水印
-                    </div>
-                    <div>
-                        <el-switch v-model="getThemeConfig.isWatermark" size="small" @change="onWatermarkChange" />
-                    </div>
-                </div>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        水印文案
-                    </div>
-                    <div>
-                        <el-input v-model="getThemeConfig.watermarkText" size="default" class="w90px!"
-                            @input="onWatermarkTextInput($event)" />
-                    </div>
-                </div>
-
-                <!-- 其它设置 -->
-                <el-divider content-position="left">
-                    其它设置
-                </el-divider>
-                <div class="mb5px min-h32px flex items-center">
-                    <div class="flex-1">
-                        TagsView 风格
-                    </div>
-                    <div>
-                        <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" class="w90px!"
+                        <el-select v-model="getThemeConfig.columnsAsideStyle" placeholder="请选择" size="default"
+                            class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
                             @change="setLocalThemeConfig">
-                            <el-option label="风格1" value="tags-style-one" />
-                            <el-option label="风格4" value="tags-style-four" />
-                            <el-option label="风格5" value="tags-style-five" />
+                            <el-option label="圆角" value="columns-round" />
+                            <el-option label="卡片" value="columns-card" />
                         </el-select>
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
                     <div class="flex-1">
-                        主页面切换动画
+                        分栏布局风格
                     </div>
                     <div>
-                        <el-select v-model="getThemeConfig.animation" placeholder="请选择" size="default" class="w90px!"
+                        <el-select v-model="getThemeConfig.columnsAsideLayout" placeholder="请选择" size="default"
+                            class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
                             @change="setLocalThemeConfig">
-                            <el-option label="slide-right" value="slide-right" />
-                            <el-option label="slide-left" value="slide-left" />
-                            <el-option label="opacity" value="opacity" />
+                            <el-option label="水平" value="columns-horizontal" />
+                            <el-option label="垂直" value="columns-vertical" />
                         </el-select>
                     </div>
                 </div>
+            </div>
 
-                <!-- 布局切换 -->
-                <el-divider content-position="left">
-                    布局切换
-                </el-divider>
-                <div class="grid grid-cols-[repeat(2,1fr)] mb15px gap-15px">
-                    <!-- defaults 布局 -->
-                    <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'default' }"
-                        @click="onSetLayout('default')">
-                        <el-container class="h100%">
-                            <el-aside width="20px" class="layout-pane-aside" />
-                            <el-container>
-                                <el-header height="10px" class="layout-pane-header" />
-                                <el-main class="layout-pane-main" />
-                            </el-container>
-                        </el-container>
-                        <div class="layout-pane-text">
-                            默认
-                        </div>
-                    </div>
-                    <!-- classic 布局 -->
-                    <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'classic' }"
-                        @click="onSetLayout('classic')">
-                        <el-container class="h100%">
-                            <el-header height="10px" class="layout-pane-header" />
-                            <el-container>
-                                <el-aside width="20px" class="layout-pane-aside" />
-                                <el-main class="layout-pane-main" />
-                            </el-container>
-                        </el-container>
-                        <div class="layout-pane-text">
-                            经典
-                        </div>
-                    </div>
-                    <!-- transverse 布局 -->
-                    <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'transverse' }"
-                        @click="onSetLayout('transverse')">
-                        <el-container class="h100%">
-                            <el-header height="10px" class="layout-pane-header" />
-                            <el-container>
-                                <el-main class="layout-pane-main" />
-                            </el-container>
-                        </el-container>
-                        <div class="layout-pane-text">
-                            横向
-                        </div>
-                    </div>
-                    <!-- columns 布局 -->
-                    <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'columns' }"
-                        @click="onSetLayout('columns')">
-                        <el-container class="h100%">
-                            <el-aside width="10px" class="layout-pane-aside-dark" />
-                            <el-aside width="20px" class="layout-pane-aside" />
-                            <el-container>
-                                <el-header height="10px" class="layout-pane-header" />
-                                <el-main class="layout-pane-main" />
-                            </el-container>
-                        </el-container>
-                        <div class="layout-pane-text">
-                            分栏
-                        </div>
-                    </div>
+            <!-- 界面设置 -->
+            <el-divider content-position="left">
+                界面设置
+            </el-divider>
+            <div class="mb5px min-h32px flex items-center"
+                :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                <div class="flex-1">
+                    菜单水平折叠
                 </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isCollapse" :disabled="getThemeConfig.layout === 'transverse'"
+                        size="small" @change="onThemeConfigChange" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center"
+                :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                <div class="flex-1">
+                    菜单手风琴
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isUniqueOpened"
+                        :disabled="getThemeConfig.layout === 'transverse'" size="small" @change="setLocalThemeConfig" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    固定 Header
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isFixedHeader" size="small" @change="onIsFixedHeaderChange" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center"
+                :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }">
+                <div class="flex-1">
+                    经典布局分割菜单
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isClassicSplitMenu"
+                        :disabled="getThemeConfig.layout !== 'classic'" size="small"
+                        @change="onClassicSplitMenuChange" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启锁屏
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isLockScreen" size="small" @change="setLocalThemeConfig" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    自动锁屏(s/秒)
+                </div>
+                <div>
+                    <el-input-number v-model="getThemeConfig.lockScreenTime" controls-position="right" :min="1"
+                        :max="9999" size="default" class="w90px!" @change="setLocalThemeConfig" />
+                </div>
+            </div>
 
-                <el-alert title="点击下方按钮，复制布局配置去 `src/store/base/theme.ts` 中修改。" type="warning" :closable="false" />
-                <div class="my10px">
-                    <el-button size="default" class="w100%" type="primary" @click="onCopyConfigClick">
-                        <el-icon class="mr5px">
-                            <!-- <ele-CopyDocument /> -->
-                        </el-icon>
-                        一键复制配置
-                    </el-button>
+            <!-- 界面显示 -->
+            <el-divider content-position="left">
+                界面显示
+            </el-divider>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    侧边栏 Logo
                 </div>
-                <div class="my10px">
-                    <el-button size="default" class="w100%" type="info" @click="onResetConfigClick">
-                        <el-icon class="mr5px">
-                            <!-- <ele-RefreshRight /> -->
-                        </el-icon>
-                        一键恢复默认
-                    </el-button>
+                <div>
+                    <el-switch v-model="getThemeConfig.isShowLogo" size="small" @change="onIsShowLogoChange" />
                 </div>
-            </el-scrollbar>
-        </el-drawer>
-    </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center"
+                :style="{ opacity: getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                <div class="flex-1">
+                    开启 Breadcrumb
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isBreadcrumb"
+                        :disabled="getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse'"
+                        size="small" @change="onIsBreadcrumbChange" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启 Breadcrumb 图标
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isBreadcrumbIcon" size="small" @change="setLocalThemeConfig" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启 TagsView
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isTagsView" size="small" @change="setLocalThemeConfig" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启 TagsView 图标
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isTagsViewIcon" size="small" @change="setLocalThemeConfig" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启 TagsView 缓存
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isCacheTagsView" size="small" @change="setLocalThemeConfig" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center" :style="{ opacity: state.isMobile ? 0.5 : 1 }">
+                <div class="flex-1">
+                    开启 TagsView 拖拽
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isSortableTagsView" :disabled="state.isMobile ? true : false"
+                        size="small" @change="onSortableTagsViewChange" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启 TagsView 共用
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isShareTagsView" size="small" @change="onShareTagsViewChange" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启 Footer
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isFooter" size="small" @change="setLocalThemeConfig" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    灰色模式
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isGrayscale" size="small"
+                        @change="onAddFilterChange('grayscale')" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    色弱模式
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isInvert" size="small" @change="onAddFilterChange('invert')" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    开启水印
+                </div>
+                <div>
+                    <el-switch v-model="getThemeConfig.isWatermark" size="small" @change="onWatermarkChange" />
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    水印文案
+                </div>
+                <div>
+                    <el-input v-model="getThemeConfig.watermarkText" size="default" class="w90px!"
+                        @input="onWatermarkTextInput($event)" />
+                </div>
+            </div>
+
+            <!-- 其它设置 -->
+            <el-divider content-position="left">
+                其它设置
+            </el-divider>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    TagsView 风格
+                </div>
+                <div>
+                    <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" class="w90px!"
+                        @change="setLocalThemeConfig">
+                        <el-option label="风格1" value="tags-style-one" />
+                        <el-option label="风格4" value="tags-style-four" />
+                        <el-option label="风格5" value="tags-style-five" />
+                    </el-select>
+                </div>
+            </div>
+            <div class="mb5px min-h32px flex items-center">
+                <div class="flex-1">
+                    主页面切换动画
+                </div>
+                <div>
+                    <el-select v-model="getThemeConfig.animation" placeholder="请选择" size="default" class="w90px!"
+                        @change="setLocalThemeConfig">
+                        <el-option label="slide-right" value="slide-right" />
+                        <el-option label="slide-left" value="slide-left" />
+                        <el-option label="opacity" value="opacity" />
+                    </el-select>
+                </div>
+            </div>
+
+            <!-- 布局切换 -->
+            <el-divider content-position="left">
+                布局切换
+            </el-divider>
+            <div class="grid grid-cols-[repeat(2,1fr)] mb15px gap-15px">
+                <!-- defaults 布局 -->
+                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'default' }"
+                    @click="onSetLayout('default')">
+                    <el-container class="h100%">
+                        <el-aside width="20px" class="layout-pane-aside" />
+                        <el-container>
+                            <el-header height="10px" class="layout-pane-header" />
+                            <el-main class="layout-pane-main" />
+                        </el-container>
+                    </el-container>
+                    <div class="layout-pane-text">
+                        默认
+                    </div>
+                </div>
+                <!-- classic 布局 -->
+                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'classic' }"
+                    @click="onSetLayout('classic')">
+                    <el-container class="h100%">
+                        <el-header height="10px" class="layout-pane-header" />
+                        <el-container>
+                            <el-aside width="20px" class="layout-pane-aside" />
+                            <el-main class="layout-pane-main" />
+                        </el-container>
+                    </el-container>
+                    <div class="layout-pane-text">
+                        经典
+                    </div>
+                </div>
+                <!-- transverse 布局 -->
+                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'transverse' }"
+                    @click="onSetLayout('transverse')">
+                    <el-container class="h100%">
+                        <el-header height="10px" class="layout-pane-header" />
+                        <el-container>
+                            <el-main class="layout-pane-main" />
+                        </el-container>
+                    </el-container>
+                    <div class="layout-pane-text">
+                        横向
+                    </div>
+                </div>
+                <!-- columns 布局 -->
+                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'columns' }"
+                    @click="onSetLayout('columns')">
+                    <el-container class="h100%">
+                        <el-aside width="10px" class="layout-pane-aside-dark" />
+                        <el-aside width="20px" class="layout-pane-aside" />
+                        <el-container>
+                            <el-header height="10px" class="layout-pane-header" />
+                            <el-main class="layout-pane-main" />
+                        </el-container>
+                    </el-container>
+                    <div class="layout-pane-text">
+                        分栏
+                    </div>
+                </div>
+            </div>
+
+            <el-alert title="点击下方按钮，复制布局配置去 `src/store/base/theme.ts` 中修改。" type="warning" :closable="false" />
+            <div class="my10px">
+                <el-button size="default" class="w100%" type="primary" @click="onCopyConfigClick">
+                    <el-icon class="mr5px">
+                        <!-- <ele-CopyDocument /> -->
+                    </el-icon>
+                    一键复制配置
+                </el-button>
+            </div>
+            <div class="my10px">
+                <el-button size="default" class="w100%" type="info" @click="onResetConfigClick">
+                    <el-icon class="mr5px">
+                        <!-- <ele-RefreshRight /> -->
+                    </el-icon>
+                    一键恢复默认
+                </el-button>
+            </div>
+        </el-scrollbar>
+    </el-drawer>
 </template>
 
 <script setup lang="ts">
