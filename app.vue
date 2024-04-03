@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import { appName } from '~/config/constant'
 
 useHead({
     title: appName,
@@ -20,6 +19,7 @@ useHead({
 
 <style lang="scss">
 @import url("~/assets/scss/element-plus.scss");
+@import url("~/assets/scss/transition.scss");
 html,
 body,
 #__nuxt {

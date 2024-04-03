@@ -58,6 +58,9 @@ export default defineNuxtConfig({
             ],
         },
     },
+    imports:{
+        dirs:['config']
+    },
 
     pwa,
     runtimeConfig: {
