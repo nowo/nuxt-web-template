@@ -74,6 +74,40 @@ const { themeConfig, isDrawer } = useThemeState()
 
 const routes = useRouter().getRoutes()
 
+
+function arrayToTreeList<T=any>(arr:T[],key:keyof T) {
+    console.log(arr)
+    const map:any = {};
+    const roots:T[] = [];
+
+    arr.forEach(item => {
+        map[item[key]] = {
+            ...item,
+            children: []
+        };
+    });
+
+    arr.forEach(item => {
+        let path=item[key] as string
+        const parentPath = path.substring(0, path.lastIndexOf('/'));
+        if (parentPath !== "") {
+            if (map[parentPath]) {
+                map[parentPath].children.push(map[path]);
+            } else {
+                // If parent does not exist in the array, add to the roots
+                roots.push(map[path]);
+            }
+        } else {
+            roots.push(map[path]);
+        }
+    });
+
+    return roots;
+}
+
+// const treeData = arrayToTreeList(routes,'path');
+// console.log('1231313', treeData);
+
 const routeList = computed(() => {
     let list = routes.filter(item => {
         // console.log(item.path, 'startStr.startsWith(item.path) :>> ', item.path.startsWith(startStr));
