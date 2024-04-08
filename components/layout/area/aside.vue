@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-const { isDrawer } = useThemeState()
+
 </script>
 
 <template>
-    <el-aside>
-        <el-scrollbar>
-            <LayoutMenu />
-        </el-scrollbar>
+    <el-aside class="flex flex-col">
+        <LayoutOtherLogo class="py10px" />
+        <div class="flex-1 min-h-0">
+            <el-scrollbar>
+                <LayoutMenu />
+            </el-scrollbar>
+        </div>
     </el-aside>
 </template>
 

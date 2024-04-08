@@ -32,6 +32,15 @@ export default antfu(
                 },
             ],
             'node/prefer-global/process': ['error', 'always'],
+            'antfu/top-level-function': 'off',
+            'antfu/if-newline': 'off', // 允许if(a==1) return 1  这种单行的格式
+            'curly': ['error', 'multi-line', 'consistent'], // 统一的大括号
+            'vue/first-attribute-linebreak': [
+                'warn',
+                {
+                    multiline: 'beside',
+                },
+            ],
         },
     },
 )

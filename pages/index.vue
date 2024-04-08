@@ -3,7 +3,7 @@ const online = useOnline()
 
 async function onTest() {
     const { data } = await useFetch('/api/v1/system/info')
-    console.warn('data.value :>> ', data.value)
+    console.log('data.value :>> ', data.value)
 }
 
 // timeout: 1.728ms
@@ -17,7 +17,8 @@ async function onTest() {
 
 <template>
     <div>
-        <Logos mb-6 />
+        <Logos id="logo-im" mb-6 msg="Vite + Vue" is-hide is-error is-loading is-info is-show is-success is-primary
+            is-warning is-active class="logo-img" />
         <Suspense>
             <ClientOnly>
                 <PageView v-if="online" />
