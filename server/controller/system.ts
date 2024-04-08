@@ -1,10 +1,9 @@
 import type { H3Event } from 'h3'
-import { ResponseMessage } from '~/config/message'
 
 /**
  * 获取公司信息
  */
-export const getSystemInfo = async (event: H3Event) => {
+export async function getSystemInfo(event: H3Event) {
     // // 接口校验
     // const authSign = await useVerifySign(event)
     // if (!authSign) return ResponseMessage.sign
@@ -14,9 +13,7 @@ export const getSystemInfo = async (event: H3Event) => {
     // 获取参数
     // const param = await getEventParams<LoginDataType>(event)
 
-
     return { name: 1 }
-
 
     // const db = dbs()
     // console.log(db?.query?.system)

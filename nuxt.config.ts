@@ -9,7 +9,7 @@ export default defineNuxtConfig({
         '@nuxtjs/color-mode',
         '@vite-pwa/nuxt',
         'nuxt-module-eslint-config',
-        '@element-plus/nuxt'
+        '@element-plus/nuxt',
     ],
 
     experimental: {
@@ -58,8 +58,8 @@ export default defineNuxtConfig({
             ],
         },
     },
-    imports:{
-        dirs:['config']
+    imports: {
+        dirs: ['config'],
     },
 
     pwa,

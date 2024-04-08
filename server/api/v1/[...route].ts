@@ -3,7 +3,6 @@ import { getSystemInfo } from '~/server/controller/system'
 
 const router = createRouter()
 
-
 /**
  * 获取系统信息
  */
@@ -121,7 +120,6 @@ router.use('/auth', defineEventHandler(async (event) => {
 
     return list
 }))
-
 
 const startAt = Date.now()
 let count = 0

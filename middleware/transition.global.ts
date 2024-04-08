@@ -1,7 +1,7 @@
-export default defineNuxtRouteMiddleware(to => {
-    console.log(to)
+export default defineNuxtRouteMiddleware((to) => {
+    // console.log(to)
 
-    if (to.path.startsWith(appAdminPath)) {   // admin页面使用slide-right过渡
+    if (to.path.startsWith(appAdminPath)) { // admin页面使用slide-right过渡
         to.meta.pageTransition = { name: 'slide-right', mode: 'out-in' }
     }
 

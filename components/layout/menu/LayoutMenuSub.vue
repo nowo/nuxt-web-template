@@ -1,4 +1,27 @@
 <!-- 菜单 -->
+<script setup lang="ts">
+import { computed } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
+
+// 定义父组件传过来的值
+const props = defineProps({
+    // 菜单列表
+    children: {
+        type: Array<RouteRecordRaw>,
+        default: () => [],
+    },
+})
+
+// 获取父级菜单数据
+const childList = computed(() => {
+    return props.children
+})
+// 打开外部链接
+function onALinkClick(val: RouteRecordRaw) {
+    // handleOpenLink(val as RouteItem)
+}
+</script>
+
 <template>
     <template v-for="val in childList" :key="val.path">
         <el-sub-menu v-if="val.children && val.children.length > 0" :index="val.path">
@@ -22,26 +45,3 @@
         </el-menu-item>
     </template>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import type { RouteRecordRaw } from 'vue-router'
-
-// 定义父组件传过来的值
-const props = defineProps({
-    // 菜单列表
-    children: {
-        type: Array<RouteRecordRaw>,
-        default: () => [],
-    },
-})
-
-// 获取父级菜单数据
-const childList = computed(() => {
-    return props.children
-})
-// 打开外部链接
-const onALinkClick = (val: RouteRecordRaw) => {
-    // handleOpenLink(val as RouteItem)
-}
-</script>

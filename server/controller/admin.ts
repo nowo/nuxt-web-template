@@ -1,3 +1,3 @@
-export const getAdminList=()=>{
-    
+export function getAdminList() {
+
 }

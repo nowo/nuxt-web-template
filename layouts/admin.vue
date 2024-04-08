@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+</script>
+
 <template>
     <el-container class="layout-container h100vh bg-#fafafa">
         <LayoutAreaAside />
@@ -13,9 +16,6 @@
         <!-- <el-backtop target=".layout-backtop .el-scrollbar__wrap"></el-backtop> -->
     </el-container>
 </template>
-
-<script lang="ts" setup>
-</script>
 
 <style lang="scss" scoped>
 @import url("~/assets/scss/admin.scss");

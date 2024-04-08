@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+// import { LazyLayoutNavBar, LazyLayoutNavBreadcrumb,LazyLayoutTagView } from '#components'
+
+const { themeConfig } = useThemeState()
+</script>
+
 <template>
     <el-header height="auto" class="p0!" :class="{ 'header-fixed': themeConfig.isFixedHeader }">
         <div class="h50px flex justify-between">
@@ -8,12 +14,6 @@
         <LazyLayoutTagView />
     </el-header>
 </template>
-
-<script lang="ts" setup>
-// import { LazyLayoutNavBar, LazyLayoutNavBreadcrumb,LazyLayoutTagView } from '#components'
-
-const { themeConfig } = useThemeState()
-</script>
 
 <style lang="scss" scoped>
 .header-fixed {

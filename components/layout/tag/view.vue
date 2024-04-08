@@ -1,4 +1,36 @@
 <!-- 标签页 -->
+<script lang="ts" setup>
+import { VueDraggable } from 'vue-draggable-plus'
+import type { ScrollbarInstance } from 'element-plus'
+
+const scrollbarRef = ref<ScrollbarInstance>()
+
+const a = ref<HTMLDivElement>()
+
+const list = ref<number[]>([])
+
+// 鼠标滚轮滚动
+function onHandleScroll(e: WheelEvent) {
+    // console.log('e :>> ', e)
+    // console.log('scrollbarRef.value :>> ', scrollbarRef.value)
+
+    if (scrollbarRef.value?.$refs.wrapRef) {
+        // scrollbarRef.value.setScrollLeft(e.wheelDelta)
+        (scrollbarRef.value.$refs.wrapRef as HTMLDivElement).scrollLeft += e.deltaY / 4
+    }
+}
+
+// 拖拽结束事件
+function onEnd(e: any) {
+    console.log('e :>> ', e)
+}
+
+onBeforeMount(() => {
+    for (let i = 0; i < 50; i++)
+        list.value.push(i)
+})
+</script>
+
 <template>
     <el-scrollbar ref="scrollbarRef" @wheel.prevent="onHandleScroll">
         <ClientOnly>
@@ -13,39 +45,6 @@
         </ClientOnly>
     </el-scrollbar>
 </template>
-
-<script lang="ts" setup>
-import { VueDraggable } from 'vue-draggable-plus'
-import type { ScrollbarInstance } from 'element-plus'
-
-const scrollbarRef = ref<ScrollbarInstance>()
-
-const a = ref<HTMLDivElement>()
-
-const list = ref<number[]>([])
-
-// 鼠标滚轮滚动
-const onHandleScroll = (e: WheelEvent) => {
-    // console.log('e :>> ', e)
-    // console.log('scrollbarRef.value :>> ', scrollbarRef.value)
-
-    if (scrollbarRef.value?.$refs.wrapRef) {
-        // scrollbarRef.value.setScrollLeft(e.wheelDelta)
-        (scrollbarRef.value.$refs.wrapRef as HTMLDivElement).scrollLeft += e.deltaY / 4
-    }
-}
-
-// 拖拽结束事件
-const onEnd = (e: any) => {
-    console.log('e :>> ', e)
-}
-
-onBeforeMount(() => {
-    for (let i = 0; i < 50; i++) {
-        list.value.push(i)
-    }
-})
-</script>
 
 <style lang="scss" scoped>
 .tag-view-ul {

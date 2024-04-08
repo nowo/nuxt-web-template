@@ -1,4 +1,23 @@
 <!-- 面包屑导航 -->
+<script lang="ts" setup>
+const { themeConfig, isDrawer } = useThemeState()
+
+const isShowBreadcrumb = ref(true)
+
+const breadcrumbList = computed(() => {
+    return [] as RouteRecordCustom[]
+})
+
+function onThemeConfigChange() {
+    themeConfig.value.isCollapse = !themeConfig.value.isCollapse
+}
+
+// 外链跳转
+function onBreadcrumbClick(row: RouteRecordCustom) {
+
+}
+</script>
+
 <template>
     <div v-if="isShowBreadcrumb">
         <!-- 侧边菜单展开收起 -->
@@ -23,25 +42,6 @@
         </el-breadcrumb>
     </div>
 </template>
-
-<script lang="ts" setup>
-const { themeConfig, isDrawer } = useThemeState()
-
-const isShowBreadcrumb = ref(true)
-
-const breadcrumbList = computed(() => {
-    return [] as RouteRecordCustom[]
-})
-
-const onThemeConfigChange = () => {
-    themeConfig.value.isCollapse = !themeConfig.value.isCollapse
-}
-
-// 外链跳转
-const onBreadcrumbClick = (row: RouteRecordCustom) => {
-
-}
-</script>
 
 <style lang="scss" scoped>
 </style>

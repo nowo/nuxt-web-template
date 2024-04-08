@@ -3,8 +3,7 @@ const online = useOnline()
 
 async function onTest() {
     const { data } = await useFetch('/api/v1/system/info')
-    // console.log('data.value :>> ', data.value);
-
+    console.warn('data.value :>> ', data.value)
 }
 
 // timeout: 1.728ms
@@ -14,27 +13,28 @@ async function onTest() {
 // timeout: 2.245ms
 // timeout: 3.22ms
 // timeout: 1.514ms
-
 </script>
 
 <template>
     <div>
-        <!-- <Logos mb-6 />
-    <Suspense>
-      <ClientOnly>
-        <PageView v-if="online" />
-        <div v-else text-gray:80>
-          You're offline
-        </div>
-      </ClientOnly>
-      <template #fallback>
-        <div italic op50>
-          <span animate-pulse>Loading...</span>
-        </div>
-      </template>
-</Suspense>
-<InputEntry /> -->
+        <Logos mb-6 />
+        <Suspense>
+            <ClientOnly>
+                <PageView v-if="online" />
+                <div v-else text-gray:80>
+                    You're offline
+                </div>
+            </ClientOnly>
+            <template #fallback>
+                <div italic op50>
+                    <span animate-pulse>Loading...</span>
+                </div>
+            </template>
+        </Suspense>
+        <InputEntry />
         首页
-        <button @click="onTest">测试</button>
+        <button @click="onTest">
+            测试
+        </button>
     </div>
 </template>

@@ -1,5 +1,5 @@
 // 主题配置
-export const useThemeState = () => {
+export function useThemeState() {
     const config: IThemeConfig = {
 
         /**

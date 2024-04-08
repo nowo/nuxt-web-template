@@ -1,22 +1,9 @@
-<template>
-
-
-    <div>首页
-        <el-table :data="tableData">
-            <el-table-column prop="date" label="Date" width="140" />
-            <el-table-column prop="name" label="Name" width="120" />
-            <el-table-column prop="address" label="Address" />
-        </el-table>
-    </div>
-
-</template>
-
 <script setup lang="ts">
 definePageMeta({
     layout: 'admin',
     title: '后台主页',
     icon: 'i-ep-home-filled',
-    sort: -999
+    sort: -999,
 })
 
 const item = {
@@ -26,3 +13,14 @@ const item = {
 }
 const tableData = ref(Array.from({ length: 30 }).fill(item))
 </script>
+
+<template>
+    <div>
+        首页
+        <el-table :data="tableData">
+            <el-table-column prop="date" label="Date" width="140" />
+            <el-table-column prop="name" label="Name" width="120" />
+            <el-table-column prop="address" label="Address" />
+        </el-table>
+    </div>
+</template>

@@ -4,8 +4,6 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 useHead({
     title: appName,
 })
-
-
 </script>
 
 <template>

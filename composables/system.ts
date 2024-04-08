@@ -2,7 +2,7 @@
  * 设置用户登录信息，token相关
  * @returns
  */
-export const useUserState = () => {
+export function useUserState() {
     // const token = useState<string>('token', () => {
     //     return process.client ? useSessionStorage('token', '') : ''
     // })
@@ -18,5 +18,6 @@ export const useUserState = () => {
     return {
         token,
         userInfo,
+        setToken,
     }
 }
