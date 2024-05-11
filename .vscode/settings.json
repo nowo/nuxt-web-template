@@ -39,7 +39,7 @@
         "html",
         "markdown",
         "json",
-        "jsonc",
+        "jsonc"
         // "yaml"
     ],
     "cSpell.words": [

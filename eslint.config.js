@@ -10,7 +10,9 @@ export default antfu(
             quotes: 'single', // or 'double'
         },
         // eslint 忽略文件
-        ignores:[]
+        ignores: [
+            '.github/workflows/*.yml',
+        ],
     },
     nuxt,
     {

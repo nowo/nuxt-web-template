@@ -94,7 +94,8 @@ function onALinkClick(val: RouteRecordRaw) {
 
 <template>
     <el-menu router :default-active="$route.path" :collapse="themeConfig.isCollapse" @open="handleOpen"
-        @close="handleClose">
+             @close="handleClose"
+    >
         <LayoutMenuSub :children="routeList" />
         <el-sub-menu index="1">
             <template #title>

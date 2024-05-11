@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { defineComponent } from 'vue'
-
 const { themeConfig } = useThemeState()
 </script>
 

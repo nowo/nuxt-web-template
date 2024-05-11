@@ -26,8 +26,10 @@ function onEnd(e: any) {
 }
 
 onBeforeMount(() => {
-    for (let i = 0; i < 50; i++)
+    for (let i = 0; i < 50; i++) {
         list.value.push(i)
+        //
+    }
 })
 </script>
 

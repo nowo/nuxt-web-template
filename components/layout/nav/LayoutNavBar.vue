@@ -32,7 +32,7 @@ function onSearchClick() {
 // 全屏点击时
 const { isSupported, isFullscreen, toggle } = useFullscreen()
 function onScreenFullClick() {
-    if (!isSupported) { return ElMessage.warning('暂不不支持全屏') }
+    if (!isSupported) return ElMessage.warning('暂不不支持全屏')
     toggle() // 全屏切换
     // state.isScreenFull = !isFullscreen.value
 }
@@ -55,7 +55,8 @@ function onHandleCommandClick(command: string) {
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item v-for="(item, index) in state.configSizeData" :key="index" :command="index"
-                            :disabled="themeConfig.globalComponentSize === index">
+                                          :disabled="themeConfig.globalComponentSize === index"
+                        >
                             {{ item }}
                         </el-dropdown-item>
                     </el-dropdown-menu>
@@ -79,7 +80,8 @@ function onHandleCommandClick(command: string) {
             </el-popover>
             <div class="layout-user-item mr10px" @click="onScreenFullClick">
                 <i :class="isFullscreen ? 'i-ep-copy-document' : 'i-ep-full-screen'"
-                    :title="isFullscreen ? '关全屏' : '开全屏'" />
+                   :title="isFullscreen ? '关全屏' : '开全屏'"
+                />
             </div>
 
             <el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
