@@ -57,5 +57,12 @@ declare module '#app' {
     }
 }
 
+// declare module 'vue-router' {
+//     interface TypesConfig {
+//         RouteParams: Record<string, string>
+//         RouteParamsRaw: Record<string, string>
+//     }
+// }
+
 // 当增强类型时，始终确保导入/导出某些内容
 export { }

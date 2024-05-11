@@ -16,7 +16,7 @@ const connection = await mysql.createConnection({
 let db: MySql2Database<typeof schema> | null = null
 
 export function dbs() {
-    if (!db){
+    if (!db) {
         db = drizzle(connection, { schema, mode: 'default' })
     }
 

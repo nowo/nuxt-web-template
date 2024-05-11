@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const router = useRouter()
+console.log(router.getRoutes())
+// <RouteParams<{data:string}>>
+const route =useRoute<'all'>()
+
+console.log(route.params.all)
+
+
 </script>
 
 <template>

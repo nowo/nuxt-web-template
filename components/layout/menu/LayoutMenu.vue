@@ -54,10 +54,12 @@ function arrayToTreeList<T = any>(arr: T[], key: keyof T) {
 const routeList = computed(() => {
     const list = routes.filter((item) => {
         // console.log(item.path, 'startStr.startsWith(item.path) :>> ', item.path.startsWith(startStr));
-        if (item.path.startsWith(appAdminPath) && !item?.meta?.isHide)
+        if (item.path.startsWith(appAdminPath) && !item?.meta?.isHide) {
             return true
-        else
+        }
+        else {
             return false
+        }
     }).map((item) => { // 处理标题和排序字段
         item.meta.title = item.meta.title || item.name as string
         item.meta.sort = item.meta.sort || 0
@@ -91,10 +93,8 @@ function onALinkClick(val: RouteRecordRaw) {
 </script>
 
 <template>
-    <el-menu
-        router :default-active="$route.path" :collapse="themeConfig.isCollapse" @open="handleOpen"
-        @close="handleClose"
-    >
+    <el-menu router :default-active="$route.path" :collapse="themeConfig.isCollapse" @open="handleOpen"
+        @close="handleClose">
         <LayoutMenuSub :children="routeList" />
         <el-sub-menu index="1">
             <template #title>

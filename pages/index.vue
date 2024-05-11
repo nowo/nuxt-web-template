@@ -21,10 +21,11 @@ async function onTest() {
             is-warning is-active class="logo-img" />
         <Suspense>
             <ClientOnly>
-                <PageView v-if="online" />
+                1231
+                <!-- <PageView v-if="online" />
                 <div v-else text-gray:80>
                     You're offline
-                </div>
+                </div> -->
             </ClientOnly>
             <template #fallback>
                 <div italic op50>
