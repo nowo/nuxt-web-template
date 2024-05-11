@@ -43,6 +43,20 @@ export default antfu(
                     multiline: 'beside',
                 },
             ],
+            'vue/html-indent': ['error', 4, {
+                alignAttributesVertically: false,
+            }],
+            'vue/html-closing-bracket-newline': [
+                'error',
+                {
+                    singleline: 'never',
+                    multiline: 'never',
+                    selfClosingTag: {
+                        singleline: 'never',
+                        multiline: 'never',
+                    },
+                },
+            ],
         },
     },
 )

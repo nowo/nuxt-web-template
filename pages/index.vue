@@ -17,9 +17,8 @@ async function onTest() {
 
 <template>
     <div>
-        <Logos id="logo-im" mb-6 msg="Vite + Vue" is-hide is-error is-loading is-info is-show is-success is-primary
-               is-warning is-active class="logo-img"
-        />
+        <Logos id="logo-im" msg="Vite + Vue" is-hide is-error is-loading is-info is-show is-success is-primary
+            is-warning is-active mb-6 class="logo-img" />
         <Suspense>
             <ClientOnly>
                 1231

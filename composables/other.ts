@@ -37,9 +37,11 @@ export const useFormVerify = async (formEl: FormInstance | undefined) => {
         ElMessage.error('未获取到对应的组件,formEl为空')
         return false
     }
-    return await formEl.validate((valid, fields) => {
+    let isVerify = false
+    await formEl.validate((valid, fields) => {
         if (valid) {
-            return true
+            isVerify = true
+            // return true
         }
         else {
             console.warn(fields)
@@ -47,9 +49,11 @@ export const useFormVerify = async (formEl: FormInstance | undefined) => {
             const firstKey = Object.keys(obj)[0]
             const text = obj[firstKey][0].message
             ElMessage.error(text)
-            return false
+            isVerify = false
+            // return false
         }
     })
+    return isVerify
 }
 
 /**

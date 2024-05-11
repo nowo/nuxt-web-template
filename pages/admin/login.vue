@@ -5,6 +5,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 definePageMeta({
     layout: 'blank',
     title: '登录',
+    isHide: true,
 })
 
 // 可以在https://codepen.io/collection/DPOage, 这个网站上面选择喜欢的,把这个配置换了就可以
@@ -232,12 +233,10 @@ const onSignIn = async () => {
                     后台管理系统
                 </h3>
                 <el-form ref="formRef" :model="form" :rules="rules" size="large" class="login-content-form"
-                         @submit.prevent="onSignIn"
-                >
+                    @submit.prevent="onSignIn">
                     <el-form-item prop="account">
                         <el-input v-model.trim="form.account" type="text" maxlength="20" placeholder="请输入账号" clearable
-                                  tabindex="1" @keyup.enter="onSignIn"
-                        >
+                            tabindex="1" @keyup.enter="onSignIn">
                             <template #prefix>
                                 <el-icon class="el-input__icon">
                                     <i class="i-ep-user" />
@@ -247,8 +246,7 @@ const onSignIn = async () => {
                     </el-form-item>
                     <el-form-item prop="password">
                         <el-input v-model.trim="form.password" type="password" maxlength="20" placeholder="请输入密码"
-                                  show-password tabindex="2" @keyup.enter="onSignIn"
-                        >
+                            show-password tabindex="2" @keyup.enter="onSignIn">
                             <template #prefix>
                                 <el-icon class="el-input__icon">
                                     <i class="i-ep-unlock" />
@@ -259,8 +257,7 @@ const onSignIn = async () => {
                     <el-form-item prop="code">
                         <el-col :span="15">
                             <el-input v-model.trim="form.code" type="text" maxlength="4" placeholder="请输入验证码" clearable
-                                      tabindex="3" @keyup.enter="onSignIn"
-                            >
+                                tabindex="3" @keyup.enter="onSignIn">
                                 <template #prefix>
                                     <el-icon class="el-input__icon">
                                         <i class="i-ep-position" />
@@ -277,8 +274,7 @@ const onSignIn = async () => {
                     </el-form-item>
                     <el-form-item class="login-animation4">
                         <el-button type="primary" size="large" class="w100%" round plain :loading="loading" tabindex="4"
-                                   @click="onSignIn"
-                        >
+                            @click="onSignIn">
                             登 录
                         </el-button>
                     </el-form-item>

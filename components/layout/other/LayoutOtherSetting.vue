@@ -286,8 +286,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-color-picker v-model="getThemeConfig.topBar" size="default"
-                                     @change="onBgColorPickerChange('topBar')"
-                    />
+                        @change="onBgColorPickerChange('topBar')" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -296,8 +295,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-color-picker v-model="getThemeConfig.topBarColor" size="default"
-                                     @change="onBgColorPickerChange('topBarColor')"
-                    />
+                        @change="onBgColorPickerChange('topBarColor')" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -306,8 +304,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isTopBarColorGradual" size="small"
-                               @change="onTopBarGradualChange"
-                    />
+                        @change="onTopBarGradualChange" />
                 </div>
             </div>
 
@@ -321,8 +318,7 @@ defineExpose({
                 </div>
                 <div class="mb5px min-h32px flex items-center">
                     <el-color-picker v-model="getThemeConfig.menuBar" size="default"
-                                     @change="onBgColorPickerChange('menuBar')"
-                    />
+                        @change="onBgColorPickerChange('menuBar')" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -331,8 +327,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-color-picker v-model="getThemeConfig.menuBarColor" size="default"
-                                     @change="onBgColorPickerChange('menuBarColor')"
-                    />
+                        @change="onBgColorPickerChange('menuBarColor')" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -341,8 +336,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-color-picker v-model="getThemeConfig.menuBarActiveColor" size="default" show-alpha
-                                     @change="onBgColorPickerChange('menuBarActiveColor')"
-                    />
+                        @change="onBgColorPickerChange('menuBarActiveColor')" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -351,8 +345,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isMenuBarColorGradual" size="small"
-                               @change="onMenuBarGradualChange"
-                    />
+                        @change="onMenuBarGradualChange" />
                 </div>
             </div>
 
@@ -367,9 +360,8 @@ defineExpose({
                     </div>
                     <div>
                         <el-color-picker v-model="getThemeConfig.columnsMenuBar" size="default"
-                                         :disabled="getThemeConfig.layout !== 'columns'"
-                                         @change="onBgColorPickerChange('columnsMenuBar')"
-                        />
+                            :disabled="getThemeConfig.layout !== 'columns'"
+                            @change="onBgColorPickerChange('columnsMenuBar')" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
@@ -378,9 +370,8 @@ defineExpose({
                     </div>
                     <div>
                         <el-color-picker v-model="getThemeConfig.columnsMenuBarColor" size="default"
-                                         :disabled="getThemeConfig.layout !== 'columns'"
-                                         @change="onBgColorPickerChange('columnsMenuBarColor')"
-                        />
+                            :disabled="getThemeConfig.layout !== 'columns'"
+                            @change="onBgColorPickerChange('columnsMenuBarColor')" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
@@ -389,8 +380,7 @@ defineExpose({
                     </div>
                     <div>
                         <el-switch v-model="getThemeConfig.isColumnsMenuBarColorGradual" size="small"
-                                   :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuBarGradualChange"
-                        />
+                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuBarGradualChange" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
@@ -399,8 +389,7 @@ defineExpose({
                     </div>
                     <div>
                         <el-switch v-model="getThemeConfig.isColumnsMenuHoverPreload" size="small"
-                                   :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuHoverPreloadChange"
-                        />
+                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuHoverPreloadChange" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
@@ -409,9 +398,8 @@ defineExpose({
                     </div>
                     <div>
                         <el-select v-model="getThemeConfig.columnsAsideStyle" placeholder="请选择" size="default"
-                                   class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
-                                   @change="setLocalThemeConfig"
-                        >
+                            class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
+                            @change="setLocalThemeConfig">
                             <el-option label="圆角" value="columns-round" />
                             <el-option label="卡片" value="columns-card" />
                         </el-select>
@@ -423,9 +411,8 @@ defineExpose({
                     </div>
                     <div>
                         <el-select v-model="getThemeConfig.columnsAsideLayout" placeholder="请选择" size="default"
-                                   class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
-                                   @change="setLocalThemeConfig"
-                        >
+                            class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
+                            @change="setLocalThemeConfig">
                             <el-option label="水平" value="columns-horizontal" />
                             <el-option label="垂直" value="columns-vertical" />
                         </el-select>
@@ -438,27 +425,23 @@ defineExpose({
                 界面设置
             </el-divider>
             <div class="mb5px min-h32px flex items-center"
-                 :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }"
-            >
+                :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
                 <div class="flex-1">
                     菜单水平折叠
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isCollapse" :disabled="getThemeConfig.layout === 'transverse'"
-                               size="small" @change="onThemeConfigChange"
-                    />
+                        size="small" @change="onThemeConfigChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center"
-                 :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }"
-            >
+                :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
                 <div class="flex-1">
                     菜单手风琴
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isUniqueOpened"
-                               :disabled="getThemeConfig.layout === 'transverse'" size="small" @change="setLocalThemeConfig"
-                    />
+                        :disabled="getThemeConfig.layout === 'transverse'" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -470,16 +453,14 @@ defineExpose({
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center"
-                 :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }"
-            >
+                :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }">
                 <div class="flex-1">
                     经典布局分割菜单
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isClassicSplitMenu"
-                               :disabled="getThemeConfig.layout !== 'classic'" size="small"
-                               @change="onClassicSplitMenuChange"
-                    />
+                        :disabled="getThemeConfig.layout !== 'classic'" size="small"
+                        @change="onClassicSplitMenuChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -496,8 +477,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-input-number v-model="getThemeConfig.lockScreenTime" controls-position="right" :min="1"
-                                     :max="9999" size="default" class="w90px!" @change="setLocalThemeConfig"
-                    />
+                        :max="9999" size="default" class="w90px!" @change="setLocalThemeConfig" />
                 </div>
             </div>
 
@@ -514,16 +494,14 @@ defineExpose({
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center"
-                 :style="{ opacity: getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse' ? 0.5 : 1 }"
-            >
+                :style="{ opacity: getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
                 <div class="flex-1">
                     开启 Breadcrumb
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isBreadcrumb"
-                               :disabled="getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse'"
-                               size="small" @change="onIsBreadcrumbChange"
-                    />
+                        :disabled="getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse'"
+                        size="small" @change="onIsBreadcrumbChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -564,8 +542,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isSortableTagsView" :disabled="state.isMobile ? true : false"
-                               size="small" @change="onSortableTagsViewChange"
-                    />
+                        size="small" @change="onSortableTagsViewChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -590,8 +567,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-switch v-model="getThemeConfig.isGrayscale" size="small"
-                               @change="onAddFilterChange('grayscale')"
-                    />
+                        @change="onAddFilterChange('grayscale')" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -616,8 +592,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-input v-model="getThemeConfig.watermarkText" size="default" class="w90px!"
-                              @input="onWatermarkTextInput($event)"
-                    />
+                        @input="onWatermarkTextInput($event)" />
                 </div>
             </div>
 
@@ -631,8 +606,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" class="w90px!"
-                               @change="setLocalThemeConfig"
-                    >
+                        @change="setLocalThemeConfig">
                         <el-option label="风格1" value="tags-style-one" />
                         <el-option label="风格4" value="tags-style-four" />
                         <el-option label="风格5" value="tags-style-five" />
@@ -645,8 +619,7 @@ defineExpose({
                 </div>
                 <div>
                     <el-select v-model="getThemeConfig.animation" placeholder="请选择" size="default" class="w90px!"
-                               @change="setLocalThemeConfig"
-                    >
+                        @change="setLocalThemeConfig">
                         <el-option label="slide-right" value="slide-right" />
                         <el-option label="slide-left" value="slide-left" />
                         <el-option label="opacity" value="opacity" />
@@ -661,8 +634,7 @@ defineExpose({
             <div class="grid grid-cols-[repeat(2,1fr)] mb15px gap-15px">
                 <!-- defaults 布局 -->
                 <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'default' }"
-                     @click="onSetLayout('default')"
-                >
+                    @click="onSetLayout('default')">
                     <el-container class="h100%">
                         <el-aside width="20px" class="layout-pane-aside" />
                         <el-container>
@@ -676,8 +648,7 @@ defineExpose({
                 </div>
                 <!-- classic 布局 -->
                 <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'classic' }"
-                     @click="onSetLayout('classic')"
-                >
+                    @click="onSetLayout('classic')">
                     <el-container class="h100%">
                         <el-header height="10px" class="layout-pane-header" />
                         <el-container>
@@ -691,8 +662,7 @@ defineExpose({
                 </div>
                 <!-- transverse 布局 -->
                 <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'transverse' }"
-                     @click="onSetLayout('transverse')"
-                >
+                    @click="onSetLayout('transverse')">
                     <el-container class="h100%">
                         <el-header height="10px" class="layout-pane-header" />
                         <el-container>
@@ -705,8 +675,7 @@ defineExpose({
                 </div>
                 <!-- columns 布局 -->
                 <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'columns' }"
-                     @click="onSetLayout('columns')"
-                >
+                    @click="onSetLayout('columns')">
                     <el-container class="h100%">
                         <el-aside width="10px" class="layout-pane-aside-dark" />
                         <el-aside width="20px" class="layout-pane-aside" />

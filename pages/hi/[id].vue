@@ -25,20 +25,18 @@ definePageMeta({
         <template v-if="user.otherNames.length">
             <p my-4 text-sm>
                 <span op-50>Also as known as:</span>
-                <ul>
-                    <li v-for="otherName in user.otherNames" :key="otherName">
-                        <router-link :to="`/hi/${otherName}`" replace>
-                            {{ otherName }}
-                        </router-link>
-                    </li>
-                </ul>
             </p>
+            <ul>
+                <li v-for="otherName in user.otherNames" :key="otherName">
+                    <router-link :to="`/hi/${otherName}`" replace>
+                        {{ otherName }}
+                    </router-link>
+                </li>
+            </ul>
         </template>
 
         <div>
-            <NuxtLink class="m-3 text-sm btn"
-                      to="/"
-            >
+            <NuxtLink class="m-3 text-sm btn" to="/">
                 Back
             </NuxtLink>
         </div>
