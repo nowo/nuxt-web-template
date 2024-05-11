@@ -9,6 +9,7 @@ export default antfu(
             indent: 4, // 4, or 'tab'
             quotes: 'single', // or 'double'
         },
+        lessOpinionated: true,  // 去除antfu的配置
         // eslint 忽略文件
         ignores: [
             '.github/workflows/*.yml',
@@ -34,8 +35,6 @@ export default antfu(
                 },
             ],
             'node/prefer-global/process': ['error', 'always'],
-            'antfu/top-level-function': 'off',
-            'antfu/if-newline': 'off', // 允许if(a==1) return 1  这种单行的格式
             'curly': ['error', 'multi-line', 'consistent'], // 统一的大括号
             'style/brace-style': ['error', '1tbs', { allowSingleLine: true }], // 统一的大括号
         },
