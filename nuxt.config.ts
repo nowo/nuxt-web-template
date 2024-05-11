@@ -10,6 +10,7 @@ export default defineNuxtConfig({
         '@vite-pwa/nuxt',
         'nuxt-module-eslint-config',
         '@element-plus/nuxt',
+        'nuxt-particles'
     ],
 
     experimental: {

@@ -43,6 +43,7 @@
         "lint-staged": "^15.2.2",
         "nuxt": "^3.11.2",
         "nuxt-module-eslint-config": "^0.1.1",
+        "nuxt-particles": "^0.3.0",
         "pinia": "^2.1.7",
         "prisma": "^5.12.1",
         "sass": "^1.74.1",
