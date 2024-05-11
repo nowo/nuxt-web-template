@@ -18,8 +18,7 @@ export function useLoadingSubmit(defaultLoading = false): AutoLoadingResult {
         loading.value = true
         try {
             return await requestPromise
-        }
-        finally {
+        } finally {
             loading.value = false
         }
     }
@@ -42,8 +41,7 @@ export const useFormVerify = async (formEl: FormInstance | undefined) => {
         if (valid) {
             isVerify = true
             // return true
-        }
-        else {
+        } else {
             console.warn(fields)
             const obj: any = fields
             const firstKey = Object.keys(obj)[0]
@@ -82,11 +80,9 @@ export const useTableSummaries = <T = any>(param: {
             let count = 0
             if (option.data[key]?.text) {
                 return sums[index] = option.data[key]?.text || ''
-            }
-            else if (option.data[key]?.value || Number(option.data[key]?.value) === 0) {
+            } else if (option.data[key]?.value || Number(option.data[key]?.value) === 0) {
                 count = Number(option.data[key]?.value) ?? 0
-            }
-            else {
+            } else {
                 const values = data.value.map((item: any) => Number(item[key]))
                 count = values.reduce((prev, curr) => {
                     const value = Number(curr)

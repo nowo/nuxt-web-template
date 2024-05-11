@@ -123,8 +123,7 @@ function onShareTagsViewChange() {
 function onAddFilterChange(attr: string) {
     if (attr === 'grayscale') {
         if (getThemeConfig.value.isGrayscale) getThemeConfig.value.isInvert = false
-    }
-    else {
+    } else {
         if (getThemeConfig.value.isInvert) getThemeConfig.value.isGrayscale = false
     }
     const cssAttr
@@ -138,8 +137,7 @@ function onAddDarkChange() {
     const body = document.documentElement as HTMLElement
     if (getThemeConfig.value.isIsDark) {
         body.setAttribute('data-theme', 'dark')
-    }
-    else {
+    } else {
         body.setAttribute('data-theme', '')
     }
 }

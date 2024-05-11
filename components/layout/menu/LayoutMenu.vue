@@ -34,13 +34,11 @@ function arrayToTreeList<T = any>(arr: T[], key: keyof T) {
         if (parentPath !== '') {
             if (map[parentPath]) {
                 map[parentPath].children.push(map[path])
-            }
-            else {
+            } else {
                 // If parent does not exist in the array, add to the roots
                 roots.push(map[path])
             }
-        }
-        else {
+        } else {
             roots.push(map[path])
         }
     })
@@ -56,8 +54,7 @@ const routeList = computed(() => {
         // console.log(item.path, 'startStr.startsWith(item.path) :>> ', item.path.startsWith(startStr));
         if (item.path.startsWith(appAdminPath) && !item?.meta?.isHide) {
             return true
-        }
-        else {
+        } else {
             return false
         }
     }).map((item) => { // 处理标题和排序字段
