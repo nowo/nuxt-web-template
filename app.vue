@@ -4,6 +4,11 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 useHead({
     title: appName,
 })
+
+const config = useRuntimeConfig()
+
+console.log('secret', config.public.secret)
+console.log('host', config.public.host)
 </script>
 
 <template>
@@ -18,6 +23,7 @@ useHead({
 <style lang="scss">
 @import url("~/assets/scss/element-plus.scss");
 @import url("~/assets/scss/transition.scss");
+
 html,
 body,
 #__nuxt {

@@ -206,6 +206,8 @@ const rules = reactive<FormRules>({
 })
 
 const FetchLogin = async () => {
+    const { data } = await useFetch('/api/v1/system/info')
+    console.log('data.value :>> ', data.value)
     return 1
 }
 

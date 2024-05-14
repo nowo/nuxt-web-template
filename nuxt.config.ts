@@ -66,7 +66,6 @@ export default defineNuxtConfig({
     pwa,
     runtimeConfig: {
         // 仅在服务端serve可以访问
-        appKey: 'abcd',
         upload: {
             //         # 文件上传主机地址
             host: process.env.NUXT_UPLOAD_HOST,
@@ -75,9 +74,6 @@ export default defineNuxtConfig({
         },
         // public里的在服务端serve,客户端client皆可访问
         public: {
-            baseUrl: process.env.VITE_BASE_URL || '/',
-            apiBase: process.env.VITE_API_BASE || '',
-            otherUrl: process.env.OTHER_URL || 'default_other_url',
             secret: process.env.NUXT_AUTH_SECRET, // You can generate one with `openssl rand -base64 32`
         },
     },

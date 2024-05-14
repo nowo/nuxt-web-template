@@ -12,8 +12,13 @@ export async function getSystemInfo(event: H3Event) {
 
     // 获取参数
     // const param = await getEventParams<LoginDataType>(event)
-//    const res=await prisma.system.findFirst()
-//    console.log(res)
+    //    const res=await prisma.system.findFirst()
+    //    console.log(res)
+    const p=getRequestURL(event)
+    console.log(p)
+
+    const hostname = event.context.req ? event.context.req.headers.host : 'window.location.hostname';
+    return { hostname };
 
     return { name: 1 }
 
