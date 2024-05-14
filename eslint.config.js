@@ -9,7 +9,7 @@ export default antfu(
             indent: 4, // 4, or 'tab'
             quotes: 'single', // or 'double'
         },
-        lessOpinionated: true,  // 去除antfu的配置
+        lessOpinionated: true, // 去除antfu的配置
         // eslint 忽略文件
         ignores: [
             '.github/workflows/*.yml',

@@ -12,6 +12,8 @@ export async function getSystemInfo(event: H3Event) {
 
     // 获取参数
     // const param = await getEventParams<LoginDataType>(event)
+//    const res=await prisma.system.findFirst()
+//    console.log(res)
 
     return { name: 1 }
 
