@@ -3,12 +3,12 @@ import { appDescription } from './config/constant'
 
 export default defineNuxtConfig({
     modules: [
+        '@nuxt/eslint',
         '@vueuse/nuxt',
         '@unocss/nuxt',
         '@pinia/nuxt',
         '@nuxtjs/color-mode',
         '@vite-pwa/nuxt',
-        'nuxt-module-eslint-config',
         '@element-plus/nuxt',
         'nuxt-particles',
     ],
@@ -87,7 +87,9 @@ export default defineNuxtConfig({
         inlineStyles: false,
     },
 
-    eslintConfig: {
-        setup: false,
+    eslint: {
+        config: {
+            standalone: false, // <---
+        },
     },
 })

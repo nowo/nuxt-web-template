@@ -1,7 +1,7 @@
 import antfu from '@antfu/eslint-config'
-import nuxt from './.nuxt/eslint.config.mjs'
+import withNuxt from './.nuxt/eslint.config.mjs'
 
-export default antfu(
+export default withNuxt(antfu(
     {
         unocss: true,
         // formatters: true,
@@ -15,7 +15,6 @@ export default antfu(
             '.github/workflows/*.yml',
         ],
     },
-    nuxt,
     {
         rules: {
             'no-console': [
@@ -65,4 +64,4 @@ export default antfu(
             ],
         },
     },
-)
+))
