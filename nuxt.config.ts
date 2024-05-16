@@ -70,11 +70,11 @@ export default defineNuxtConfig({
             //         # 文件上传主机地址
             host: process.env.NUXT_UPLOAD_HOST,
             // # 文件上传保存路径
-            dir: process.env.NUXT_UPLOAD_DIR,
+            dir: '/public/upload',
         },
         // public里的在服务端serve,客户端client皆可访问
         public: {
-            secret: process.env.NUXT_AUTH_SECRET, // You can generate one with `openssl rand -base64 32`
+            // secret: process.env.NUXT_AUTH_SECRET, // You can generate one with `openssl rand -base64 32`
         },
     },
 

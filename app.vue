@@ -5,10 +5,6 @@ useHead({
     title: appName,
 })
 
-const config = useRuntimeConfig()
-
-console.log('secret', config.public.secret)
-console.log('host', config.public.host)
 </script>
 
 <template>
