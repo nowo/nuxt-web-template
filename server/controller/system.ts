@@ -5,7 +5,8 @@ import type { H3Event } from 'h3'
  */
 export async function getSystemInfo(event: H3Event) {
     // // 接口校验
-    // const authSign = await useVerifySign(event)
+    const authSign = await useVerifySign(event)
+    console.log(authSign)
     // if (!authSign) return ResponseMessage.sign
 
     // if (!event.context.user) return ResponseMessage.token

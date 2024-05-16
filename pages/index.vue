@@ -1,18 +1,37 @@
 <script setup lang="ts">
 const online = useOnline()
 
+const data = ref<{ t: string, end: string, length: number }[]>([])
+
 async function onTest() {
-    const { data } = await useFetch('/api/v1/system/info')
+    const t = new Date().getTime().toString()
+    const s1 = await setSignRule(t)
+    const { data } = await useFetch('/api/v1/system/info', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-sign': `${s1}-${t}`,
+        },
+    })
     console.log('data.value :>> ', data.value)
 }
 
-// timeout: 1.728ms
-// ✔ Vite server hmr 9 files in 21.796ms
-// timeout: 1.888ms
-// timeout: 1.87ms
-// timeout: 2.245ms
-// timeout: 3.22ms
-// timeout: 1.514ms
+const onSign = async () => {
+    ['123456', '666666', 'abc123'].forEach(async (s, i) => {
+        const t = (new Date().getTime() + i * 10).toString()
+        const s1 = await setSignRule(t)
+        data.value.push({ t, length: s1.length, end: s1 })
+    })
+}
+
+const onSignVerify = async () => {
+    const tab: any[] = []
+    data.value.forEach(async (item, i) => {
+        const s1 = await setSignRule(item.t)
+        tab.push({ t: item.t, length: s1.length, end: s1 })
+    })
+    console.log(tab)
+}
 </script>
 
 <template>
@@ -38,5 +57,18 @@ async function onTest() {
         <button @click="onTest">
             测试
         </button>
+        <br>
+        <button @click="onSignVerify">
+            验证
+        </button>
+        <button class="bg-#eee p5px" @click="onSign">
+            生成数据
+        </button>
+        <el-table :data="data" border>
+            <el-table-column prop="s" label="s" width="100" />
+            <el-table-column prop="t" label="t" width="150" />
+            <el-table-column prop="end" label="end" />
+            <el-table-column prop="length" label="length" width="100" />
+        </el-table>
     </div>
 </template>
