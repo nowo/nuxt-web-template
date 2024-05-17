@@ -188,8 +188,8 @@ const state = reactive({
 })
 
 const form = reactive({
-    account: '',
-    password: '',
+    account: 'admin',
+    password: '123',
     code: '',
 })
 
@@ -218,9 +218,22 @@ const onSignIn = async () => {
 
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return
+    const { data } = await ApiFunc(useCustomFetch<{ token: string }>('/api/v1/login', {
+        method: 'POST',
+        body: {
+            account: form.account?.trim(),
+            password: form.password?.trim(),
+        },
+    }))
+    console.log(data.value)
+    if (data.value?.code === 200) {
+        const token = useCookie('token')
+        token.value = `${data.value?.data?.token}`
+        navigateTo('/admin')
+    } else {
+        ElMessage.error(data.value?.msg)
+    }
 
-    const res = await ApiFunc(FetchLogin())
-    console.log(res)
 }
 </script>
 

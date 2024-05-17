@@ -38,7 +38,20 @@ function onScreenFullClick() {
 }
 
 function onHandleCommandClick(command: string) {
-
+    if(command==='logout'){ // 退出登录
+        ElMessageBox.confirm('您确定要退出登录吗?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+        }).then(() => {
+            const token=useCookie('token')
+            token.value=''
+            navigateTo('/admin/login')
+        }).catch(() => {
+            // catch error
+        })
+    }
+    
 }
 </script>
 
@@ -99,11 +112,11 @@ function onHandleCommandClick(command: string) {
                         <el-dropdown-item command="change">
                             修改密码
                         </el-dropdown-item>
-                        <el-dropdown-item command="clear">
+                        <!-- <el-dropdown-item command="clear">
                             清空后台缓存
-                        </el-dropdown-item>
+                        </el-dropdown-item> -->
                         <!-- <el-dropdown-item command="/401">401</el-dropdown-item> -->
-                        <el-dropdown-item divided command="logOut">
+                        <el-dropdown-item divided command="logout">
                             退出登录
                         </el-dropdown-item>
                     </el-dropdown-menu>

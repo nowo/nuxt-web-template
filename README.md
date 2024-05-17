@@ -13,6 +13,30 @@
 <a href="https://stackblitz.com/github/antfu/vitesse-nuxt3"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt=""></a>
 </p>
 
+## Start
+
+```bash
+# 安装依赖
+pnpm i 
+
+# 生成prisma客户端
+npx prisma generate
+
+# # 推送模型到数据库
+# npx prisma db push
+
+# # 从数据库拉取模型
+# npx prisma db pull
+
+
+# 启动项目
+pnpm dev
+
+# 构建项目
+pnpm build
+```
+    
+
 ## Features
 
 - 💚 [Nuxt 3](https://nuxt.com/) - SSR, ESR, File-based routing, components auto importing, modules, etc.

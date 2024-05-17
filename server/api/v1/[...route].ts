@@ -1,7 +1,10 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
+import { setLoginSign } from '~/server/controller/admin'
 import { getSystemInfo } from '~/server/controller/system'
 
 const router = createRouter()
+
+router.use('/login',setLoginSign)   // 用户登录
 
 /**
  * 获取系统信息
