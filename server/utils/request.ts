@@ -3,44 +3,44 @@ import { defu } from 'defu'
 import type { NitroFetchRequest } from 'nitropack'
 import { setSignRule } from '~/utils/secret'
 
-type $FetchType = typeof $fetch
-export type ReqOptions = Parameters<$FetchType>[1]
-// (...args: Parameters<typeof $fetch>)
-/**
- * 服务器端请求接口,默认请求头增加sign处理
- * @param url
- * @param options
- * @returns $fetch
- */
-export async function useServerFetch<T = any>(url: NitroFetchRequest, options: ReqOptions = {}) {
+// type $FetchType = typeof $fetch
+// export type ReqOptions = Parameters<$FetchType>[1]
+// // (...args: Parameters<typeof $fetch>)
+// /**
+//  * 服务器端请求接口,默认请求头增加sign处理
+//  * @param url
+//  * @param options
+//  * @returns $fetch
+//  */
+// export async function useServerFetch<T = any>(url: NitroFetchRequest, options: ReqOptions = {}) {
 
-    const time = Date.now().toString()
-    const sign =await setSignRule(time)
+//     const time = Date.now().toString()
+//     const sign =await setSignRule(time)
 
-    const defaults: ReqOptions = {
-        // baseURL: config.public.apiBase ?? 'https://api.nuxtjs.dev',
-        // cache request
-        // key: url as string,
+//     const defaults: ReqOptions = {
+//         // baseURL: config.public.apiBase ?? 'https://api.nuxtjs.dev',
+//         // cache request
+//         // key: url as string,
 
-        // set user token if connected
-        headers: {
-            'x-sign': `${sign}-${time}`,
-        },
+//         // set user token if connected
+//         headers: {
+//             'x-sign': `${sign}-${time}`,
+//         },
 
-        // onResponse(_ctx) {
-        //     // _ctx.response._data = new myBusinessResponse(_ctx.response._data)
-        // },
+//         // onResponse(_ctx) {
+//         //     // _ctx.response._data = new myBusinessResponse(_ctx.response._data)
+//         // },
 
-        // onResponseError(_ctx) {
-        //     // throw new myBusinessError()
-        // },
-    }
+//         // onResponseError(_ctx) {
+//         //     // throw new myBusinessError()
+//         // },
+//     }
 
-    // for nice deep defaults, please use unjs/defu
-    const params = defu(options, defaults)
+//     // for nice deep defaults, please use unjs/defu
+//     const params = defu(options, defaults)
 
-    return $fetch<T>(url, params)
-}
+//     return $fetch<T>(url, params)
+// }
 
 /**
  * 获取接口参数方法，整合get、post请求类型统一获取参数

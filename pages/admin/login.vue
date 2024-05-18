@@ -218,22 +218,18 @@ const onSignIn = async () => {
 
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return
-    const { data } = await ApiFunc(useCustomFetch<{ token: string }>('/api/v1/login', {
+    const res = await ApiFunc(useServerFetch<{ token: string }>('/api/v1/login', {
         method: 'POST',
         body: {
             account: form.account?.trim(),
             password: form.password?.trim(),
         },
     }))
-    console.log(data.value)
-    if (data.value?.code === 200) {
-        const token = useCookie('token')
-        token.value = `${data.value?.data?.token}`
-        navigateTo('/admin')
-    } else {
-        ElMessage.error(data.value?.msg)
-    }
+    if (res.code !== 200) return ElMessage.error(res.msg)
 
+    const token = useCookie('token')
+    token.value = `${res.data?.token}`
+    navigateTo('/admin')
 }
 </script>
 

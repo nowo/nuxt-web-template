@@ -10,8 +10,8 @@ interface ResponseDataType<T> {
 
 /**
  * useFetch二次封装，增加token和签名
- * @param url
- * @param options
+ * @param url   请求地址
+ * @param options   请求配置
  * @returns useFetch
  */
 export async function useCustomFetch<T>(url: NitroFetchRequest, options: UseFetchOptions<ResponseDataType<T>> = {}) {
@@ -40,4 +40,37 @@ export async function useCustomFetch<T>(url: NitroFetchRequest, options: UseFetc
     const params = defu(options, defaults)
 
     return useFetch(url, params)
+}
+
+/**
+ * $fetch二次封装，增加token和签名
+ * @param arg $fetch $fetch(url, options)的参数
+ * @returns $fetch
+ */
+export async function useServerFetch<T = any>(...arg: Parameters<typeof $fetch>) {
+    const [url, options] = arg
+    const time = Date.now().toString()
+    const sign = await setSignRule(time)
+
+    const defaults: typeof options = {
+        // baseURL: config.public.apiBase ?? 'https://api.nuxtjs.dev',
+        // cache request
+        // key: url as string,
+
+        // set user token if connected
+        headers: {
+            'x-sign': `${sign}-${time}`,
+        },
+        // onResponse(_ctx) {
+        //     // _ctx.response._data = new myBusinessResponse(_ctx.response._data)
+        // },
+        // onResponseError(_ctx) {
+        //     // throw new myBusinessError()
+        // },
+    }
+
+    // for nice deep defaults, please use unjs/defu
+    const params = defu(options, defaults)
+
+    return $fetch<ResponseDataType<T>>(url, params)
 }
