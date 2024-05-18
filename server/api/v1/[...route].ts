@@ -1,17 +1,15 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
 import { setLoginSign } from '~/server/controller/admin'
-import { getSystemInfo } from '~/server/controller/system'
+import { getSystemInfo, setSystemInfo } from '~/server/controller/system'
 
 const router = createRouter()
 
 router.use('/login',setLoginSign)   // 用户登录
 
-/**
- * 获取系统信息
- */
-router.use('/system/info', defineEventHandler(async (event) => {
-    return getSystemInfo(event)
-}))
+
+router.use('/system/info', getSystemInfo)   // 获取系统信息
+router.use('/system/edit', setSystemInfo)   // 修改系统信息
+
 
 /**
  * 获取所有菜单信息
