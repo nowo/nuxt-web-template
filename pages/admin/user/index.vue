@@ -3,7 +3,7 @@ definePageMeta({
     layout: 'admin',
     title: '系统用户',
     icon: 'i-ep-user',
-    sort:10
+    sort: 10,
 })
 
 const item = {

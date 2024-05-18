@@ -1,10 +1,9 @@
-import type { H3Event } from 'h3'
 import { ResponseMessage } from '~/config/message'
 
 /**
  * 获取公司信息
  */
-export const getSystemInfo=defineEventHandler(async event=> {
+export const getSystemInfo = defineEventHandler(async (event) => {
     // // 接口校验
     // const authSign = await useVerifySign(event)
     // if (!authSign) return ResponseMessage.sign
@@ -15,7 +14,7 @@ export const getSystemInfo=defineEventHandler(async event=> {
     // const param = await getEventParams<LoginDataType>(event)
     //    const res=await prisma.system.findFirst()
     //    console.log(res)
-    const p=getRequestURL(event)
+    const p = getRequestURL(event)
     console.log(p)
 
     const [res1, res2] = await Promise.all([
@@ -43,7 +42,7 @@ export const getSystemInfo=defineEventHandler(async event=> {
 /**
  * 修改公司信息
  */
-export const setSystemInfo = defineEventHandler(async event => {
+export const setSystemInfo = defineEventHandler(async (event) => {
     // // 接口校验
     // const authSign = await useVerifySign(event)
     // if (!authSign) return ResponseMessage.sign

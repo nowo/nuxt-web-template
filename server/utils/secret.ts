@@ -54,7 +54,6 @@ export const setEncryptPassword = (password: string) => {
     return s2
 }
 
-
 /**
  * 签名验证
  * @param event defineEventHandler方法里的event参数

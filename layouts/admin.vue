@@ -10,7 +10,6 @@
                 <LayoutAreaHeader />
                 <el-main class="overflow-unset!">
                     <ClientOnly>
-
                         <slot />
                     </ClientOnly>
                 </el-main>

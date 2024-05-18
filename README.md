@@ -17,7 +17,7 @@
 
 ```bash
 # 安装依赖
-pnpm i 
+pnpm i
 
 # 生成prisma客户端
 npx prisma generate
@@ -28,14 +28,12 @@ npx prisma generate
 # # 从数据库拉取模型
 # npx prisma db pull
 
-
 # 启动项目
 pnpm dev
 
 # 构建项目
 pnpm build
 ```
-    
 
 ## Features
 

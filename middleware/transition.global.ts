@@ -17,7 +17,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         // admin页面使用slide-right过渡
         to.meta.pageTransition = { name: 'slide-right', mode: 'out-in' }
         // const token = useSessionStorage('token', '')
-       const token= useCookie('token')
+        const token = useCookie('token')
         // console.log(token.value)
         // console.log('to', to.path)
         if (!token.value && to.path !== '/admin/login') { // 没token，不在登录页的时候，转到登录页
@@ -26,7 +26,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
             return navigateTo('/admin')
         } else {
 
-        
             // const currentItem = menuList.value.find(item => item.path === to.path)
             // console.log(currentItem)
             // // if (!currentItem) return abortNavigation('无权访问')  // 阻止跳转

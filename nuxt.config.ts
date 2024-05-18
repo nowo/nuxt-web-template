@@ -59,7 +59,7 @@ export default defineNuxtConfig({
             ],
         },
     },
-    ignore:['/pages/**/components/**.vue'],
+    ignore: ['/pages/**/components/**.vue'],
     imports: {
         dirs: ['config'],
     },

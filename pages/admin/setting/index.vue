@@ -9,8 +9,8 @@ definePageMeta({
     sort: 1000,
 })
 
-const systemState=useSystemState()
-const systemInfo=await systemState.getSystemInfo()
+const systemState = useSystemState()
+const systemInfo = await systemState.getSystemInfo()
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const systemInfo=await systemState.getSystemInfo()
             </el-tab-pane>
             <el-tab-pane label="SEO设置">
                 <el-scrollbar>
-                <SetSeo :data="systemInfo" class="pl15px" />
+                    <SetSeo :data="systemInfo" class="pl15px" />
                 </el-scrollbar>
             </el-tab-pane>
             <!-- <el-tab-pane label="其他设置">

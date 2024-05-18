@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 
-const systemState = useSystemState()
-
 const props = defineProps<{
     data?: ISystemInfoData
 }>()
+
+const systemState = useSystemState()
 
 const lang = ref<LanguageType>('cn')
 
@@ -25,7 +25,7 @@ const form = reactive({
         logo: '', // 网站logo
         logo2: '', // 网站logo
         qr_code: '', // 二维码
-        seo_title: '',   // seo标题
+        seo_title: '', // seo标题
         seo_keyword: '', // 关键词
         seo_description: '', // 描述
 
@@ -35,7 +35,7 @@ const form = reactive({
         copyright_en: '', // 版权信息
 
         icon: '', // 网站图标
-        is_en:true, // 是否开启英文版
+        is_en: true, // 是否开启英文版
     },
 
 })
@@ -102,7 +102,7 @@ const onSubmit = async () => {
 }
 // 重置
 const onReset = async () => {
-    formRef.value?.resetFields();
+    formRef.value?.resetFields()
     initDefaultData()
 }
 

@@ -1,7 +1,4 @@
 import type { H3Event } from 'h3'
-import { defu } from 'defu'
-import type { NitroFetchRequest } from 'nitropack'
-import { setSignRule } from '~/utils/secret'
 
 // type $FetchType = typeof $fetch
 // export type ReqOptions = Parameters<$FetchType>[1]

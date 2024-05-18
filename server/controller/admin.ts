@@ -44,7 +44,7 @@ export const setLoginSign = defineEventHandler(async (event) => {
     } else {
         const { password, id, account, username } = user
         if (password !== setEncryptPassword(param.password as string)) return { msg: '密码错误' }
-        const token =await createToken({ id, account, username })
+        const token = await createToken({ id, account, username })
         return {
             code: 200,
             data: {

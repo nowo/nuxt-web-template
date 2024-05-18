@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 
-const systemState = useSystemState()
-
 const props = defineProps<{
     data?: ISystemInfoData
 }>()
+
+const systemState = useSystemState()
 
 const lang = ref<LanguageType>('cn')
 
@@ -25,7 +25,7 @@ const form = reactive({
         logo: '', // 网站logo
         logo2: '', // 网站logo
         qr_code: '', // 二维码
-        seo_title: '',   // seo标题
+        seo_title: '', // seo标题
         seo_keyword: '', // 关键词
         seo_description: '', // 描述
 
@@ -35,7 +35,7 @@ const form = reactive({
         copyright_en: '', // 版权信息
 
         icon: '', // 网站图标
-        is_en:true, // 是否开启英文版
+        is_en: true, // 是否开启英文版
     },
 
 })
@@ -50,21 +50,21 @@ const initDefaultData = async () => {
     if (!props.data) return
     const propsData = props.data
 
-form.data.company = propsData.company
-form.data.company_en = propsData.company_en
-form.data.address = propsData.address
-form.data.address_en = propsData.address_en
-form.data.logo = propsData.logo || ''
-// form.data.logo2 = propsData.logo2 || ''
-form.data.qr_code = propsData.wx_code || ''
-form.data.phone = propsData.phone || ''
-form.data.email = propsData.email || ''
-form.data.seo_title = propsData.title || ''
-form.data.seo_keyword = propsData.keyword || ''
-form.data.seo_description = propsData.description || ''
-form.data.filing = propsData.filing || ''
-form.data.icon = propsData.icon || ''
-form.data.is_en = propsData.is_en
+    form.data.company = propsData.company
+    form.data.company_en = propsData.company_en
+    form.data.address = propsData.address
+    form.data.address_en = propsData.address_en
+    form.data.logo = propsData.logo || ''
+    // form.data.logo2 = propsData.logo2 || ''
+    form.data.qr_code = propsData.wx_code || ''
+    form.data.phone = propsData.phone || ''
+    form.data.email = propsData.email || ''
+    form.data.seo_title = propsData.title || ''
+    form.data.seo_keyword = propsData.keyword || ''
+    form.data.seo_description = propsData.description || ''
+    form.data.filing = propsData.filing || ''
+    form.data.icon = propsData.icon || ''
+    form.data.is_en = propsData.is_en
 }
 
 const [ApiFunc, btnLoading] = useLoadingSubmit()

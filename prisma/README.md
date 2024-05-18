@@ -1,4 +1,3 @@
-
 # nuxt项目集成prisma
 
 <a href="https://prisma.yoga/" target="_blank">prisma中文文档 https://prisma.yoga/</a>
@@ -35,9 +34,6 @@ DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
 ```bash
 npx prisma generate
 ```
-    
-
-
 
 ## 三、prisma模型处理
 数据库已经存在各种数据表时，此时就将各个表的字段同步到schema.prisma生成对应的各个模型
@@ -64,16 +60,16 @@ import { PrismaClient } from '@prisma/client'
 let prisma: PrismaClient
 
 declare module 'h3' {
-  interface H3EventContext {
-    prisma: PrismaClient
-  }
+    interface H3EventContext {
+        prisma: PrismaClient
+    }
 }
 
 export default eventHandler((event) => {
-  if (!prisma) {
-    prisma = new PrismaClient()
-  }
-  event.context.prisma = prisma
+    if (!prisma) {
+        prisma = new PrismaClient()
+    }
+    event.context.prisma = prisma
 })
 ```
 
@@ -81,10 +77,10 @@ export default eventHandler((event) => {
 ```typescript
 // server/api/user.ts
 export default defineEventHandler(async (event) => {
-  // 获取用户表的所有用户
-  const res = await event.context.prisma.user.findMany()
-  // console.log(res)
-  return { code: 200, data: res }
+    // 获取用户表的所有用户
+    const res = await event.context.prisma.user.findMany()
+    // console.log(res)
+    return { code: 200, data: res }
 })
 ```
 
@@ -100,10 +96,10 @@ export const prisma: PrismaClient = new PrismaClient()
 ```typescript
 // server/api/user.ts
 export default defineEventHandler(async (event) => {
-  // 获取用户表的所有用户
-  const res = await prisma.user.findMany()
-  // console.log(res)
-  return { code: 200, data: res }
+    // 获取用户表的所有用户
+    const res = await prisma.user.findMany()
+    // console.log(res)
+    return { code: 200, data: res }
 })
 ```
 
@@ -136,13 +132,13 @@ module.exports = {
     apps: [
         {
             name: 'nuxt-pro', // 设置PM2进程的名称
-            port: '8004',   // 项目运行的端口
+            port: '8004', // 项目运行的端口
             exec_mode: 'cluster',
             instances: 'max',
             script: './.output/server/index.mjs',
             env: {
                 // 数据库
-                DATABASE_URL: 'mysql://root:root@localhost:3306/nuxt-pro',  // 更改成实际的数据库
+                DATABASE_URL: 'mysql://root:root@localhost:3306/nuxt-pro', // 更改成实际的数据库
             },
         },
     ],
@@ -152,7 +148,6 @@ module.exports = {
 ```bash
 pm2 start
 ```
-
 
 #### 后续PM2相关操作
 
@@ -185,5 +180,3 @@ pm2 monit
 ```bash
     pm2 list
 ```
-
-                    

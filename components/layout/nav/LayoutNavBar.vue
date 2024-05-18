@@ -38,20 +38,19 @@ function onScreenFullClick() {
 }
 
 function onHandleCommandClick(command: string) {
-    if(command==='logout'){ // 退出登录
+    if (command === 'logout') { // 退出登录
         ElMessageBox.confirm('您确定要退出登录吗?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
         }).then(() => {
-            const token=useCookie('token')
-            token.value=''
+            const token = useCookie('token')
+            token.value = ''
             navigateTo('/admin/login')
         }).catch(() => {
             // catch error
         })
     }
-    
 }
 </script>
 

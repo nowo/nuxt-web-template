@@ -4,12 +4,10 @@ import { getSystemInfo, setSystemInfo } from '~/server/controller/system'
 
 const router = createRouter()
 
-router.use('/login',setLoginSign)   // 用户登录
+router.use('/login', setLoginSign) // 用户登录
 
-
-router.use('/system/info', getSystemInfo)   // 获取系统信息
-router.use('/system/edit', setSystemInfo)   // 修改系统信息
-
+router.use('/system/info', getSystemInfo) // 获取系统信息
+router.use('/system/edit', setSystemInfo) // 修改系统信息
 
 /**
  * 获取所有菜单信息

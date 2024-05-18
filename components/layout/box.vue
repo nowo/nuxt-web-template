@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import { defineComponent } from 'vue'
-
 const minHeight = computed(() => {
     // 头部高度 40px + 标签页高度 40px + 内容区padding高度 40px
-    const hei = 50 + 40  +40
+    const hei = 50 + 40 + 40
     return `${hei}px`
 })
 </script>
