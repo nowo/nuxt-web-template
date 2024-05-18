@@ -8,8 +8,11 @@
             <!-- <LayoutHeader /> -->
             <el-scrollbar class="w100%">
                 <LayoutAreaHeader />
-                <el-main>
-                    <slot />
+                <el-main class="overflow-unset!">
+                    <ClientOnly>
+
+                        <slot />
+                    </ClientOnly>
                 </el-main>
             </el-scrollbar>
         </el-container>

@@ -15,12 +15,12 @@ const tableData = ref(Array.from({ length: 30 }).fill(item))
 </script>
 
 <template>
-    <div>
+    <LayoutBox>
         首页
         <el-table :data="tableData">
             <el-table-column prop="date" label="Date" width="140" />
             <el-table-column prop="name" label="Name" width="120" />
             <el-table-column prop="address" label="Address" />
         </el-table>
-    </div>
+    </LayoutBox>
 </template>
