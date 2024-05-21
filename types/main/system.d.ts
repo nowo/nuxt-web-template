@@ -1,3 +1,8 @@
+declare interface ILoginUserInfo{
+    id: number // 用户id
+    username: string // 用户名
+    account: string // 昵称
+}
 declare interface ISystemInfoData {
     company: string // 公司名称
     logo: string // logo

@@ -64,5 +64,12 @@ declare module '#app' {
 //     }
 // }
 
+declare module 'h3' {
+    interface H3EventContext {
+        // prisma: PrismaClient
+        user?: ILoginUserInfo | false
+    }
+}
+
 // 当增强类型时，始终确保导入/导出某些内容
 export { }

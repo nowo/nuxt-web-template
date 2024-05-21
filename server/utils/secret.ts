@@ -16,7 +16,7 @@ export const createToken = async (data: Record<string, any>) => {
 export const verifyToken = async (token: string) => {
     try {
         const secret = new TextEncoder().encode('cc7e0d44fd473002')
-        const { payload } = await jose.jwtVerify(token, secret)
+        const { payload } = await jose.jwtVerify<ILoginUserInfo>(token, secret)
         return payload
     } catch (error) {
         return false
@@ -91,10 +91,11 @@ export const useVerifySign = async (event: H3Event) => {
  * @param event defineEventHandler方法里的event参数
  * @returns boolean | 用户信息
  */
-export const useVerifyToken = (event: H3Event) => {
-    const headers = getHeaders(event)
-    // 获取请求头里的token
-    const token = headers['x-token']
+export const useVerifyToken =async (event: H3Event) => {
+    // const headers = getHeaders(event)
+    // // 获取请求头里的token
+    // const token = headers['x-token']
+    const token = getCookie(event, "token");
     if (!token) return false
     return verifyToken(token)
 }

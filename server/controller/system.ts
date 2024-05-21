@@ -55,7 +55,7 @@ export const setSystemInfo = defineEventHandler(async (event) => {
     if (!param?.company) return { msg: '公司名称不能为空' }
 
     const [res1, res2] = await Promise.all([
-        event.context.prisma.system.update({
+        prisma.system.update({
             data: {
                 company: param.company,
                 title: param.title,
@@ -72,7 +72,7 @@ export const setSystemInfo = defineEventHandler(async (event) => {
             },
             where: { id: 1 },
         }),
-        event.context.prisma.system.update({
+        prisma.system.update({
             data: {
                 // title: param.title_en,
                 company: param.company_en,
