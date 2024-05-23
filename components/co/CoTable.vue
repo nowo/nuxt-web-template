@@ -80,7 +80,7 @@
         <el-pagination v-if="defData.pagination.total" ref="pageRef" v-model:current-page="defData.pagination.page"
             v-model:page-size="defData.pagination.pageSize" :small="smallSize" :page-sizes="defData.pagination.pageSizes"
             :total="defData.pagination.total" :pager-count="5" background layout="total, sizes, prev, pager, next, jumper"
-            class="pt15px" @size-change="onHandleSizeChange" @current-change="onHandleCurrentChange" />
+            class="pt15px" @change="onPaginationChange"  />
         </ClientOnly>
     </div>
 </template>
@@ -218,23 +218,10 @@ const setSlotHeaderName = (row: CoTableHeader<T>) => {
     return `${String(row.property)}Header` as CoTableColumnPropertyHeader<T>
 }
 
-// 分页点击
-const onHandleCurrentChange = (val: number) => {
+// 分页切换事件
+const onPaginationChange = (val: number) => {
     const { total, pageSize } = defData.pagination
     if (total < pageSize && propsData.value.data.length === total) return
-
-    defData.time = Date.now()
-    emits('pagination', defData.pagination)
-    tableRef.value?.setScrollTop(0)
-}
-// 分页数量点击
-const onHandleSizeChange = async (val: number) => {
-    const { total, pageSize } = defData.pagination
-    if (total < pageSize && propsData.value.data.length === total) return
-    // 分页跟分页数量同时改变时，通过时间去判断让他只调用一个方法
-    // await wait(10) // 等待10ms，defData.time才可能是最新的
-    if (Date.now() - defData.time < 20) return
-    defData.time = Date.now()
 
     emits('pagination', defData.pagination)
     tableRef.value?.setScrollTop(0)
