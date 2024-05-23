@@ -144,37 +144,39 @@ defineExpose({
 
 <template>
     <el-form v-if="searchData.config.length" ref="formRef" v-bind="props" :model="searchData.data">
-        <el-form-item v-for="(item, index) in searchData.config.filter(item => !item.isHide)" :key="index"
-            ref="formItemRef" :class="setFormItemClass(index)" v-bind="item.column" :prop="item.column.prop">
-            <div class="item-content" :style="{ width: setElWidth(item.width) }">
-                <slot v-if="$slots[item.column.prop as any]" :name="item.column.prop" :row="searchData.data" />
-                <el-input v-else v-model.trim="searchData.data[item.column.prop]" :placeholder="item.placeholder"
-                    clearable @keyup.enter="onSearch" />
-            </div>
-        </el-form-item>
-        <el-form-item ref="lastItemRef" label="">
-            <el-button type="primary" @click="onSearch">
-                <el-icon>
-                    <i class="i-ep-search" />
-                </el-icon>
-                查询
-            </el-button>
-            <el-button @click="onReset">
-                <el-icon>
-                    <i class="i-ep-refresh" />
-                </el-icon>
-                重置
-            </el-button>
-            <slot />
-            <el-button v-if="!searchData.hideBtn" type="primary" link @click="onToggle">
-                <template v-if="searchData.showAll">
-                    收起<el-icon><i class="i-ep-arrow-up" /></el-icon>
-                </template>
-                <template v-else>
-                    展开<el-icon><i class="i-ep-arrow-down" /></el-icon>
-                </template>
-            </el-button>
-        </el-form-item>
+        <ClientOnly>
+            <el-form-item v-for="(item, index) in searchData.config.filter(item => !item.isHide)" :key="index"
+                ref="formItemRef" :class="setFormItemClass(index)" v-bind="item.column" :prop="item.column.prop">
+                <div class="item-content" :style="{ width: setElWidth(item.width) }">
+                    <slot v-if="$slots[item.column.prop as any]" :name="item.column.prop" :row="searchData.data" />
+                    <el-input v-else v-model.trim="searchData.data[item.column.prop]" :placeholder="item.placeholder"
+                        clearable @keyup.enter="onSearch" />
+                </div>
+            </el-form-item>
+            <el-form-item ref="lastItemRef" label="">
+                <el-button type="primary" @click="onSearch">
+                    <el-icon>
+                        <i class="i-ep-search" />
+                    </el-icon>
+                    查询
+                </el-button>
+                <el-button @click="onReset">
+                    <el-icon>
+                        <i class="i-ep-refresh" />
+                    </el-icon>
+                    重置
+                </el-button>
+                <slot />
+                <el-button v-if="!searchData.hideBtn" type="primary" link @click="onToggle">
+                    <template v-if="searchData.showAll">
+                        收起<el-icon><i class="i-ep-arrow-up" /></el-icon>
+                    </template>
+                    <template v-else>
+                        展开<el-icon><i class="i-ep-arrow-down" /></el-icon>
+                    </template>
+                </el-button>
+            </el-form-item>
+        </ClientOnly>
     </el-form>
 </template>
 

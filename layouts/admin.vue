@@ -9,9 +9,7 @@
             <el-scrollbar class="w100%">
                 <LayoutAreaHeader />
                 <el-main class="overflow-unset!">
-                    <ClientOnly>
-                        <slot />
-                    </ClientOnly>
+                    <slot />
                 </el-main>
             </el-scrollbar>
         </el-container>
