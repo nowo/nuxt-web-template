@@ -1,8 +1,12 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
+import { setSaveFile } from '~/server/controller/common'
 import { setLoginSign } from '~/server/controller/admin'
 import { getSystemInfo, setSystemInfo } from '~/server/controller/system'
 
 const router = createRouter()
+
+router.use('/upload', setSaveFile) // 文件上传保存
+
 
 router.use('/login', setLoginSign) // 用户登录
 

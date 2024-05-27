@@ -67,6 +67,8 @@ export default defineNuxtConfig({
     pwa,
     runtimeConfig: {
         // 仅在服务端serve可以访问
+        //         # 文件上传主机地址
+        host: process.env.NUXT_UPLOAD_HOST,
         upload: {
             //         # 文件上传主机地址
             host: process.env.NUXT_UPLOAD_HOST,
