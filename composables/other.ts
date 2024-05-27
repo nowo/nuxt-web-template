@@ -114,7 +114,7 @@ export const useTableScrollbarLoad = async (tableRef?: TableInstance) => {
     // tableRef.value?.doLayout()
 
     function getTranslateValue(translateString: string) {
-        const reg = /[1-9][0-9]*\.?[0-9]*/g
+        const reg = /[1-9]\d*\.?\d*/g
         const matchArr = translateString.match(reg)
         if (!matchArr?.[0]) return 0
 

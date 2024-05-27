@@ -79,7 +79,7 @@ const tableData = reactive<CoTableProps<IUserListItem>>({
         // { property: 'tag', label: '标签' },
     ],
     pagination: paginationConfig,
-    isTool:true
+    isTool: true,
 })
 
 // 搜索
@@ -105,8 +105,10 @@ const onReset = () => {
                 <CoDatePicker v-model="row.time" />
             </template>
         </CoFormTool>
-        <CoTable v-model:option="tableData" auto-height border >
-            <template #nameHeader>表头111</template>
+        <CoTable v-model:option="tableData" auto-height border>
+            <template #nameHeader>
+                表头111
+            </template>
         </CoTable>
     </LayoutBox>
 </template>

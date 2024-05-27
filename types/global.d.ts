@@ -1,9 +1,5 @@
 declare module 'element-plus/dist/locale/zh-cn.mjs';
 
-
-
-
-
 // search搜索项 数据格式公共类型
 declare interface CoFormToolProps<T = Record<string, any>> {
     data: T
@@ -11,8 +7,6 @@ declare interface CoFormToolProps<T = Record<string, any>> {
     hideBtn?: boolean
     showAll?: boolean
 }
-
-
 
 // type CoTableColumnProperty<T> = keyof T | `${keyof T}Header` | 'operate' | 'operateHeader' | ''
 
@@ -28,7 +22,6 @@ interface CoTableHeader<T> extends CoTableColumnCtx<T> {
     }
 
 }
-
 
 type CoTableColumnProperty<T> = CoTableHeader<T>['property']
 type CoTableColumnPropertyHeader<T> = `${keyof T}Header` | 'operateHeader'
@@ -47,7 +40,6 @@ declare interface CoTableProps<T> {
     isTool?: boolean // 是否显示配置栏
     loading?: boolean // loading
 }
-
 
 /**
  * element-plus,DateTimePicker 日期时间选择器,v-model类型

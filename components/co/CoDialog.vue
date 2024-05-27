@@ -86,7 +86,7 @@ const onToggle = () => {
                 {{ props.title }}
             </span>
             <button v-if="!props.hideFull" class="el-dialog__headerbtn mr54px" @click="onToggle">
-                <i v-if="defData.fullscreen" class="el-dialog__close i-ep-copy-document active" />
+                <i v-if="defData.fullscreen" class="el-dialog__close active i-ep-copy-document" />
                 <i v-else class="el-dialog__close i-ep-full-screen" />
                 <!-- <SvgIcon class="el-dialog__close" :class="{ active: iconName === 'ele-CopyDocument' }" :name="iconName" /> -->
             </button>

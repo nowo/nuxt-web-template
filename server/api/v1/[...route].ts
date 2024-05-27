@@ -7,7 +7,6 @@ const router = createRouter()
 
 router.use('/upload', setSaveFile) // 文件上传保存
 
-
 router.use('/login', setLoginSign) // 用户登录
 
 router.use('/system/info', getSystemInfo) // 获取系统信息

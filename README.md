@@ -13,7 +13,6 @@
 <a href="https://stackblitz.com/github/antfu/vitesse-nuxt3"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt=""></a>
 </p>
 
-
 [![My Skills](https://skillicons.dev/icons?i=html,css,js,ts,sass,jquery,vue,pinia,vite,nuxt,npm,pnpm,nodejs,prisma,vscode)](https://skillicons.dev)
 
 ## Start

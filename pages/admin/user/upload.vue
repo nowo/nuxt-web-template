@@ -18,7 +18,7 @@ const submit = async () => {
     // console.log('response :>> ', response)
 
     const formData = new FormData()
-    Array.from(files?.value||[]).forEach(file=>{
+    Array.from(files?.value || []).forEach((file) => {
         formData.append('files[]', file)
     })
     // for (let i = 0; i < files.value.length; i++) {
@@ -37,8 +37,6 @@ const submit = async () => {
     })
     console.log('response :>> ', response)
 }
-
-
 </script>
 
 <template>

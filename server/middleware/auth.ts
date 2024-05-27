@@ -24,7 +24,7 @@ export default eventHandler(async (event) => {
         if (!authSign) {
             throw createError({ message: '签名错误', statusCode: 1001 })
         }
-        const authToken =await useVerifyToken(event)
+        const authToken = await useVerifyToken(event)
         event.context.user = authToken
     }
 })

@@ -91,11 +91,11 @@ export const useVerifySign = async (event: H3Event) => {
  * @param event defineEventHandler方法里的event参数
  * @returns boolean | 用户信息
  */
-export const useVerifyToken =async (event: H3Event) => {
+export const useVerifyToken = async (event: H3Event) => {
     // const headers = getHeaders(event)
     // // 获取请求头里的token
     // const token = headers['x-token']
-    const token = getCookie(event, "token");
+    const token = getCookie(event, 'token')
     if (!token) return false
     return verifyToken(token)
 }

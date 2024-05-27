@@ -1,4 +1,4 @@
-declare interface ILoginUserInfo{
+declare interface ILoginUserInfo {
     id: number // 用户id
     username: string // 用户名
     account: string // 昵称
