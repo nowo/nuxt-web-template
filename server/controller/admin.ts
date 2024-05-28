@@ -12,7 +12,7 @@ export function getAdminList() {
  */
 export const setLoginSign = defineEventHandler(async (event) => {
     // 获取参数
-    const param = await getEventParams<Prisma.adminWhereUniqueInput>(event)
+    const param = await getEventParams<Prisma.AdminWhereUniqueInput>(event)
 
     if (!param?.account) return { msg: '请输入登录账号' }
     if (!param?.password) return { msg: '请输入登录密码' }

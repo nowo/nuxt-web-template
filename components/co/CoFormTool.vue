@@ -30,16 +30,28 @@ const defData = reactive({
     hideIndex: -1,
 })
 
-// const searchData = ref(props.data)
-// const searchData = reactive({
-//     ...props.data
-// })
 const searchData = computed({
     get: () => props.option,
     set: (val) => {
         emits('update:option')
         // props.data = val
     },
+})
+
+// 判断选项是否填写了数据
+const fillData = computed(() => {
+    const data = props.option.data
+    const node =  props.option.config.find((item, index) => {
+        const key=item.column.prop
+        if (data[key]) {
+            if (Array.isArray(data[key])) {
+                return data[key].length ? data[key].every((i: any) => !!i) : false  
+            } 
+            return true
+        }
+        return false
+    })
+    return !!node
 })
 
 // const searchData = reactive({
@@ -154,15 +166,15 @@ defineExpose({
                 </div>
             </el-form-item>
             <el-form-item ref="lastItemRef" label="">
-                <el-button type="primary" @click="onSearch">
-                    <el-icon>
-                        <i class="i-ep-search" />
+                <el-button type="primary" :plain="!fillData" @click="onSearch">
+                    <el-icon class="i-ep-search">
+                        <!-- <i /> -->
                     </el-icon>
                     查询
                 </el-button>
                 <el-button @click="onReset">
-                    <el-icon>
-                        <i class="i-ep-refresh" />
+                    <el-icon class="i-ep-refresh">
+                        <!-- <i /> -->
                     </el-icon>
                     重置
                 </el-button>

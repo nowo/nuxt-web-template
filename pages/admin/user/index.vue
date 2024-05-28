@@ -95,9 +95,10 @@ const onReset = () => {
 
 <template>
     <LayoutBox>
-        <CoFormTool v-model:option="searchData" :rules="rules" inline @submit="onSearch" @reset="onReset">
+        <CoFormTool v-model:option="searchData" :rules="rules" inline @search="onSearch" @reset="onReset">
             <template #admin_id="{ row }">
                 <el-select v-model="row.admin_id" filterable clearable>
+                    <el-option label="全部" value="0" />
                     <!-- <el-option v-for="item in defData.userList" :key="item.id" :label="item.realname" :value="item.id" /> -->
                 </el-select>
             </template>
