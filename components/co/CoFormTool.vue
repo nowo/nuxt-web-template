@@ -41,12 +41,12 @@ const searchData = computed({
 // 判断选项是否填写了数据
 const fillData = computed(() => {
     const data = props.option.data
-    const node =  props.option.config.find((item, index) => {
-        const key=item.column.prop
+    const node = props.option.config.find((item, index) => {
+        const key = item.column.prop
         if (data[key]) {
             if (Array.isArray(data[key])) {
-                return data[key].length ? data[key].every((i: any) => !!i) : false  
-            } 
+                return data[key].length ? data[key].every((i: any) => !!i) : false
+            }
             return true
         }
         return false

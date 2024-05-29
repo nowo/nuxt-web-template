@@ -37,7 +37,7 @@ const submit = async () => {
     })
     console.log('response :>> ', response)
 }
-const text=ref('hello')
+const text = ref('hello')
 </script>
 
 <template>
