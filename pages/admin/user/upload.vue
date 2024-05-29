@@ -37,10 +37,14 @@ const submit = async () => {
     })
     console.log('response :>> ', response)
 }
+const text=ref('hello')
 </script>
 
 <template>
     <div class="flex gap-10px">
+        <div>
+            <CoEditor v-model="text" />
+        </div>
         <button class="btn" @click="open()">
             open
         </button>

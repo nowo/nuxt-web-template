@@ -19,11 +19,14 @@
         "typecheck": "vue-tsc --noEmit"
     },
     "dependencies": {
+        "@nowo/utils": "npm:@jsr/nowo__utils@^0.0.2",
         "@prisma/client": "^5.13.0",
+        "@tinymce/tinymce-vue": "^5",
         "drizzle-orm": "^0.30.10",
         "element-plus": "^2.7.2",
         "jose": "^5.3.0",
         "mysql2": "^3.9.7",
+        "tinymce": "^7.1.1",
         "vue-draggable-plus": "^0.4.0"
     },
     "devDependencies": {
