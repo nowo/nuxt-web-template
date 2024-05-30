@@ -142,6 +142,8 @@ export function useThemeState() {
 
     // 是否打开布局配置弹窗
     const isDrawer = useState('isDrawer', () => false)
+    // 是否当前页半全屏状态
+    const isCurrentFullscreen = useState('isCurrentFullscreen', () => false)
 
     /**
      * 设置布局，更新状态
@@ -162,6 +164,7 @@ export function useThemeState() {
     return {
         themeConfig,
         isDrawer,
+        isCurrentFullscreen,
         setThemeConfig,
         saveThemeConfig,
     }

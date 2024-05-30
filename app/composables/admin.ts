@@ -8,6 +8,7 @@ import type { RouteRecordNormalized } from '#vue-router'
 export const useAdminMenuState = () => {
     const route = useRoute()
     const routes = useRouter().getRoutes()
+    const { isCurrentFullscreen } = useThemeState()
     // 后台页面路由列表
     const adminRoutes = computed(() => {
         const list = routes.filter((item) => {
@@ -107,12 +108,16 @@ export const useAdminMenuState = () => {
             if (!fixArr.includes(row.path)) fixArr.push(row.path)
             storageMenuList.value = fixArr
             // 跳转至当前页
-            navigateTo(row.path)
+            navigateTo(row)
         } else if (type === 4) { // 全部关闭
             storageMenuList.value = fixArr
             // 跳转固定页或首页
             const node = tagMenuList.value[tagMenuList.value.length - 1]
             navigateTo(node)
+        }else if(type===5){ // 半全屏
+            // 跳转至当前页
+            navigateTo(row)
+            isCurrentFullscreen.value=true
         }
     }
 

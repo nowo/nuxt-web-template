@@ -28,7 +28,6 @@ function onEnd(e: any) {
     storageMenuList.value = list.value.map(item => item.path)
 }
 
-
 const onLink = (row: RouteRecordNormalized) => {
     if (route.path !== row.path) navigateTo(row)
 }
@@ -50,24 +49,26 @@ const onContextmenu = (e: MouseEvent, row: RouteRecordNormalized) => {
 
 <template>
     <el-scrollbar ref="scrollbarRef" @wheel.prevent="onHandleScroll">
-        <ClientOnly>
-            <VueDraggable v-model="list" tag="ul" :animation="300" class="tag-view-v1 h40px flex" @end="onEnd">
-                <!-- <ul class="tag-view-ul flex gap-5px p8px"> -->
-                <!-- :class="{on:$route.path===v.path}" -->
-                <li v-for="item in list" :key="item.path" class="tag-view-item"
-                    :class="{ on: $route.path === item.path }" @click="onLink(item)"
-                    @contextmenu.prevent="(e) => onContextmenu(e, item)">
-                    {{ item.meta.title }}
-                    <i v-if="!item.meta.isAffix" class="tag-close-icon i-ep-close" @click.stop="onCloseTag(item)">
-                        <!-- <i class="i-ep-close" /> -->
-                    </i>
-                </li>
-                <!-- </ul> -->
-            </VueDraggable>
+        <div class="h40px">
+            <ClientOnly>
+                <VueDraggable v-model="list" tag="ul" :animation="300" class="tag-view-v1 h100% flex" @end="onEnd">
+                    <!-- <ul class="tag-view-ul flex gap-5px p8px"> -->
+                    <!-- :class="{on:$route.path===v.path}" -->
+                    <li v-for="item in list" :key="item.path" class="tag-view-item"
+                        :class="{ on: $route.path === item.path }" @click="onLink(item)"
+                        @contextmenu.prevent="(e) => onContextmenu(e, item)">
+                        {{ item.meta.title }}
+                        <i v-if="!item.meta.isAffix" class="tag-close-icon i-ep-close" @click.stop="onCloseTag(item)">
+                            <!-- <i class="i-ep-close" /> -->
+                        </i>
+                    </li>
+                    <!-- </ul> -->
+                </VueDraggable>
+            </ClientOnly>
             <Teleport to="body">
                 <LayoutTagContextmenu ref="contextmenuRef" />
             </Teleport>
-        </ClientOnly>
+        </div>
     </el-scrollbar>
 </template>
 
