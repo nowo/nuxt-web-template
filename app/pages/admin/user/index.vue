@@ -6,6 +6,7 @@ definePageMeta({
     title: '系统用户',
     icon: 'i-ep-user',
     sort: 10,
+    // keepalive: true
 })
 
 // form表单数据类型

@@ -9,8 +9,6 @@ const { tagMenuList, storageMenuList, updateStoreMenuList } = useAdminMenuState(
 
 const scrollbarRef = ref<ScrollbarInstance>()
 
-const a = ref<HTMLDivElement>()
-
 const list = ref(tagMenuList.value)
 
 // 鼠标滚轮滚动
@@ -30,19 +28,6 @@ function onEnd(e: any) {
     storageMenuList.value = list.value.map(item => item.path)
 }
 
-const mainLoad = inject<() => void>('reload')
-const onContextmenu = (e: MouseEvent, row: RouteRecordNormalized) => {
-    // e.stopPropagation()
-    e.preventDefault() // 阻止默认行为
-    // console.log('e :>> ', e)
-    // console.log('row :>> ',row)
-    // console.log('a :>> ',a.value)
-    // console.log('scrollbarRef.value :>> ',scrollbarRef.value)
-    // console.log('scrollbarRef.value.$refs.wrapRef :>> ',scrollbarRef.value.$refs.wrapRef)
-    // console.log('scrollbarRef.value.$refs.wrapRef.scrollLeft :>> ',scrollbarRef.value.$refs.wrapRef.scrollLeft)
-    console.log('row :>> ', e, row)
-    mainLoad?.()
-}
 
 const onLink = (row: RouteRecordNormalized) => {
     if (route.path !== row.path) navigateTo(row)
@@ -56,9 +41,11 @@ watchEffect(() => {
     list.value = tagMenuList.value
 })
 
-onBeforeMount(() => {
-    console.log(list.value)
-})
+// 右键菜单操作内容
+const contextmenuRef = ref<ComponentInstance['LayoutTagContextmenu']>()
+const onContextmenu = (e: MouseEvent, row: RouteRecordNormalized) => {
+    contextmenuRef.value?.openContextmenu(e, row)
+}
 </script>
 
 <template>
@@ -69,7 +56,7 @@ onBeforeMount(() => {
                 <!-- :class="{on:$route.path===v.path}" -->
                 <li v-for="item in list" :key="item.path" class="tag-view-item"
                     :class="{ on: $route.path === item.path }" @click="onLink(item)"
-                    @contextmenu="(e) => onContextmenu(e, item)">
+                    @contextmenu.prevent="(e) => onContextmenu(e, item)">
                     {{ item.meta.title }}
                     <i v-if="!item.meta.isAffix" class="tag-close-icon i-ep-close" @click.stop="onCloseTag(item)">
                         <!-- <i class="i-ep-close" /> -->
@@ -77,6 +64,9 @@ onBeforeMount(() => {
                 </li>
                 <!-- </ul> -->
             </VueDraggable>
+            <Teleport to="body">
+                <LayoutTagContextmenu ref="contextmenuRef" />
+            </Teleport>
         </ClientOnly>
     </el-scrollbar>
 </template>
@@ -208,67 +198,5 @@ onBeforeMount(() => {
     color: #1677ff;
     opacity: 1;
     z-index: -1
-}
-
-#classic-layout .tab-main .tab-list .tab-item[data-v-66b7c75e] {
-    align-items: center;
-    cursor: pointer;
-    display: flex;
-    height: 38px;
-    justify-content: center;
-    min-width: 100px;
-    padding: 0 20px;
-    position: relative
-}
-
-#classic-layout .tab-main .tab-list .tab-item:last-child.tab-selected[data-v-66b7c75e] {
-    box-shadow: 0 0, -19px 14px #e6f4ff
-}
-
-#classic-layout .tab-main .tab-list .tab-item[data-v-66b7c75e]:last-child:after {
-    display: none
-}
-
-#classic-layout .tab-main .tab-list .tab-item:first-child.tab-selected[data-v-66b7c75e] {
-    box-shadow: 19px 14px #e6f4ff, 0 0
-}
-
-#classic-layout .tab-main .tab-list .tab-item[data-v-66b7c75e]:first-child:before {
-    display: none
-}
-
-#classic-layout .tab-main .tab-list .tab-selected[data-v-66b7c75e] {
-    background: #e6f4ff;
-    border-radius: 12px 12px 0 0;
-    box-shadow: 19px 10px #e6f4ff, -19px 14px #e6f4ff;
-    color: #1677ff;
-    opacity: 1;
-    z-index: -1
-}
-
-#classic-layout .tab-main .tab-list .tab-selected[data-v-66b7c75e]:before {
-    background-color: #e6f4ff;
-    border-top-left-radius: 12px;
-    bottom: 0;
-    content: "";
-    height: 38px;
-    left: -6px;
-    position: absolute;
-    transform: skew(-15deg);
-    width: 12px;
-    display: none;
-}
-
-#classic-layout .tab-main .tab-list .tab-selected[data-v-66b7c75e]:after {
-    background-color: #e6f4ff;
-    border-top-right-radius: 12px;
-    bottom: 0;
-    content: "";
-    height: 38px;
-    position: absolute;
-    right: -6px;
-    transform: skew(15deg);
-    width: 12px;
-    display: none;
 }
 </style>

@@ -81,23 +81,38 @@ export const useAdminMenuState = () => {
             }
         }
     }
+
     const mainLoad = inject<() => void>('reload')
+
     /**
      * 设置标签页面菜单列表
-     * @param type 1：刷新页面，2：关闭页面，3：关闭其他页面，4：全部关闭，5：关闭右侧页面
+     * @param type 1：刷新页面，2：关闭页面，3：关闭其他页面，4：全部关闭，5：当前页全屏
      * @param row 当前触发的路由对象
      */
-    const setStoreMenuList = (type: 1 | 2 | 3 | 4, row: RouteRecordNormalized) => {
+    const setStoreMenuList = (type: 1 | 2 | 3 | 4 | 5, row: RouteRecordNormalized) => {
         if (!Array.isArray(storageMenuList.value)) storageMenuList.value = []
         const storageIndex = storageMenuList.value.findIndex(v => v === row.path)
+        // 固定的标签数组
+        const fixArr = tagMenuList.value.filter(item => item.meta?.isAffix).map(v => v.path)
         if (type === 1) { // 刷新
+            // console.log(mainLoad)
+          if(route.path===row.path){
             mainLoad?.()
+          }else{
+            navigateTo(row)
+          }
         } else if (type === 2) { // 关闭
             if (storageIndex >= 0) storageMenuList.value.splice(storageIndex, 1)
         } else if (type === 3) { // 关闭其他
-            storageMenuList.value = [row.path]
+            if (!fixArr.includes(row.path)) fixArr.push(row.path)
+            storageMenuList.value = fixArr
+            // 跳转至当前页
+            navigateTo(row.path)
         } else if (type === 4) { // 全部关闭
-            storageMenuList.value = []
+            storageMenuList.value = fixArr
+            // 跳转固定页或首页
+            const node = tagMenuList.value[tagMenuList.value.length - 1]
+            navigateTo(node)
         }
     }
 
