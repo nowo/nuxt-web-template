@@ -13,10 +13,10 @@ export const createToken = async (data: Record<string, any>) => {
 }
 
 // 解析token
-export const verifyToken = async (token: string) => {
+export const verifyToken = async <T>(token: string) => {
     try {
         const secret = new TextEncoder().encode('cc7e0d44fd473002')
-        const { payload } = await jose.jwtVerify<ILoginUserInfo>(token, secret)
+        const { payload } = await jose.jwtVerify<T>(token, secret)
         return payload
     } catch (error) {
         return false
@@ -97,5 +97,5 @@ export const useVerifyToken = async (event: H3Event) => {
     // const token = headers['x-token']
     const token = getCookie(event, 'token')
     if (!token) return false
-    return verifyToken(token)
+    return verifyToken<ILoginUserInfo>(token)
 }

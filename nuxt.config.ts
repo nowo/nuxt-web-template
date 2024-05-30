@@ -1,5 +1,6 @@
-import { pwa } from './config/pwa'
-import { appDescription } from './config/constant'
+import path from 'node:path'
+import { pwa } from './app/config/pwa'
+import { appDescription } from './app/config/constant'
 
 export default defineNuxtConfig({
     modules: [
@@ -16,8 +17,8 @@ export default defineNuxtConfig({
     experimental: {
         // when using generate, payload js assets included in sw precache manifest
         // but missing on offline, disabling extraction it until fixed
-        payloadExtraction: false,
-        renderJsonPayloads: true,
+        // payloadExtraction: false,
+        // renderJsonPayloads: true,
         typedPages: true,
     },
 
@@ -28,7 +29,9 @@ export default defineNuxtConfig({
     colorMode: {
         classSuffix: '',
     },
-
+    alias: {
+        $: path.resolve(__dirname, 'server'),
+    },
     nitro: {
         esbuild: {
             options: {
@@ -59,7 +62,7 @@ export default defineNuxtConfig({
             ],
         },
     },
-    ignore: ['/pages/**/components/**.vue'],
+    ignore: ['/app/pages/**/components/**.vue'],
     imports: {
         dirs: ['config'],
     },
@@ -88,6 +91,9 @@ export default defineNuxtConfig({
     features: {
         // For UnoCSS
         inlineStyles: false,
+    },
+    future: {
+        compatibilityVersion: 4,
     },
 
     eslint: {

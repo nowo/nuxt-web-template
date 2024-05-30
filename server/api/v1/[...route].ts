@@ -1,7 +1,7 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
-import { setSaveFile } from '~/server/controller/common'
-import { setLoginSign } from '~/server/controller/admin'
-import { getSystemInfo, setSystemInfo } from '~/server/controller/system'
+import { setSaveFile } from '../../controller/common'
+import { setLoginSign } from '../../controller/admin'
+import { getSystemInfo, setSystemInfo } from '../../controller/system'
 
 const router = createRouter()
 

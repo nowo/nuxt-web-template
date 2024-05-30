@@ -1,24 +1,28 @@
 <!-- 菜单 -->
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordNormalized, RouteRecordRaw } from 'vue-router'
 
 // 定义父组件传过来的值
 const props = defineProps({
     // 菜单列表
     children: {
-        type: Array<RouteRecordRaw>,
+        type: Array<RouteRecordNormalized>,
         default: () => [],
     },
 })
+
+const { updateStoreMenuList } = useAdminMenuState()
 
 // 获取父级菜单数据
 const childList = computed(() => {
     return props.children
 })
 // 打开外部链接
-function onALinkClick(val: RouteRecordRaw) {
-    // handleOpenLink(val as RouteItem)
+function onALinkClick(val: RouteRecordNormalized) {
+
+    updateStoreMenuList(val, 1)
+    // navigateTo(val)
 }
 </script>
 
@@ -31,7 +35,7 @@ function onALinkClick(val: RouteRecordRaw) {
             </template>
             <LayoutMenuSub :children="val.children" />
         </el-sub-menu>
-        <el-menu-item v-else :index="val.path">
+        <el-menu-item v-else :index="val.path" @click="onALinkClick(val)">
             <template v-if="!val.meta?.isLink || (val.meta.isLink && val.meta.isIframe)">
                 <el-icon :class="val.meta?.icon" />
                 <span>{{ val.meta?.title }}</span>

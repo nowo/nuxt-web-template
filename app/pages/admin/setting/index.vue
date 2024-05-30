@@ -18,10 +18,12 @@ const systemInfo = await systemState.getSystemInfo()
         <el-tabs tab-position="left" class="tab-box">
             <el-tab-pane label="基本设置">
                 <el-scrollbar>
-                    <SetBasic :data="systemInfo" class="pl15px" />
+                    <client-only>
+                        <SetBasic :data="systemInfo" class="pl15px" />
+                    </client-only>
                 </el-scrollbar>
             </el-tab-pane>
-            <el-tab-pane label="SEO设置">
+            <el-tab-pane label="SEO设置" lazy>
                 <el-scrollbar>
                     <SetSeo :data="systemInfo" class="pl15px" />
                 </el-scrollbar>

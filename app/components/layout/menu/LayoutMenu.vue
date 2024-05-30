@@ -13,6 +13,7 @@ const props = defineProps({
 })
 
 const { themeConfig, isDrawer } = useThemeState()
+const { adminRoutes } = useAdminMenuState()
 
 const routes = useRouter().getRoutes()
 
@@ -46,8 +47,8 @@ function arrayToTreeList<T = any>(arr: T[], key: keyof T) {
     return roots
 }
 
-// const treeData = arrayToTreeList(routes,'path');
-// console.log('1231313', treeData);
+const treeData = arrayToTreeList(routes,'path');
+console.log('1231313', treeData);
 
 const routeList = computed(() => {
     const list = routes.filter((item) => {
@@ -92,7 +93,7 @@ function onALinkClick(val: RouteRecordRaw) {
 <template>
     <el-menu router :default-active="$route.path" :collapse="themeConfig.isCollapse" @open="handleOpen"
         @close="handleClose">
-        <LayoutMenuSub :children="routeList" />
+        <LayoutMenuSub :children="adminRoutes" />
         <el-sub-menu index="1">
             <template #title>
                 <el-icon class="i-ep-location" />

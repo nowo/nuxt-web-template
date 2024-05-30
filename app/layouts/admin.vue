@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+const isRouterAlive = ref(true)
+const reload = () => {
+    isRouterAlive.value = false
+    nextTick(() => {
+        isRouterAlive.value = true
+    })
+}
+provide('reload', reload)
 </script>
 
 <template>
@@ -8,7 +16,7 @@
             <!-- <LayoutHeader /> -->
             <el-scrollbar class="w100%">
                 <LayoutAreaHeader />
-                <el-main class="overflow-unset!">
+                <el-main v-if="isRouterAlive" class="overflow-unset!">
                     <slot />
                 </el-main>
             </el-scrollbar>
