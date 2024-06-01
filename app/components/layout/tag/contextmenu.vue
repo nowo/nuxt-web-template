@@ -11,13 +11,13 @@ const state = reactive({
     currentRoute: undefined as RouteRecordNormalized | undefined,
 })
 
-const dropdownList=ref<{id:1|2|3|4|5,name:string,icon:string,isHide?:boolean}[]>([
-        { id: 1, name: '刷新', icon: 'i-ep-refresh-right' },
-        { id: 2, name: '关闭', icon: 'i-ep-close', isHide: false },
-        { id: 3, name: '关闭其它', icon: 'i-ep-circle-close' },
-        { id: 4, name: '全部关闭', icon: 'i-ep-folder-delete' },
-        { id: 5, name: '当前页全屏', icon: 'i-ep:full-screen' },
-    ])
+const dropdownList = ref<{ id: 1 | 2 | 3 | 4 | 5, name: string, icon: string, isHide?: boolean }[]>([
+    { id: 1, name: '刷新', icon: 'i-ep-refresh-right' },
+    { id: 2, name: '关闭', icon: 'i-ep-close', isHide: false },
+    { id: 3, name: '关闭其它', icon: 'i-ep-circle-close' },
+    { id: 4, name: '全部关闭', icon: 'i-ep-folder-delete' },
+    { id: 5, name: '当前页全屏', icon: 'i-ep:full-screen' },
+])
 
 const popStyles = computed(() => {
     return {
@@ -47,8 +47,8 @@ onClickOutside(popRef, (event) => {
     state.visible = false
 })
 
-const onCurrentContextmenuClick = (id: 1|2|3|4|5) => {
-   if(state.currentRoute) setStoreMenuList(id, state.currentRoute)
+const onCurrentContextmenuClick = (id: 1 | 2 | 3 | 4 | 5) => {
+    if (state.currentRoute) setStoreMenuList(id, state.currentRoute)
 
     state.visible = false
 }
@@ -61,7 +61,7 @@ defineExpose({
 <template>
     <transition name="el-zoom-in-center">
         <div v-show="state.visible" ref="popRef"
-            class="pop-box el-popper is-light el-popover el-popover--plain el-dropdown__popper" :style="popStyles">
+            class="el-popper is-light el-popover el-popover--plain el-dropdown__popper pop-box" :style="popStyles">
             <ul class="el-dropdown-menu">
                 <template v-for=" item in dropdownList">
                     <li v-if="!item.isHide" :key="item.id" class="el-dropdown-menu__item" aria-disabled="false"

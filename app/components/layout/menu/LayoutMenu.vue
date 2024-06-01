@@ -47,8 +47,8 @@ function arrayToTreeList<T = any>(arr: T[], key: keyof T) {
     return roots
 }
 
-const treeData = arrayToTreeList(routes,'path');
-console.log('1231313', treeData);
+const treeData = arrayToTreeList(routes, 'path')
+console.log('1231313', treeData)
 
 const routeList = computed(() => {
     const list = routes.filter((item) => {
@@ -94,86 +94,5 @@ function onALinkClick(val: RouteRecordRaw) {
     <el-menu router :default-active="$route.path" :collapse="themeConfig.isCollapse" @open="handleOpen"
         @close="handleClose">
         <LayoutMenuSub :children="adminRoutes" />
-        <el-sub-menu index="1">
-            <template #title>
-                <el-icon class="i-ep-location" />
-                <span>Navigator One</span>
-            </template>
-            <el-menu-item-group title="Group One">
-                <el-menu-item index="1-1">
-                    item one
-                </el-menu-item>
-                <el-menu-item index="1-2">
-                    item two
-                </el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-                <el-menu-item index="1-3">
-                    item three
-                </el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="1-4">
-                <template #title>
-                    item four
-                </template>
-                <el-menu-item index="1-4-1">
-                    item one
-                </el-menu-item>
-            </el-sub-menu>
-        </el-sub-menu>
-        <el-sub-menu index="2">
-            <template #title>
-                <el-icon class="i-ep-location" />
-                <span>Navigator One</span>
-            </template>
-            <el-menu-item-group title="Group One">
-                <el-menu-item index="2-2">
-                    item one
-                </el-menu-item>
-                <el-menu-item index="2-2">
-                    item two
-                </el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-                <el-menu-item index="2-3">
-                    item three
-                </el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="2-4">
-                <template #title>
-                    item four
-                </template>
-                <el-menu-item index="2-4-2">
-                    item one
-                </el-menu-item>
-            </el-sub-menu>
-        </el-sub-menu>
-        <el-sub-menu index="3">
-            <template #title>
-                <el-icon class="i-ep-location" />
-                <span>Navigator One</span>
-            </template>
-            <el-menu-item-group title="Group One">
-                <el-menu-item index="3-3">
-                    item one
-                </el-menu-item>
-                <el-menu-item index="3-3">
-                    item two
-                </el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-                <el-menu-item index="3-3">
-                    item three
-                </el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="3-4">
-                <template #title>
-                    item four
-                </template>
-                <el-menu-item index="3-4-3">
-                    item one
-                </el-menu-item>
-            </el-sub-menu>
-        </el-sub-menu>
     </el-menu>
 </template>

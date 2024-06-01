@@ -135,8 +135,8 @@ onBeforeMount(() => {
             </el-col>
             <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
                 <el-form-item prop="seo_description" label="SEO描述：">
-                    <el-input v-model="form.data.seo_description" type="textarea" show-word-limit maxlength="150"
-                        clearable />
+                    <el-input v-model="form.data.seo_description" type="textarea" maxlength="150"
+                        clearable show-word-limit />
                 </el-form-item>
             </el-col>
             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">

@@ -97,11 +97,11 @@ export const useAdminMenuState = () => {
         const fixArr = tagMenuList.value.filter(item => item.meta?.isAffix).map(v => v.path)
         if (type === 1) { // 刷新
             // console.log(mainLoad)
-          if(route.path===row.path){
-            mainLoad?.()
-          }else{
-            navigateTo(row)
-          }
+            if (route.path === row.path) {
+                mainLoad?.()
+            } else {
+                navigateTo(row)
+            }
         } else if (type === 2) { // 关闭
             if (storageIndex >= 0) storageMenuList.value.splice(storageIndex, 1)
         } else if (type === 3) { // 关闭其他
@@ -114,10 +114,10 @@ export const useAdminMenuState = () => {
             // 跳转固定页或首页
             const node = tagMenuList.value[tagMenuList.value.length - 1]
             navigateTo(node)
-        }else if(type===5){ // 半全屏
+        } else if (type === 5) { // 半全屏
             // 跳转至当前页
             navigateTo(row)
-            isCurrentFullscreen.value=true
+            isCurrentFullscreen.value = true
         }
     }
 

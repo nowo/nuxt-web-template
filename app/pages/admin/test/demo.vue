@@ -13,13 +13,13 @@ const item = {
 }
 
 const mainLoad = inject<() => void>('reload')
-
 </script>
 
 <template>
     <LayoutBox>
-        <el-button @click="mainLoad">刷新页面</el-button>
-        测试{{item}}
-
+        <el-button @click="mainLoad">
+            刷新页面
+        </el-button>
+        测试{{ item }}
     </LayoutBox>
 </template>

@@ -143,14 +143,33 @@ model Upload {
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
 
-    product    Product? @relation(fields: [product_id], references: [id])
-    product_id Int?
-    links      Link?    @relation(fields: [link_id], references: [id])
-    link_id    Int?
-    // menu      menu? @relation(fields: [menu_id], references: [id])
-    // menu_id Int?
-    news       News?    @relation(fields: [news_id], references: [id])
-    news_id    Int?
-    other      Other?   @relation(fields: [other_id], references: [id])
-    other_id   Int?
+    product Product[]
+    links   Link[]
+    news    News[]
+    other   Other[]
 }
+
+// model UploadRelation {
+//     // id          Int     @id @default(autoincrement())
+//     // title       String? @db.VarChar(100)
+//     // description String? @db.VarChar(200)
+//     // sort        Int?    @default(0)
+//     // url         String? @db.VarChar(255)
+//     // type        Int?    @default(0)
+
+//     created_at DateTime @default(now())
+//     updated_at DateTime @updatedAt
+
+//     product    Product? @relation(fields: [product_id], references: [id])
+//     product_id Int?
+//     links      Link?    @relation(fields: [link_id], references: [id])
+//     link_id    Int?
+//     // menu      menu? @relation(fields: [menu_id], references: [id])
+//     // menu_id Int?
+//     news       News?    @relation(fields: [news_id], references: [id])
+//     news_id    Int?
+//     other      Other?   @relation(fields: [other_id], references: [id])
+//     other_id   Int?
+
+//     @@id([product_id, link_id, news_id, other_id])
+// }

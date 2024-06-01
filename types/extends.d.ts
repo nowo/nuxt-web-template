@@ -54,7 +54,7 @@ declare module '#app' {
         icon?: string // 菜单图标
 
         isKeepAlive?: 0 | 1 | boolean // 是否缓存组件状态         true
-        isAffix?: boolean   // 是否固定在标签栏
+        isAffix?: boolean // 是否固定在标签栏
     }
 }
 

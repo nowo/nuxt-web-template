@@ -11,12 +11,10 @@ const item = {
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
 }
-
 </script>
 
 <template>
     <LayoutBox>
-        测试{{item}}
-
+        测试{{ item }}
     </LayoutBox>
 </template>

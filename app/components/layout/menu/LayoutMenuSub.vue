@@ -1,7 +1,7 @@
 <!-- 菜单 -->
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { RouteRecordNormalized, RouteRecordRaw } from 'vue-router'
+import type { RouteRecordNormalized } from 'vue-router'
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -20,7 +20,6 @@ const childList = computed(() => {
 })
 // 打开外部链接
 function onALinkClick(val: RouteRecordNormalized) {
-
     updateStoreMenuList(val, 1)
     // navigateTo(val)
 }

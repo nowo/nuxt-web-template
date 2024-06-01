@@ -58,16 +58,16 @@ const onContextmenu = (e: MouseEvent, row: RouteRecordNormalized) => {
                         :class="{ on: $route.path === item.path }" @click="onLink(item)"
                         @contextmenu.prevent="(e) => onContextmenu(e, item)">
                         {{ item.meta.title }}
-                        <i v-if="!item.meta.isAffix" class="tag-close-icon i-ep-close" @click.stop="onCloseTag(item)">
+                        <i v-if="!item.meta.isAffix" class="i-ep-close tag-close-icon" @click.stop="onCloseTag(item)">
                             <!-- <i class="i-ep-close" /> -->
                         </i>
                     </li>
                     <!-- </ul> -->
                 </VueDraggable>
+                <Teleport to="body">
+                    <LayoutTagContextmenu ref="contextmenuRef" />
+                </Teleport>
             </ClientOnly>
-            <Teleport to="body">
-                <LayoutTagContextmenu ref="contextmenuRef" />
-            </Teleport>
         </div>
     </el-scrollbar>
 </template>

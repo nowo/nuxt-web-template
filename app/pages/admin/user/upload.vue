@@ -27,7 +27,7 @@ const submit = async () => {
 
     formData.append('type', 'img')
     // formData.append('data', JSON.stringify({ msg: 'hello', value: 1 }))
-    formData.append('data', new Blob([JSON.stringify({ msg: 'hello', value: 1 })], { type: 'application/json' }))
+    // formData.append('data', new Blob([JSON.stringify({ msg: 'hello', value: 1 })], { type: 'application/json' }))
     const response = await useServerFetch('/api/v1/upload', {
         method: 'POST',
         body: formData,
