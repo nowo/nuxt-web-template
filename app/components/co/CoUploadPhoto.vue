@@ -3,8 +3,13 @@ import type { UploadFile, UploadInstance, UploadFiles, UploadProps, UploadUserFi
 import { ElMessage, genFileId } from 'element-plus'
 import { computed, reactive, watch } from 'vue'
 
+defineOptions({
+    inheritAttrs: false
+})
+
 const props = defineProps<{
     modelValue: string[] // 图片数组
+    delete?:boolean // 是否调用删除接口
 }>()
 
 const emits = defineEmits<{
@@ -21,53 +26,57 @@ const imageState = reactive({
 
 const attrs = useAttrs()
 
+// 转驼峰命名
+function convertKeysToCamelCase(obj:Record<string, any>) {
+    const newObj:Record<string, any> = {};
+
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            const camelCaseKey = key.replace(/-([a-z])/g, function (match) {
+                return match[1].toUpperCase();
+            });
+            newObj[camelCaseKey] = obj[key];
+        }
+    }
+    return newObj;
+}
+
+
 // upload组件默认传值
 const propsAttr = reactive<Partial<UploadProps>>({
     // autoUpload: false, // 不自动上传
-    listType: 'picture-card',
+    'listType': 'picture-card',
     // 'multiple': true, // 是否支持多选文件
     limit: 1, // 最大允许上传个数
     accept: 'image/*', // 文件类型
     action: '/', // 上传地址
-    ...attrs
+    ...convertKeysToCamelCase(attrs),   // attrs传过来的可能是`list-type`短横线命名,这里需要转驼峰命名
 })
 
 
-const uploadList = computed({
-    get() {
-        // 过滤掉空值
-        const list = props.modelValue.filter(item => !!item).map((item) => {
-            const dat: UploadUserFile = { name: item, url: item, status: 'success' }
-            return dat
-        })
-        // 数量超出limit限制时
-        const limit = Number(attrs.limit) || propsAttr.limit || 1
-        return list.length > limit ? list.slice(0, limit) : list
-    },
-    set(val) {
-        // props.modelValue = val
-    },
-})
-// const uploadList = ref<UploadUserFile[]>([])
+// 图片数据列表
+const uploadList = ref<UploadUserFile[]>([])
 
-// const initData=()=>{
-//     const list = props.modelValue.filter(item => !!item).map((item) => {
-//             const dat: UploadUserFile = { name: item, url: item, status: 'success' }
-//             return dat
-//         })
-//         // 数量超出limit限制时
-//         const limit = Number(attrs.limit) || propsAttr.limit || 1
-//         // imageState.fileLength = list.length > limit ? limit : list.length
-//         uploadList.value= list.length > limit ? list.slice(0, limit) : list
-// }
+// props.modelValue处理，转成相应的数据内容
+const initData = () => {
+    const list = props.modelValue.filter(item => !!item).map((item) => {
+        const dat: UploadUserFile = { name: item, url: item, status: 'success' }
+        return dat
+    })
+    // 数量超出limit限制时
+    const limit = propsAttr.limit || 1
+    // imageState.fileLength = list.length > limit ? limit : list.length
+    uploadList.value = list.length > limit ? list.slice(0, limit) : list
+}
 
 // 是否隐藏添加图标
 const isHideIcon = computed(() => {
     console.log(attrs)
+    console.log('propsAttr,', propsAttr)
     // 禁用时不显示添加图标
     if ('disabled' in attrs) return true
     // 已达到上传个数时不显示添加图标
-    const limit = Number(attrs.limit) || propsAttr.limit || 1
+    const limit = propsAttr.limit || 1
     const list = uploadList.value.filter(item => !!item)
     return list.length >= limit ? true : false
 })
@@ -94,7 +103,7 @@ const onUploadFile: UploadRequestHandler = async (options) => {
 }
 // 上传成功操作,更新数据，去除前端预览的blob地址
 const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) => {
-    console.log(response, file, files)
+    // console.log(response, file, files)
     // 只有所有都上传成功了才处理
     const isSuccess = files.every(it => it.status === 'success')
     // console.log('isSuccess :>> ', isSuccess);
@@ -113,6 +122,29 @@ const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) 
         }
     })
     emitsUpdate()
+
+}
+
+// 文件超出数量处理
+const onImageExceed: UploadProps['onExceed'] = (files) => {
+    const limit = propsAttr.limit || 1
+    // 剩余可上传数量
+    const max = limit - uploadList.value.length
+    if (limit === 1 && max === 0) { // 单个时，替换
+        uploadRef.value!.clearFiles()
+        const file = files[0] as UploadRawFile
+        file.uid = genFileId()
+        uploadRef.value!.handleStart(file)
+        uploadRef.value?.submit()
+    } else if (files.length > max) {   // 超出时，只上传剩余可上传数量
+        files.slice(0, max).forEach(item => {
+            const file = item as UploadRawFile
+            file.uid = genFileId()
+            uploadRef.value!.handleStart(file)
+            uploadRef.value?.submit()
+        })
+    }
+
 
 }
 
@@ -139,17 +171,30 @@ const closeView = () => {
     imageState.viewer = false
 }
 
+watchEffect(() => {
+    initData()
+})
+
+defineExpose({
+    uploadRef
+})
 </script>
 
 <template>
 
-    <el-upload v-bind="propsAttr" ref="uploadRef" class="upload-box"
-        :class="{ 'upload-hide-add': isHideIcon }" v-model:file-list="uploadList"
-        :on-preview="onImgPreview" :on-remove="onImageRemove" :http-request="onUploadFile" :on-success="onUploadSuccess"
-        >
+    <el-upload v-bind="propsAttr" ref="uploadRef" class="upload-box" :class="{ 'upload-hide-add': isHideIcon }"
+        v-model:file-list="uploadList" :on-preview="onImgPreview" :on-remove="onImageRemove"
+        :http-request="onUploadFile" :on-success="onUploadSuccess" :on-exceed="onImageExceed">
         <slot v-if="$slots['default']" />
-        <el-icon v-else-if="propsAttr.listType === 'picture-card'||propsAttr.listType === 'picture'" class="i-ep-plus">
-            <!-- <ele-Plus /> -->
+        <el-icon v-else-if="propsAttr.listType === 'picture-card'" class="i-ep-plus">
+        </el-icon>
+        <div v-else-if="'drag' in propsAttr">
+            <el-icon class="el-icon--upload i-ep-upload-filled"></el-icon>
+            <div class="el-upload__text">
+                将文件拖放至这里或<em>点击</em>
+            </div>
+        </div>
+        <el-icon v-else-if="propsAttr.listType === 'picture' || propsAttr.listType === 'text'" class="i-ep-plus">
         </el-icon>
     </el-upload>
     <el-image-viewer v-if="imageState.viewer" :url-list="props.modelValue" :z-index="10000"
@@ -174,12 +219,12 @@ const closeView = () => {
                 width: 0px;
                 border: 0;
             }
-            .el-upload.el-upload--picture{
-                opacity: 0.5;
-                pointer-events: none;
-            }
+
+            // .el-upload.el-upload--picture{
+            //     opacity: 0.5;
+            //     pointer-events: none;
+            // }
         }
     }
 }
-
 </style>

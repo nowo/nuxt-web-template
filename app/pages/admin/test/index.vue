@@ -32,8 +32,8 @@ watchEffect(() => {
         <el-button @click="onChange">更换</el-button>
 
         list-type="text" disabled
-        <CoUploadPhoto v-model="list" :limit="1" list-type="picture" drag multiple class="show-box1">
-            <template #tip>上传提示信息</template>
+        <CoUploadPhoto v-model="list" :limit="1" list-type="picture-card" drag multiple class="show-box1">
         </CoUploadPhoto>
+        <!-- <template #tip>上传提示信息</template> -->
     </LayoutBox>
 </template>
