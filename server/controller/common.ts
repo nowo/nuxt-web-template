@@ -1,4 +1,4 @@
-import { mkdir } from 'node:fs/promises'
+import { mkdir,writeFile } from 'node:fs/promises'
 /**
  * 保存文件信息
  */
@@ -14,18 +14,29 @@ export const setSaveFile = defineEventHandler(async (event) => {
 
     const files = (await readMultipartFormData(event)) || []
     console.log('files :>> ', files)
-    const dir = `public/upload/${new Date().getTime()}`
+    const dir = `public/upload`
     // 创建文件夹
     await mkdir(dir, { recursive: true })
-    // for(let item of files) {
-    //     if(item.type){
-    //         // await createWriteStream()
-    //         await writeFile(`${dir}/${item.filename}`, item.data, {
-    //             flag: 'w',
-    //         })
-    //     }
-    // }
-    return 'ok'
+    const list:string[]=[]
+    let filename=''
+    for(const item of files) {
+        if(item.type){
+            filename=item.filename||''
+            // await createWriteStream()
+            await writeFile(`${dir}/${filename}`, item.data, {
+                flag: 'w',
+            })
+            list.push(`/upload/${filename}`)
+        }
+    }
+    return {
+        code:200,
+        data:{
+            src:`/upload/${filename}`,
+            list
+        },
+        msg:'上传失败'
+    }
     // await writeFile(`${location}${filelocation}/${filename}.${ext}`, binaryString, {
     //     flag: 'w',
     // })
