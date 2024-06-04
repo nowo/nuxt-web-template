@@ -9,6 +9,8 @@ router.use('/file/upload', setSaveFile) // 文件上传保存
 router.use('/file/delete', setDeleteFile) // 文件删除
 
 router.use('/login', setLoginSign) // 用户登录
+router.use('/logon', setLoginSign) // 用户注册
+router.use('/password', setLoginSign) // 修改密码
 
 router.use('/system/info', getSystemInfo) // 获取系统信息
 router.use('/system/edit', setSystemInfo) // 修改系统信息

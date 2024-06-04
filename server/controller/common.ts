@@ -89,11 +89,6 @@ export const setDeleteFile = defineEventHandler(async (event) => {
     console.log(JSON.parse(t))
     return JSON.parse(t)
 
-    // console.log(1111)
-    // // // 接口校验
-    // // const authSign = await useVerifySign(event)
-    // // if (!authSign) return ResponseMessage.sign
-
     // // if (!event.context.user) return ResponseMessage.token
     // const { file } = await readBody<{ file: File }>(event)
     // console.log('file :>> ', file)

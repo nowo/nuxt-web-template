@@ -53,3 +53,97 @@ export const setLoginSign = defineEventHandler(async (event) => {
         }
     }
 })
+
+/**
+ * 注册
+ */
+export const setRegister = defineEventHandler(async (event) => {
+    // TODO 注册用户
+
+    interface LoginDataType {
+        account: string
+        password: string
+        username: string
+    }
+    // const method = getMethod(event)
+    // const query = getQuery(event) as unknown as LoginDataType
+    // const body = await readBody<LoginDataType>(event)
+    // const param = method === 'GET' ? query : body
+
+    // 接口校验
+    // const authSign = await useVerifySign(event)
+    // if (!authSign) return { msg: '签名错误' }
+
+    // 获取参数
+    const param = await getEventParams<Prisma.AdminCreateInput>(event)
+
+    const username = param?.username?.trim?.() || ''
+    const account = param?.account?.trim?.() || ''
+    const password = param?.password?.trim?.() || ''
+
+    if (!username) return { msg: '请输入用户名' }
+
+    if (!account) return { msg: '请输入登录账号' }
+    if (!password) return { msg: '请输入登录密码' }
+    // TODO 可以进行密码强度校验
+
+    const user = await prisma.admin.create({
+        data: {
+            username,
+            account,
+            password: setEncryptPassword(password),
+        },
+    })
+
+    if (user) {
+        return { code: 200, data: { account: user.account, username: user.username }, msg: 'success' }
+    } else {
+        return { msg: '注册失败，请稍后再试' }
+    }
+})
+
+/**
+ * 修改密码
+ */
+export const setPasswordUpdate = defineEventHandler(async (event) => {
+    const userInfo=event.context.user
+    if(!userInfo) return 
+
+
+
+    // 获取参数
+    const param = await getEventParams<IAdminPasswordUpdate>(event)
+
+    const account = param?.account?.trim?.() || ''
+    const password = param?.password?.trim?.() || ''
+    const newPassword = param?.newPassword?.trim?.() || ''
+
+
+    if (!account) return { msg: '请输入登录账号' }
+    if (!password) return { msg: '请输入登录密码' }
+
+    if (password === newPassword) return { msg: '新密码不能与原密码相同' }
+
+
+    // 查询原密码是否正确
+    const admin = await prisma.admin.findUnique({
+        where: {
+            id: userInfo.id,
+            password: setEncryptPassword(password),
+        },
+    })
+    if (!admin) return { msg: '原密码错误' }
+
+    // 修改密码
+    const user = await prisma.admin.update({
+        data: {
+            password: setEncryptPassword(newPassword),
+        },
+        where: {
+            id: userInfo.id,
+        },
+    })
+
+    if (!user) return { msg: '网络错误' }
+    return { code: 200, msg: '修改成功' }
+})

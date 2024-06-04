@@ -39,7 +39,7 @@ function createHash(text: any, type: 'md5' | 'sha256' | 'sha512' = 'md5') {
  */
 
 /**
- * 用户密码设置加密，加密规则：md5加密两次
+ * 用户密码设置加密，加密规则：md5加密两次（第二次加密取前8位后拼接`??`再进行加密）
  * @param password 用户明文密码
  * @returns string  加密后的密码字符串
  * @example
