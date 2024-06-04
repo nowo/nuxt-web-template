@@ -14,7 +14,6 @@ const item = {
 
 const list = ref(['https://cjh-ticket.cdn.bcebos.com/100p0q000000g9yl7EA0C.jpg'])
 
-
 const onChange = () => {
     // list.value = ['']
 
@@ -22,18 +21,19 @@ const onChange = () => {
 }
 
 watchEffect(() => {
-    console.log('watch list :>> ', list.value);
+    console.log('watch list :>> ', list.value)
 })
 </script>
 
 <template>
     <LayoutBox>
         测试{{ item }}
-        <el-button @click="onChange">更换</el-button>
+        <el-button @click="onChange">
+            更换
+        </el-button>
 
         list-type="text" disabled
-        <CoUploadPhoto v-model="list" :limit="1" list-type="picture-card" drag multiple class="show-box1">
-        </CoUploadPhoto>
+        <CoUploadPhoto v-model="list" :limit="1" list-type="picture-card" drag multiple class="show-box1" />
         <!-- <template #tip>上传提示信息</template> -->
     </LayoutBox>
 </template>

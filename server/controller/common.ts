@@ -1,4 +1,4 @@
-import { mkdir,writeFile } from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 /**
  * 保存文件信息
  */
@@ -17,11 +17,11 @@ export const setSaveFile = defineEventHandler(async (event) => {
     const dir = `public/upload`
     // 创建文件夹
     await mkdir(dir, { recursive: true })
-    const list:string[]=[]
-    let filename=''
-    for(const item of files) {
-        if(item.type){
-            filename=item.filename||''
+    const list: string[] = []
+    let filename = ''
+    for (const item of files) {
+        if (item.type) {
+            filename = item.filename || ''
             // await createWriteStream()
             await writeFile(`${dir}/${filename}`, item.data, {
                 flag: 'w',
@@ -30,12 +30,12 @@ export const setSaveFile = defineEventHandler(async (event) => {
         }
     }
     return {
-        code:200,
-        data:{
-            src:`/upload/${filename}`,
-            list
+        code: 200,
+        data: {
+            src: `/upload/${filename}`,
+            list,
         },
-        msg:'上传失败'
+        msg: '上传失败',
     }
     // await writeFile(`${location}${filelocation}/${filename}.${ext}`, binaryString, {
     //     flag: 'w',

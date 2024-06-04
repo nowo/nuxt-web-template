@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import type { UploadFile, UploadInstance, UploadFiles, UploadProps, UploadUserFile, UploadRequestHandler, UploadRawFile } from 'element-plus'
+import type { UploadFile, UploadInstance, UploadProps, UploadRawFile, UploadRequestHandler, UploadUserFile } from 'element-plus'
 import { ElMessage, genFileId } from 'element-plus'
-import { computed, reactive, watch } from 'vue'
+import { computed, reactive } from 'vue'
 
 defineOptions({
-    inheritAttrs: false
+    inheritAttrs: false,
 })
 
 const props = defineProps<{
     modelValue: string[] // 图片数组
-    delete?:boolean // 是否调用删除接口
+    delete?: boolean // 是否调用删除接口
 }>()
 
 const emits = defineEmits<{
@@ -27,32 +27,31 @@ const imageState = reactive({
 const attrs = useAttrs()
 
 // 转驼峰命名
-function convertKeysToCamelCase(obj:Record<string, any>) {
-    const newObj:Record<string, any> = {};
+function convertKeysToCamelCase(obj: Record<string, any>) {
+    const newObj: Record<string, any> = {}
 
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            const camelCaseKey = key.replace(/-([a-z])/g, function (match) {
-                return match[1].toUpperCase();
-            });
-            newObj[camelCaseKey] = obj[key];
+    for (const key in obj) {
+        // 排除原型链上的属性
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            const camelCaseKey = key.replace(/-([a-z])/g, (match) => {
+                return match[1].toUpperCase()
+            })
+            newObj[camelCaseKey] = obj[key]
         }
     }
-    return newObj;
+    return newObj
 }
-
 
 // upload组件默认传值
 const propsAttr = reactive<Partial<UploadProps>>({
     // autoUpload: false, // 不自动上传
-    'listType': 'picture-card',
+    listType: 'picture-card',
     // 'multiple': true, // 是否支持多选文件
     limit: 1, // 最大允许上传个数
     accept: 'image/*', // 文件类型
     action: '/', // 上传地址
-    ...convertKeysToCamelCase(attrs),   // attrs传过来的可能是`list-type`短横线命名,这里需要转驼峰命名
+    ...convertKeysToCamelCase(attrs), // attrs传过来的可能是`list-type`短横线命名,这里需要转驼峰命名
 })
-
 
 // 图片数据列表
 const uploadList = ref<UploadUserFile[]>([])
@@ -78,7 +77,7 @@ const isHideIcon = computed(() => {
     // 已达到上传个数时不显示添加图标
     const limit = propsAttr.limit || 1
     const list = uploadList.value.filter(item => !!item)
-    return list.length >= limit ? true : false
+    return list.length >= limit
 })
 // 更新父组件值
 const emitsUpdate = (val?: string[]) => {
@@ -99,7 +98,6 @@ const onUploadFile: UploadRequestHandler = async (options) => {
         body: formData,
     })
     return res
-
 }
 // 上传成功操作,更新数据，去除前端预览的blob地址
 const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) => {
@@ -109,20 +107,19 @@ const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) 
     // console.log('isSuccess :>> ', isSuccess);
     if (!isSuccess) return
     // console.log('uploadList.value :>> ', uploadList.value);
-    files.forEach(item => {
-        //只取携带response的才是刚上传的
+    files.forEach((item) => {
+        // 只取携带response的才是刚上传的
         const resData = item.response as { code: number, data: { src: string }, msg: string }
         if (resData) {
-            if (resData.code === 200) { //成功上传
+            if (resData.code === 200) { // 成功上传
                 item.url = resData.data.src
-                uploadList.value.push(item);
-            } else {  //失败上传
+                uploadList.value.push(item)
+            } else { // 失败上传
                 ElMessage.error(resData.msg)
             }
         }
     })
     emitsUpdate()
-
 }
 
 // 文件超出数量处理
@@ -136,19 +133,15 @@ const onImageExceed: UploadProps['onExceed'] = (files) => {
         file.uid = genFileId()
         uploadRef.value!.handleStart(file)
         uploadRef.value?.submit()
-    } else if (files.length > max) {   // 超出时，只上传剩余可上传数量
-        files.slice(0, max).forEach(item => {
+    } else if (files.length > max) { // 超出时，只上传剩余可上传数量
+        files.slice(0, max).forEach((item) => {
             const file = item as UploadRawFile
             file.uid = genFileId()
             uploadRef.value!.handleStart(file)
             uploadRef.value?.submit()
         })
     }
-
-
 }
-
-
 
 // 移除图片
 const onImageRemove = (file: UploadFile) => {
@@ -176,30 +169,26 @@ watchEffect(() => {
 })
 
 defineExpose({
-    uploadRef
+    uploadRef,
 })
 </script>
 
 <template>
-
-    <el-upload v-bind="propsAttr" ref="uploadRef" class="upload-box" :class="{ 'upload-hide-add': isHideIcon }"
-        v-model:file-list="uploadList" :on-preview="onImgPreview" :on-remove="onImageRemove"
+    <el-upload v-bind="propsAttr" ref="uploadRef" v-model:file-list="uploadList" class="upload-box"
+        :class="{ 'upload-hide-add': isHideIcon }" :on-preview="onImgPreview" :on-remove="onImageRemove"
         :http-request="onUploadFile" :on-success="onUploadSuccess" :on-exceed="onImageExceed">
-        <slot v-if="$slots['default']" />
-        <el-icon v-else-if="propsAttr.listType === 'picture-card'" class="i-ep-plus">
-        </el-icon>
+        <slot v-if="$slots.default" />
+        <el-icon v-else-if="propsAttr.listType === 'picture-card'" class="i-ep-plus" />
         <div v-else-if="'drag' in propsAttr">
-            <el-icon class="el-icon--upload i-ep-upload-filled"></el-icon>
+            <el-icon class="el-icon--upload i-ep-upload-filled" />
             <div class="el-upload__text">
                 将文件拖放至这里或<em>点击</em>
             </div>
         </div>
-        <el-icon v-else-if="propsAttr.listType === 'picture' || propsAttr.listType === 'text'" class="i-ep-plus">
-        </el-icon>
+        <el-icon v-else-if="propsAttr.listType === 'picture' || propsAttr.listType === 'text'" class="i-ep-plus" />
     </el-upload>
     <el-image-viewer v-if="imageState.viewer" :url-list="props.modelValue" :z-index="10000"
         :initial-index="imageState.index" teleported @close="closeView" />
-
 </template>
 
 <style lang="scss" scoped>
