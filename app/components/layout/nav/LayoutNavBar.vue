@@ -6,6 +6,8 @@ interface NavBarStateData {
 const { themeConfig, isDrawer } = useThemeState()
 const { userInfo } = useUserState()
 
+const passwordRef=ref<ComponentInstance['LayoutOtherPassword']>()
+
 const state = reactive<NavBarStateData>({
     configSizeData: {
         large: '大型',
@@ -50,6 +52,9 @@ function onHandleCommandClick(command: string) {
         }).catch(() => {
             // catch error
         })
+    }else if(command==='password'){// 修改密码
+        
+        passwordRef.value?.openDialog()
     }
 }
 </script>
@@ -108,7 +113,7 @@ function onHandleCommandClick(command: string) {
                         <el-dropdown-item command="/">
                             首页
                         </el-dropdown-item>
-                        <el-dropdown-item command="change">
+                        <el-dropdown-item command="password">
                             修改密码
                         </el-dropdown-item>
                         <!-- <el-dropdown-item command="clear">
@@ -121,6 +126,7 @@ function onHandleCommandClick(command: string) {
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
+            <LayoutOtherPassword ref="passwordRef" />
         </ClientOnly>
         <Teleport to="body">
             <LayoutOtherSetting v-model="isDrawer" />

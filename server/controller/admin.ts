@@ -114,15 +114,15 @@ export const setPasswordUpdate = defineEventHandler(async (event) => {
     // 获取参数
     const param = await getEventParams<IAdminPasswordUpdate>(event)
 
-    const account = param?.account?.trim?.() || ''
+    // const account = param?.account?.trim?.() || ''
     const password = param?.password?.trim?.() || ''
     const newPassword = param?.newPassword?.trim?.() || ''
 
 
-    if (!account) return { msg: '请输入登录账号' }
+    // if (!account) return { msg: '请输入登录账号' }
     if (!password) return { msg: '请输入登录密码' }
 
-    if (password === newPassword) return { msg: '新密码不能与原密码相同' }
+
 
 
     // 查询原密码是否正确
@@ -133,6 +133,7 @@ export const setPasswordUpdate = defineEventHandler(async (event) => {
         },
     })
     if (!admin) return { msg: '原密码错误' }
+    if (password === newPassword) return { msg: '新密码不能与原密码相同' }
 
     // 修改密码
     const user = await prisma.admin.update({
@@ -144,6 +145,10 @@ export const setPasswordUpdate = defineEventHandler(async (event) => {
         },
     })
 
-    if (!user) return { msg: '网络错误' }
-    return { code: 200, msg: '修改成功' }
+    if (user){
+        // 可以进行cookie清除
+        return { code: 200, msg: '修改成功' }
+    }else{
+        return { msg: '网络错误' }
+    }
 })
