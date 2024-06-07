@@ -4,3 +4,10 @@ declare interface IAdminPasswordUpdate {
     password: string
     newPassword: string
 }
+
+
+declare interface IAdminListParams extends IListPage{
+    account: string
+    username: string
+    status: string
+}

@@ -1,6 +1,6 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
 import { setDeleteFile, setSaveFile } from '../../controller/common'
-import { setLoginSign,setPasswordUpdate,setRegister } from '../../controller/admin'
+import { getAdminList, setAdminCreate, setAdminDelete, setAdminUpdate, setLoginSign,setPasswordUpdate,setRegister } from '../../controller/admin'
 import { getSystemInfo, setSystemInfo } from '../../controller/system'
 
 const router = createRouter()
@@ -14,6 +14,11 @@ router.use('/password', setPasswordUpdate) // 修改密码
 
 router.use('/system/info', getSystemInfo) // 获取系统信息
 router.use('/system/edit', setSystemInfo) // 修改系统信息
+
+router.use('/admin/list', getAdminList) // 用户列表
+router.use('/admin/add', setAdminCreate) // 添加用户
+router.use('/admin/edit', setAdminUpdate) // 修改用户
+router.use('/admin/delete', setAdminDelete) // 删除用户
 
 /**
  * 获取所有菜单信息

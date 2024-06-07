@@ -45,3 +45,12 @@ declare interface CoTableProps<T> {
  * element-plus,DateTimePicker 日期时间选择器,v-model类型
  */
 declare type DateRangeType = [Date, Date] | [string, string]
+
+/**
+ * 分页设置
+ */
+declare interface IListPage {
+    isPage?: boolean
+    page?: number
+    pageSize?: number
+}
