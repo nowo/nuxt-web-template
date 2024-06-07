@@ -127,10 +127,10 @@ function onHandleCommandClick(command: string) {
                 </template>
             </el-dropdown>
             <LayoutOtherPassword ref="passwordRef" />
+            <Teleport to="body">
+                <LayoutOtherSetting v-model="isDrawer" />
+            </Teleport>
         </ClientOnly>
-        <Teleport to="body">
-            <LayoutOtherSetting v-model="isDrawer" />
-        </Teleport>
     </div>
 </template>
 

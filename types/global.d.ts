@@ -54,3 +54,5 @@ declare interface IListPage {
     page?: number
     pageSize?: number
 }
+
+declare type DialogOperate='add'|'edit'  // |'view'|'delete'

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Admin } from '@prisma/client'
 import type { FormRules } from 'element-plus'
+import UserModal from './components/UserModal.vue'
 
 definePageMeta({
     layout: 'admin',
@@ -9,6 +10,8 @@ definePageMeta({
     sort: 10,
     // keepalive: true
 })
+
+const modalRef = ref<InstanceType<typeof UserModal>>()
 
 // form表单数据类型
 interface FormSearchData {
@@ -89,6 +92,32 @@ const onReset = () => {
 
 }
 
+
+// 打开新增、修改
+const onOpenDialog = (type: DialogOperate, row?: Admin) => {
+    modalRef.value?.openModal(type, row)
+}
+
+
+// 删除用户
+const onDel = (row: Admin) => {
+    ElMessageBox.confirm(`此操作将永久删除该条内容，是否继续?`, '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+        buttonSize: 'default',
+    }).then(async () => {
+        // const res = await ApiUser.del({ admin_id: row.id })
+        // if (res.code !== 200) return ElMessage.error(res.msg)
+
+        // ElMessage.success('删除成功')
+
+        initTableData() // 重新加载列表
+    }).catch(() => { })
+}
+
+
+
 initTableData()
 </script>
 
@@ -104,13 +133,23 @@ initTableData()
             <template #time="{ row }">
                 <CoDatePicker v-model="row.time" />
             </template>
+            <el-button type="success" @click="onOpenDialog('add')">
+                <el-icon class="i-ep-folder-add mr2px">
+                    <!-- <ele-FolderAdd /> -->
+                </el-icon>
+                新增用户
+            </el-button>
         </CoFormTool>
         <CoTable v-model:option="tableData" auto-height border>
-            <template #operate>
-                <el-button type="primary" link>
+            <template #operate="{ row }">
+                <el-button type="primary" link @click="onOpenDialog('edit',row)">
                     修改
+                </el-button>
+                <el-button type="danger" link @click="onDel(row)">
+                    删除
                 </el-button>
             </template>
         </CoTable>
+        <UserModal ref="modalRef" />
     </LayoutBox>
 </template>
