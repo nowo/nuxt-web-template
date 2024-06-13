@@ -55,4 +55,5 @@ declare interface IListPage {
     pageSize?: number
 }
 
-declare type DialogOperate='add'|'edit'  // |'view'|'delete'
+declare type DialogOperate = 'add' | 'edit' // |'view'|'delete'
+declare type PermissionType = 'add' | 'edit' | 'del' // |'view'|'delete'

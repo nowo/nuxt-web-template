@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const route = useRoute<'hi-id'>()
-const user = useUserStore()
+// const user = useUserStore()
 const name = route.params.id
 
-watchEffect(() => {
-    user.setNewName(route.params.id as string)
-})
+// watchEffect(() => {
+//     user.setNewName(route.params.id as string)
+// })
 
 definePageMeta({
     layout: 'home',
@@ -22,7 +22,7 @@ definePageMeta({
             {{ name }}!
         </div>
 
-        <template v-if="user.otherNames.length">
+        <!-- <template v-if="user.otherNames.length">
             <p my-4 text-sm>
                 <span op-50>Also as known as:</span>
             </p>
@@ -33,7 +33,7 @@ definePageMeta({
                     </router-link>
                 </li>
             </ul>
-        </template>
+        </template> -->
 
         <div>
             <NuxtLink class="m-3 text-sm btn" to="/">

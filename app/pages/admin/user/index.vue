@@ -9,9 +9,16 @@ definePageMeta({
     icon: 'i-ep-user',
     sort: 10,
     // keepalive: true
+    permissionList: {
+        add: '新增',
+        edit: '编辑',
+        del: '删除',
+    },
+    permissionCode:['edit','add']
 })
 
 const modalRef = ref<InstanceType<typeof UserModal>>()
+// const modalRef = ref<any>()
 
 // form表单数据类型
 interface FormSearchData {
@@ -92,12 +99,10 @@ const onReset = () => {
 
 }
 
-
 // 打开新增、修改
 const onOpenDialog = (type: DialogOperate, row?: Admin) => {
     modalRef.value?.openModal(type, row)
 }
-
 
 // 删除用户
 const onDel = (row: Admin) => {
@@ -116,8 +121,6 @@ const onDel = (row: Admin) => {
     }).catch(() => { })
 }
 
-
-
 initTableData()
 </script>
 
@@ -133,7 +136,7 @@ initTableData()
             <template #time="{ row }">
                 <CoDatePicker v-model="row.time" />
             </template>
-            <el-button type="success" @click="onOpenDialog('add')">
+            <el-button v-if="checkPermission('add')" type="success" @click="onOpenDialog('add')">
                 <el-icon class="i-ep-folder-add mr2px">
                     <!-- <ele-FolderAdd /> -->
                 </el-icon>
@@ -142,14 +145,17 @@ initTableData()
         </CoFormTool>
         <CoTable v-model:option="tableData" auto-height border>
             <template #operate="{ row }">
-                <el-button type="primary" link @click="onOpenDialog('edit',row)">
+                <el-button v-if="checkPermission('edit')" type="primary" link @click="onOpenDialog('edit', row)">
                     修改
                 </el-button>
-                <el-button type="danger" link @click="onDel(row)">
+                <el-button v-if="checkPermission('del')" type="danger" link @click="onDel(row)">
                     删除
                 </el-button>
             </template>
         </CoTable>
-        <UserModal ref="modalRef" />
+        <client-only>
+
+            <UserModal ref="modalRef" />
+        </client-only>
     </LayoutBox>
 </template>
