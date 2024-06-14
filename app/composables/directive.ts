@@ -1,10 +1,10 @@
 // utils/permission.js
-export function checkPermission(permissionName: PermissionType): boolean {
-    const route = useRoute()
-    const list = route.meta.permissionCode || []
-    // 检查用户是否拥有权限的逻辑
-    return list.includes(permissionName)
-}
+// export function checkPermission(permissionName: PermissionType): boolean {
+//     const route = useRoute()
+//     const list = route.meta.permissionCode || []
+//     // 检查用户是否拥有权限的逻辑
+//     return list.includes(permissionName)
+// }
 
 // export const vAuth = {
 //     // 在绑定元素的 attribute 前

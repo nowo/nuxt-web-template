@@ -1,6 +1,5 @@
 import type { Prisma } from '@prisma/client'
 
-
 /**
  * 登录
  */
@@ -100,10 +99,8 @@ export const setRegister = defineEventHandler(async (event) => {
  * 修改密码
  */
 export const setPasswordUpdate = defineEventHandler(async (event) => {
-    const userInfo=event.context.user
-    if(!userInfo) return 
-
-
+    const userInfo = event.context.user
+    if (!userInfo) return
 
     // 获取参数
     const param = await getEventParams<IAdminPasswordUpdate>(event)
@@ -112,12 +109,8 @@ export const setPasswordUpdate = defineEventHandler(async (event) => {
     const password = param?.password?.trim?.() || ''
     const newPassword = param?.newPassword?.trim?.() || ''
 
-
     // if (!account) return { msg: '请输入登录账号' }
     if (!password) return { msg: '请输入登录密码' }
-
-
-
 
     // 查询原密码是否正确
     const admin = await prisma.admin.findUnique({
@@ -139,31 +132,45 @@ export const setPasswordUpdate = defineEventHandler(async (event) => {
         },
     })
 
-    if (user){
+    if (user) {
         // 可以进行cookie清除
         return { code: 200, msg: '修改成功' }
-    }else{
+    } else {
         return { msg: '网络错误' }
     }
 })
 
-
-
-
+/**
+ * 用户登录账户信息
+ */
+export const getAdminInfo = defineEventHandler(async (event) => {
+    const userInfo = event.context.user
+    if (!userInfo) return
+    const admin = await prisma.admin.findUnique({
+        where: {
+            id: userInfo.id,
+        },
+    })
+    if (admin) {
+        return { code: 200, data: { ...admin, password: '' } }
+    } else {
+        return { msg: '网络错误' }
+    }
+})
 
 // 、、、/////////////////////////
 
 /**
  * 获取用户列表
  */
-export const getAdminList =defineEventHandler( async (event) => {
+export const getAdminList = defineEventHandler(async (event) => {
     // // 接口校验(是否登录)
     // if (!event.context.user) return ResponseMessage.token
 
     // 获取参数
     const param = await getEventParams<IAdminListParams>(event)
 
-    const where:Prisma.AdminWhereInput = {}
+    const where: Prisma.AdminWhereInput = {}
 
     if (param?.account) {
         where.account = {
@@ -224,7 +231,7 @@ export const getAdminList =defineEventHandler( async (event) => {
 /**
  * 创建用户
  */
-export const setAdminCreate =defineEventHandler( async (event) => {
+export const setAdminCreate = defineEventHandler(async (event) => {
     // // 接口校验(是否登录)
     // if (!event.context.user) return ResponseMessage.token
 
@@ -235,7 +242,7 @@ export const setAdminCreate =defineEventHandler( async (event) => {
     if (!param?.username) return { msg: '请输入用户名称' }
     if (!param?.password) return { msg: '请输入登录密码' }
 
-    const user = await event.context.prisma.admin.create({
+    const user = await prisma.admin.create({
         data: {
             ...param,
             status: param.status ? param.status : 1,
@@ -253,7 +260,7 @@ export const setAdminCreate =defineEventHandler( async (event) => {
 /**
  * 修改用户
  */
-export const setAdminUpdate =defineEventHandler(async (event) => {
+export const setAdminUpdate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     // if (!event.context.user) return ResponseMessage.token
 
@@ -278,12 +285,12 @@ export const setAdminUpdate =defineEventHandler(async (event) => {
     } else {
         return { msg: '网络错误' }
     }
-}) 
+})
 
 /**
  * 删除用户
  */
-export const setAdminDelete =defineEventHandler( async (event) => {
+export const setAdminDelete = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     // if (!event.context.user) return ResponseMessage.token
 

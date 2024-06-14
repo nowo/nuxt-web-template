@@ -3,7 +3,9 @@
         <template v-if="$slots.header" #header>
             <slot name="header" />
         </template>
-        <slot />
+        <el-scrollbar class="px20px">
+            <slot />
+        </el-scrollbar>
         <template #footer>
             <slot v-if="$slots.footer" name="footer" />
             <div v-else>

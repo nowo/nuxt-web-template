@@ -1,3 +1,5 @@
+import type { Admin } from "@prisma/client"
+
 /**
  * 设置用户登录信息，token相关
  * @returns user information
@@ -8,17 +10,28 @@ export function useUserState() {
     // })
     const token = useCookie('token')
 
-    const userInfo = useState<any>('userInfo', () => ({}))
+    const userInfo = useState<Partial<Admin>>('userInfo', () => ({}))
 
     const setToken = (token: string) => {
         useSessionStorage('token', token)
         userInfo.value = {}
     }
 
+    // 设置用户信息
+    const setUserInfo=async()=>{
+        const res=await useServerFetch('/api/v1/user/info')
+        if(res.code===200){
+            userInfo.value=res.data
+        }else{
+            userInfo.value={}
+        }
+    }
+
     return {
         token,
         userInfo,
         setToken,
+        setUserInfo
     }
 }
 

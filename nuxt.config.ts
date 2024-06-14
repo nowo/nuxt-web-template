@@ -1,7 +1,6 @@
 import path from 'node:path'
 import { pwa } from './app/config/pwa'
 import { appDescription } from './app/config/constant'
-import type { NuxtPage } from 'nuxt/schema'
 
 export default defineNuxtConfig({
     modules: [
@@ -65,23 +64,21 @@ export default defineNuxtConfig({
     },
     hooks: {
         'pages:extend': function (pages) {
-            const pagesToRemove: NuxtPage[] = []
-            pages.forEach((page) => {
-                if (page.path.includes('component')) pagesToRemove.push(page)
-            })
+            const pagesToRemove= pages.filter((page) => page.path.includes('component'))
 
-            pagesToRemove.forEach((page: NuxtPage) => {
+            pagesToRemove.forEach((page) => {
                 pages.splice(pages.indexOf(page), 1)
             })
         },
     },
     components: [
-        '~/components', {
-          path: '~/pages',
-          pattern: '*/components/**',
-          pathPrefix: false
-        }
-      ],
+        '~/components',
+        {
+            path: '~/pages',
+            pattern: '*/components/**',
+            pathPrefix: false,
+        },
+    ],
     // ignore: ['/app/pages/**/components/**.vue'],
     imports: {
         dirs: ['config'],

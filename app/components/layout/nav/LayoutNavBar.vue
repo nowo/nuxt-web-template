@@ -4,7 +4,8 @@ interface NavBarStateData {
 }
 
 const { themeConfig, isDrawer } = useThemeState()
-const { userInfo } = useUserState()
+const { userInfo,setUserInfo } = useUserState()
+setUserInfo()
 
 const passwordRef=ref<ComponentInstance['LayoutOtherPassword']>()
 
@@ -101,7 +102,7 @@ function onHandleCommandClick(command: string) {
 
             <el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
                 <span class="flex items-center">
-                    <el-avatar v-if="userInfo?.photo" :src="userInfo.photo" :size="32" class="mr5px" />
+                    <el-avatar v-if="userInfo?.avatar" :src="userInfo.avatar" :size="32" class="mr5px" />
                     <el-avatar v-else :size="32" class="mr5px">
                         <i class="i-ep:user-filled text-20px" />
                     </el-avatar>

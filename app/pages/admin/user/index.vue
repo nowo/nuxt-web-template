@@ -13,8 +13,9 @@ definePageMeta({
         add: '新增',
         edit: '编辑',
         del: '删除',
+        // view: '删除',
+        // read: '删除',
     },
-    permissionCode:['edit','add']
 })
 
 const modalRef = ref<InstanceType<typeof UserModal>>()
