@@ -92,10 +92,10 @@ defineExpose({
     .el-dropdown-menu__item {
         --el-font-size-base: 12px;
 
-        &:hover {
-            background-color: var(--el-dropdown-menuItem-hover-fill);
-            color: var(--el-dropdown-menuItem-hover-color);
-        }
+        // &:hover {
+        //     background-color: var(--el-dropdown-menuItem-hover-fill);
+        //     color: var(--el-dropdown-menuItem-hover-color);
+        // }
     }
 }
 </style>

@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import type { Admin } from '@prisma/client'
-import type { CheckboxValueType, FormInstance } from 'element-plus'
+import type { Admin, Prisma } from '@prisma/client'
+import type { CheckboxValueType, FormInstance, FormRules } from 'element-plus'
 
 const emits = defineEmits<{
     update: []
 }>()
 
 const { adminRoutes } = useAdminMenuState()
+const { userInfo, setUserInfo } = useUserState()
 
 const visible = ref(false)
 
-const radio1 = ref('Option 1')
 const operate = ref<DialogOperate>()
 const comData = computed(() => {
     if (operate.value === 'add') return { title: '新增用户' }
@@ -31,22 +31,27 @@ const form = reactive({
     },
 })
 
-const rules = reactive({
+const rules = reactive<FormRules>({
+    account: [
+        { required: true, message: '必填项不能为空' },
+        { pattern: /^[0-9a-z]+$/i, message: '只能输入数字和英文' },
+        { min: 2, max: 16, message: '最少2个,最多16个字符' },
+    ],
     name: [
-        { required: true, message: 'Please input Activity name', trigger: 'blur' },
-        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+        { required: true, message: '必填项不能为空', whitespace: true },
+
     ],
-    email: [
-        { required: true, message: 'Please input Activity name', trigger: 'blur' },
-        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
-    ],
+    // email: [
+    //     { required: true, message: 'Please input Activity name' },
+    //     { min: 3, max: 5, message: 'Length should be 3 to 5' },
+    // ],
     password: [
-        { required: true, message: 'Please input Activity name', trigger: 'blur' },
-        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+        { required: true, message: '必填项不能为空', whitespace: true },
+        { pattern: /^[^\u4E00-\u9FA5 ]{6,16}$/, message: '不含有中文和空格,至少6位,最多16位' },
     ],
-    password_confirmation: [
-        { required: true, message: 'Please input Activity name', trigger: 'blur' },
-        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+    role: [
+        { required: true, message: '必填项不能为空' },
+
     ],
 })
 
@@ -89,7 +94,6 @@ const permissionCheckChange = (value: CheckboxValueType[], row: IPermissionRoute
     const keys = Object.keys(row.permissionList || {}) as PermissionType[]
     row.checkAll = checkedCount === keys.length
     row.checkHalf = checkedCount > 0 && checkedCount < keys.length
-
 }
 const tableRowClassName = ({
     row,
@@ -106,34 +110,42 @@ const tableRowClassName = ({
 const openModal = (type: DialogOperate, row?: Admin) => {
     operate.value = type
     if (type === 'edit') {
-        console.log(row)
+        // console.log(row)
         form.data.account = row?.account || ''
         form.data.password = ''
         form.data.name = row?.username || ''
         form.data.status = row?.status ? 1 : 0
+        form.data.role = row?.role || 3
         form.data.id = row?.id || 0
-        const permission = JSON.parse(row?.permission || '{}')
+        const permission = JSON.parse(row?.permission || '[]') as { name: string, permission: PermissionType[] }[]
+        // console.log(permission)
         tableData.data = adminRoutes.value.map((item) => {
             // console.log(item)
             const key = item.name as string
             const permissionList = item.meta.permissionList || {}
             const permissionListKeys = Object.keys(permissionList)
-            const permissionCode = permission[key] ?? []
+            const permissionNode = permission.find(i => i.name === key)
+            const permissionCode = permissionNode?.permission ?? []
+
             const dat: IPermissionRouteData = {
                 title: item.meta.title || '',
                 name: key,
                 path: item.path,
                 permissionList,
                 permissionCode,
-                checkPage: key in permission,
+                checkPage: !!permissionNode,
                 checkAll: permissionListKeys.length > 0 && permissionListKeys.length === permissionCode.length,
                 checkHalf: permissionListKeys.length > permissionCode.length,
             }
             return dat
         })
-        console.log(tableData.data)
     } else {
-        console.log(111)
+        form.data.account = ''
+        form.data.password = ''
+        form.data.name = ''
+        form.data.status = 1
+        form.data.role = 3
+        form.data.id = 0
         tableData.data = adminRoutes.value.map((item) => {
             const key = item.name as string
             const dat: IPermissionRouteData = {
@@ -145,7 +157,7 @@ const openModal = (type: DialogOperate, row?: Admin) => {
             }
             return dat
         })
-        console.log(tableData.data)
+        // console.log(tableData.data)
     }
     visible.value = true
 }
@@ -165,57 +177,48 @@ const onConfirm = useThrottleFn(async () => {
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return
 
-    // 获取上级菜单ID数组
-    // const arr = cascaderRef.value?.cascaderRef?.getCheckedNodes(false)
-    // const idsArr = arr?.[0]?.pathValues || []
+    const list = tableData.data.filter(item => item.checkPage).map((item) => {
+        return {
+            name: item.name,
+            permission: item.permissionCode || [],
+        }
+    })
 
-    // const data: SystemMenuAdd = {
-    //     menuType: form.data.menuType, // 菜单类型'menu' or 'btn'
-    //     // menuPid: form.data.menuPid as number,
-    //     menuPid: idsArr.join(','),
-    //     // name: form.data.name,
-    //     component: form.data.component,
-    //     sort: form.data.sort,
-    //     path: form.data.path,
-    //     redirect: form.data.redirect,
-    //     title: form.data.title,
-    //     icon: form.data.icon,
-    //     isHide: form.data.isHide,
-    //     isKeepAlive: form.data.isKeepAlive,
-    //     isAffix: form.data.isAffix,
-    //     isLink: form.data.isLink,
-    //     linkUrl: form.data.linkUrl,
-    //     isIframe: form.data.isIframe,
-    //     // roles: formData.roles,
-    // }
-    // // 类型为按钮时
-    // if (form.data.menuType === 2) {
-    //     data.component = ''
-    //     data.path = ''
-    // }
+    const data: Prisma.AdminUncheckedCreateInput = {
+        account: form.data.account?.trim() ?? '',
+        username: form.data.name?.trim() ?? '',
+        password: form.data.password?.trim() ?? '',
+        role: form.data.role || 3,
+        permission: JSON.stringify(list),
+        status: form.data.status || 1,
+    }
 
     // // console.log(data)
-    // if (operate.value === 'add') {
-    //     const res = await ApiFunc(ApiMenu.add(data))
-    //     if (res.code !== 200) return ElMessage.error(res.msg)
-    //     ElMessage.success('添加成功')
-    // } else if (operate.value === 'edit') {
-    //     const param: SystemMenuEdit = {
-    //         ...data,
-    //         id: form.data.id,
-    //     }
-    //     const res = await ApiFunc(ApiMenu.edit(param))
-    //     if (res.code !== 200) return ElMessage.error(res.msg)
-    //     ElMessage.success('修改成功')
-    // }
+    if (operate.value === 'add') {
+        const res = await ApiFunc(useServerFetch('/api/v1/admin/add', {
+            method: 'POST',
+            body: data,
+        }))
+        if (res.code !== 200) return ElMessage.error(res.msg)
+        ElMessage.success('添加成功')
+    } else if (operate.value === 'edit') {
+        const param = {
+            ...data,
+            id: form.data.id,
+        }
+        const res = await ApiFunc(useServerFetch('/api/v1/admin/edit', {
+            method: 'POST',
+            body: param,
+        }))
+        if (res.code !== 200) return ElMessage.error(res.msg)
+        ElMessage.success('修改成功')
+        // 修改的用户是自己本身时，重新获取用户信息
+        if (userInfo.value.id === form.data.id) await setUserInfo()
+    }
 
     emits('update') // 更新列表
     onCancel()
 }, 800)
-
-watchEffect(() => {
-    console.log(tableData)
-})
 
 defineExpose({
     openModal,
@@ -232,7 +235,7 @@ defineExpose({
                     :disabled="operate === 'edit'" />
             </el-form-item>
 
-            <el-form-item label="登录密码:" prop="password">
+            <el-form-item label="登录密码:" prop="password" :required="operate === 'add'">
                 <el-input v-model="form.data.password" placeholder="" maxlength="20" type="password" clearable
                     show-password />
             </el-form-item>
@@ -240,14 +243,13 @@ defineExpose({
             <el-form-item label="账户名称:" prop="name">
                 <el-input v-model="form.data.name" placeholder="请输入账户名称" maxlength="30" clearable />
             </el-form-item>
-            <el-form-item label="角色名称:" prop="role">
+            <el-form-item label="角色设置:" prop="role">
                 <el-radio-group v-model="form.data.role">
                     <el-radio label="超级管理员" :value="1" />
                     <el-radio label="管理员" :value="2" />
                     <el-radio label="普通用户" :value="3" />
                 </el-radio-group>
             </el-form-item>
-
             <el-form-item label="页面配置:">
                 <CoTable v-model:option="tableData" class="w100%" :row-class-name="tableRowClassName" auto-height
                     border>
@@ -272,6 +274,9 @@ defineExpose({
                         </div>
                     </template>
                 </CoTable>
+                <div v-if="form.data.role === 1" class="absolute z-10 h100% w100% bg-#ffffff55 pt40px text-center">
+                    超级管理员拥有所有权限
+                </div>
             </el-form-item>
 
             <el-form-item label="员工状态:">

@@ -58,10 +58,10 @@ const tableData = reactive<CoTableProps<Admin>>({
 
         { property: 'username', label: '用户名', minWidth: '180' },
         { property: 'account', label: '账号', width: '180' },
-        // { property: 'role_name', label: '角色', width: '180' },
+        { property: 'role', label: '角色名称', width: '130', align: 'center' },
         // { property: 'status姓名', width: '180' },
-        { property: 'created_at', label: '创建时间', width: '170' },
         { property: 'status', label: '状态', align: 'center', width: '100' },
+        { property: 'created_at', label: '创建时间', width: '220' },
         // { property: 'update_at', label: '更新时间', width: '180' },
         // { property: 'remark', label: '备注', width: '180' },
         { property: 'operate', label: '操作', width: '120', align: 'center', fixed: 'right' },
@@ -92,12 +92,12 @@ const initTableData = async () => {
 
 // 搜索
 const onSearch = () => {
-
+    initTableData()
 }
 
 // 重置
 const onReset = () => {
-
+    initTableData()
 }
 
 // 打开新增、修改
@@ -113,10 +113,13 @@ const onDel = (row: Admin) => {
         type: 'warning',
         buttonSize: 'default',
     }).then(async () => {
-        // const res = await ApiUser.del({ admin_id: row.id })
-        // if (res.code !== 200) return ElMessage.error(res.msg)
+        const res = await useServerFetch('/api/v1/admin/delete', {
+            method: 'post',
+            body: { id: row.id },
+        })
+        if (res.code !== 200) return ElMessage.error(res.msg)
 
-        // ElMessage.success('删除成功')
+        ElMessage.success('删除成功')
 
         initTableData() // 重新加载列表
     }).catch(() => { })
@@ -144,19 +147,38 @@ initTableData()
                 新增用户
             </el-button>
         </CoFormTool>
-        <CoTable v-model:option="tableData" auto-height border>
+        <CoTable v-model:option="tableData" auto-height border  @refresh="initTableData">
+            <template #status="{ row }">
+                <el-tag v-if="row.status" type="primary">
+                    启用
+                </el-tag>
+                <el-tag v-else type="info">
+                    禁用
+                </el-tag>
+            </template>
+            <template #role="{ row }">
+                <el-tag v-if="row.role === 1" type="success">
+                    超级管理员
+                </el-tag>
+                <el-tag v-else-if="row.role === 2" type="warning">
+                    管理员
+                </el-tag>
+                <el-tag v-else type="danger">
+                    普通用户
+                </el-tag>
+            </template>
             <template #operate="{ row }">
                 <el-button v-if="checkPermission('edit')" type="primary" link @click="onOpenDialog('edit', row)">
                     修改
                 </el-button>
-                <el-button v-if="checkPermission('del')" type="danger" link @click="onDel(row)">
+                <el-button v-if="checkPermission('del')" type="danger" link :disabled="row.id === 1"
+                    @click="onDel(row)">
                     删除
                 </el-button>
             </template>
         </CoTable>
         <client-only>
-
-            <UserModal ref="modalRef" />
+            <UserModal ref="modalRef" @update="initTableData" />
         </client-only>
     </LayoutBox>
 </template>

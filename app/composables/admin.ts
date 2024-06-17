@@ -137,16 +137,13 @@ export function checkPermission(permissionName: PermissionType): boolean {
     const { userInfo } = useUserState()
     // console.log(userInfo)
     // 超级管理员，拥有所有权限
-    if (userInfo.value?.role === 1) return true
+    // if (userInfo.value?.id===1|| userInfo.value?.role === 1) return true
     const route = useRoute()
     const key = route.name as string
-    // console.log('key :>> ', key)
 
-    const permission = JSON.parse(userInfo.value?.permission ?? '{}')
-    // console.log('permission :>> ', permission)
-
-    const list = permission[key] || []
-    // console.log('list :>> ', list)
+    const permission = JSON.parse(userInfo.value?.permission ?? '[]') as { name: string, permission: PermissionType[] }[]
+    const permissionNode = permission.find(i => i.name === key)
+    const list = permissionNode?.permission ?? []
     // 检查用户是否拥有权限的逻辑
     return list.includes(permissionName)
 }

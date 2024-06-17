@@ -21,6 +21,18 @@
     .el-tooltip__trigger:focus-visible {
         outline: unset;
     }
+
+}
+
+.el-dropdown-menu {
+    .el-dropdown-menu__item {
+
+        &:hover,
+        &-active {
+            background-color: var(--el-dropdown-menuItem-hover-fill);
+            color: var(--el-dropdown-menuItem-hover-color);
+        }
+    }
 }
 
 .el-scrollbar {
@@ -33,6 +45,6 @@
     }
 }
 
-.el-drawer__body{
+.el-drawer__body {
     --el-drawer-padding-primary: 0;
 }
