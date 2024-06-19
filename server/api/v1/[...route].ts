@@ -2,6 +2,7 @@ import { createRouter, defineEventHandler, useBase } from 'h3'
 import { setDeleteFile, setSaveFile } from '../../controller/common'
 import { getAdminInfo, getAdminList, setAdminCreate, setAdminDelete, setAdminUpdate, setLoginSign, setPasswordUpdate, setRegister } from '../../controller/admin'
 import { getSystemInfo, setSystemInfo } from '../../controller/system'
+import { getMenuList, setMenuCreate, setMenuDelete, setMenuUpdate } from '../../controller/menu'
 
 const router = createRouter()
 
@@ -20,6 +21,11 @@ router.use('/admin/list', getAdminList) // 用户列表
 router.use('/admin/add', setAdminCreate) // 添加用户
 router.use('/admin/edit', setAdminUpdate) // 修改用户
 router.use('/admin/delete', setAdminDelete) // 删除用户
+
+router.use('/menu/list', getMenuList) // 菜单列表
+router.use('/menu/add', setMenuCreate) // 添加菜单
+router.use('/menu/edit', setMenuUpdate) // 修改菜单
+router.use('/menu/delete', setMenuDelete) // 删除菜单
 
 /**
  * 获取所有菜单信息

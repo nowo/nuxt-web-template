@@ -137,7 +137,7 @@ export function checkPermission(permissionName: PermissionType): boolean {
     const { userInfo } = useUserState()
     // console.log(userInfo)
     // 超级管理员，拥有所有权限
-    // if (userInfo.value?.id===1|| userInfo.value?.role === 1) return true
+    if (userInfo.value?.id===1|| userInfo.value?.role === 1) return true
     const route = useRoute()
     const key = route.name as string
 

@@ -19,6 +19,7 @@
         "typecheck": "vue-tsc --noEmit"
     },
     "dependencies": {
+        "@cooj/utils": "^0.0.1",
         "@nowo/utils": "npm:@jsr/nowo__utils@^0.0.2",
         "@prisma/client": "^5.13.0",
         "@tinymce/tinymce-vue": "^5",

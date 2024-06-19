@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@cooj/utils':
+    specifier: ^0.0.1
+    version: 0.0.1
   '@nowo/utils':
     specifier: npm:@jsr/nowo__utils@^0.0.2
     version: /@jsr/nowo__utils@0.0.2
@@ -1581,6 +1584,10 @@ packages:
       chalk: 5.3.0
     dev: true
     optional: true
+
+  /@cooj/utils@0.0.1:
+    resolution: {integrity: sha512-ZxzBrGCMGvYQIiQDFkybcl/UQmD5B3gkPsWmzSH2zboNMC84RXeOQvxFp10olHHkvjyKd/1WJz1ZwDqx38eHQQ==}
+    dev: false
 
   /@ctrl/tinycolor@3.6.1:
     resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
@@ -9204,8 +9211,8 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /nitropack-nightly@2.10.0-28613369.6ff8bfd1(@opentelemetry/api@1.8.0):
-    resolution: {integrity: sha512-8k50ab64CsiEHhys6Uvbb/a2CADFxp+BaUU0vzquCmu/CHejaBO2HEtd1yxXwgYg1oiJaPk1fQog1LC/dCcetg==}
+  /nitropack-nightly@2.10.0-28630744.c9a7afc3(@opentelemetry/api@1.8.0):
+    resolution: {integrity: sha512-/2pO7rC68WBHYU/1XnBuTX6cvaEG5WzDDYeAcp2Y0JRYgzCn765lQ7IgCeiF1nSWMtEXaag24S2uZFrGUCtvnA==}
     engines: {node: ^16.11.0 || >=17.0.0}
     hasBin: true
     peerDependencies:
@@ -9499,8 +9506,8 @@ packages:
       boolbase: 1.0.0
     dev: true
 
-  /nuxi-nightly@3.11.2-1717084152.03d4a54:
-    resolution: {integrity: sha512-VyedsHgGSVbTyWSlofpL/tJJGDYf/S/sJOAwhHvccPy1to4/y8YrnVtbsfgBPZbK/LGGOSzDjE88Bva/ZMZ0lg==}
+  /nuxi-nightly@3.11.2-1718100309.03d4a54:
+    resolution: {integrity: sha512-lvbndJvSmwciQcdLdcMeHXesCimE8oE18/j09a/DFUEIbvdY9K5EcRF3kSTvHm1Rww6ypd9ksGFJNyjGZxcygQ==}
     engines: {node: ^16.10.0 || >=18.0.0}
     hasBin: true
     optionalDependencies:
@@ -9561,8 +9568,8 @@ packages:
       knitwork: 1.1.0
       magic-string: 0.30.10
       mlly: 1.7.0
-      nitropack: /nitropack-nightly@2.10.0-28613369.6ff8bfd1(@opentelemetry/api@1.8.0)
-      nuxi: /nuxi-nightly@3.11.2-1717084152.03d4a54
+      nitropack: /nitropack-nightly@2.10.0-28630744.c9a7afc3(@opentelemetry/api@1.8.0)
+      nuxi: /nuxi-nightly@3.11.2-1718100309.03d4a54
       nypm: 0.3.8
       ofetch: 1.3.4
       ohash: 1.1.3

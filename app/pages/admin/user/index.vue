@@ -76,6 +76,9 @@ const initTableData = async () => {
         account: searchData.data.account?.trim() ?? '',
         username: searchData.data.username?.trim() ?? '',
         status: searchData.data.state || '',
+        isPage: true,
+        page: tableData.pagination.page,
+        pageSize: tableData.pagination.pageSize,
     }
     tableData.loading = true
     const res = await useServerFetch<{ list: Admin[], total: number }>('/api/v1/admin/list', {
@@ -147,7 +150,7 @@ initTableData()
                 新增用户
             </el-button>
         </CoFormTool>
-        <CoTable v-model:option="tableData" auto-height border  @refresh="initTableData">
+        <CoTable v-model:option="tableData" auto-height border @refresh="initTableData">
             <template #status="{ row }">
                 <el-tag v-if="row.status" type="primary">
                     启用
