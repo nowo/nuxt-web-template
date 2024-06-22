@@ -93,4 +93,8 @@ const init = {
     </client-only>
 </template>
 
-<style scoped></style>
+<style>
+.tox-tinymce-aux {
+    z-index: 9999999 !important;
+}
+</style>
