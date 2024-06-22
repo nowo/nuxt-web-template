@@ -1,8 +1,9 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
-import { setDeleteFile, setSaveFile } from '../../controller/common'
-import { getAdminInfo, getAdminList, setAdminCreate, setAdminDelete, setAdminUpdate, setLoginSign, setPasswordUpdate, setRegister } from '../../controller/admin'
-import { getSystemInfo, setSystemInfo } from '../../controller/system'
-import { getMenuList, setMenuCreate, setMenuDelete, setMenuUpdate } from '../../controller/menu'
+import { setDeleteFile, setSaveFile } from '~~/server/controller/common'
+import { getAdminInfo, getAdminList, setAdminCreate, setAdminDelete, setAdminUpdate, setLoginSign, setPasswordUpdate, setRegister } from '~~/server/controller/admin'
+import { getSystemInfo, setSystemInfo } from '~~/server/controller/system'
+import { getMenuList, setMenuCreate, setMenuDelete, setMenuUpdate } from '~~/server/controller/menu'
+import { getProductList, setProductCreate, setProductDelete, setProductUpdate } from '~~/server/controller/product'
 
 const router = createRouter()
 
@@ -26,6 +27,12 @@ router.use('/menu/list', getMenuList) // 菜单列表
 router.use('/menu/add', setMenuCreate) // 添加菜单
 router.use('/menu/edit', setMenuUpdate) // 修改菜单
 router.use('/menu/delete', setMenuDelete) // 删除菜单
+
+
+router.use('/product/list', getProductList) // 产品列表
+router.use('/product/add', setProductCreate) // 添加产品
+router.use('/product/edit', setProductUpdate) // 修改产品
+router.use('/product/delete', setProductDelete) // 删除产品
 
 /**
  * 获取所有菜单信息
