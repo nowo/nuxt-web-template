@@ -1,7 +1,12 @@
 <template>
     <el-drawer ref="drawerRef" v-bind="$attrs" :size="width">
-        <template v-if="$slots.header" #header>
-            <slot name="header" />
+        <template #header>
+            <slot v-if="$slots.header" name="header" />
+            <span v-else>{{ $attrs.title }}</span>
+            <button v-if="!props.hideFull" class="el-drawer__close-btn mr-5px" @click="fullscreen = !fullscreen">
+                <el-icon v-if="fullscreen" class="i-ep-copy-document rotate-180"></el-icon>
+                <el-icon v-else class="i-ep-full-screen"></el-icon>
+            </button>
         </template>
         <el-scrollbar class="px20px">
             <slot />
@@ -19,9 +24,10 @@
 <script lang="ts" setup>
 
 const props = defineProps<{
-    loading?: boolean,
-    width?: number | Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>>
+    loading?: boolean,  // 确定按钮loading
+    width?: number | Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>>  // 各个尺寸的宽度大小
     // width?: number | Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>
+    hideFull?:boolean   //  是否隐藏全屏按钮
 }>()
 
 const emits = defineEmits<{
@@ -29,11 +35,13 @@ const emits = defineEmits<{
     confirm: []
 }>()
 
+const fullscreen=ref(false) // 是否最大
+
 const { width: wWid } = useWindowSize()
 
 const width = computed(() => {
     let wid = 30
-
+    if(fullscreen.value ) return '100%'
     if (typeof props.width === 'number') {
         wid = props.width
     } else if (typeof props.width === 'object') {
