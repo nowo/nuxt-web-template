@@ -112,7 +112,7 @@ const openModal = (type: DialogOperate, row?: Menu) => {
         form.data.p_id = row.p_id || ''
         form.data.status = row.status ? 1 : 0
 
-        form.data.imgList = [row.icon ?? '']
+        form.data.imgList = row.icon ? [row.icon] : []
     } else { // 新增
         form.data.id = 0
         form.data.title = ''
@@ -127,10 +127,6 @@ const openModal = (type: DialogOperate, row?: Menu) => {
     }
     stateData.menuData = arr
     stateData.visible = true
-}
-
-const closeModal = () => {
-    stateData.visible = false
 }
 
 // 取消
@@ -182,12 +178,11 @@ const onConfirm = useThrottleFn(async () => {
 
 defineExpose({
     openModal,
-    closeModal,
 })
 </script>
 
 <template>
-    <CoDrawer v-model="stateData.visible" :title="comData.title" :loading="btnLoading" size="40%" @cancel="onCancel"
+    <CoDrawer v-model="stateData.visible" :title="comData.title" :loading="btnLoading" :width="{lg:40,md:50,sm:60}" @cancel="onCancel"
         @confirm="onConfirm">
         <el-form ref="formRef" :model="form.data" :rules="rules" label-width="120px">
             <el-form-item label="上级菜单:" prop="p_id">

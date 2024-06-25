@@ -45,4 +45,4 @@ declare interface ISystemEditParams {
     filing_en: string //
 }
 
-type LanguageType = string
+type LanguageType = 'cn'|'en'

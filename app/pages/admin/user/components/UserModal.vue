@@ -227,8 +227,8 @@ defineExpose({
 </script>
 
 <template>
-    <CoDrawer v-model="visible" :title="comData.title" :loading="btnLoading" size="50%" @cancel="onCancel"
-        @confirm="onConfirm">
+    <CoDrawer v-model="visible" :title="comData.title" :loading="btnLoading" :width="{ lg: 50, md: 60, sm: 75 }"
+        @cancel="onCancel" @confirm="onConfirm">
         <el-form ref="formRef" :model="form.data" :rules="rules" label-width="100px">
             <el-form-item label="登录账号:" prop="account">
                 <el-input v-model="form.data.account" placeholder="请输入登录账号" maxlength="20" clearable
