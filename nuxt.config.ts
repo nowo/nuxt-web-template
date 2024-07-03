@@ -1,4 +1,3 @@
-import path from 'node:path'
 import { pwa } from './app/config/pwa'
 import { appDescription } from './app/config/constant'
 
@@ -29,9 +28,7 @@ export default defineNuxtConfig({
     colorMode: {
         classSuffix: '',
     },
-    alias: {
-        $: path.resolve(__dirname, 'server'),
-    },
+
     nitro: {
         esbuild: {
             options: {
@@ -62,15 +59,17 @@ export default defineNuxtConfig({
             ],
         },
     },
+
     hooks: {
         'pages:extend': function (pages) {
-            const pagesToRemove= pages.filter((page) => page.path.includes('component'))
+            const pagesToRemove = pages.filter((page) => page.path.includes('component'))
 
             pagesToRemove.forEach((page) => {
                 pages.splice(pages.indexOf(page), 1)
             })
         },
     },
+
     components: [
         '~/components',
         {
@@ -79,12 +78,14 @@ export default defineNuxtConfig({
             pathPrefix: false,
         },
     ],
+
     // ignore: ['/app/pages/**/components/**.vue'],
     imports: {
         dirs: ['config'],
     },
 
     pwa,
+
     runtimeConfig: {
         // 仅在服务端serve可以访问
         //         # 文件上传主机地址
@@ -109,6 +110,7 @@ export default defineNuxtConfig({
         // For UnoCSS
         inlineStyles: false,
     },
+
     future: {
         compatibilityVersion: 4,
     },
@@ -118,4 +120,6 @@ export default defineNuxtConfig({
             standalone: false, // <---
         },
     },
+
+    compatibilityDate: '2024-07-03',
 })
