@@ -24,7 +24,7 @@ const modalRef = ref<InstanceType<typeof OperateModal>>()
 // form表单数据类型
 interface FormSearchData {
     account: '' // 账号
-    username: '' // 用户名
+    title: '' // 标题
 
     time: DateRangeType // 时间范围
     state: '' // 状态：1：启用，2：禁用
@@ -33,12 +33,12 @@ interface FormSearchData {
 const searchData = reactive<CoFormToolProps<FormSearchData>>({
     data: {
         account: '', // 账号
-        username: '', // 用户名
+        title: '', // 标题
         time: ['', ''] as DateRangeType, // 时间范围
         state: '', // 状态：1：未审核，2：已审核
     },
     config: [
-        { column: { label: '用户名', prop: 'username' }, placeholder: '', width: '160' },
+        { column: { label: '标题名称', prop: 'title' }, placeholder: '', width: '160' },
         { column: { label: '账号', prop: 'account' }, placeholder: '', width: '160' },
         { column: { label: '状态', prop: 'state' }, placeholder: '', width: '100' },
         { column: { label: '日期范围', prop: 'time' } },
@@ -72,10 +72,11 @@ const tableData = reactive<CoTableProps<Admin>>({
 })
 
 const initTableData = async () => {
-    const params: IAdminListParams = {
-        account: searchData.data.account?.trim() ?? '',
-        username: searchData.data.username?.trim() ?? '',
+    const params: IProductListParams = {
+        title: searchData.data.title?.trim() ?? '',
         status: searchData.data.state || '',
+        startTime:searchData.data.time?.[0]||'',
+        endTime:searchData.data.time?.[1]||'',
         isPage: true,
         page: tableData.pagination.page,
         pageSize: tableData.pagination.pageSize,

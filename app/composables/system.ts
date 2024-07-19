@@ -4,7 +4,7 @@ import type { Admin } from '@prisma/client'
  * 设置用户登录信息，token相关
  * @returns user information
  */
-export function useUserState() {
+export const useUserState=()=> {
     // const token = useState<string>('token', () => {
     //     return process.client ? useSessionStorage('token', '') : ''
     // })
@@ -12,15 +12,37 @@ export function useUserState() {
 
     const userInfo = useState<Partial<Admin>>('userInfo', () => ({}))
 
+    if (!userInfo.value) {
+        useCustomFetch<Admin>('/api/v1/system/info').then((res) => {
+            if (res.data.value?.code === 200) {
+                userInfo.value = res.data.value?.data
+            }
+        })
+        // const { data: info, error, status } = await useCustomFetch<Admin>('/api/v1/system/info')
+        // // console.log(info, error, status)
+        // if (info.value?.code === 200) {
+        //     userInfo.value = info.value?.data
+        //     // console.log(info.value?.data)
+        // }
+    }
+
+
     const setToken = (token: string) => {
         useSessionStorage('token', token)
         userInfo.value = {}
     }
 
-    // 设置用户信息
+    // 获取登录用户信息
     const setUserInfo = async () => {
-        const res = await useServerFetch('/api/v1/user/info')
-        if (res.code === 200) {
+        // 未登录，且不在客户端，则不执行
+        if(!token.value || !process.client) return
+        const res = await useServerFetch<Admin>('/api/v1/user/info')
+        // console.log('res0000,',res)
+        if(res.code===401){ // 账户登录失效
+            ElMessage.error(res.msg)
+            token.value = ''
+            navigateTo('/admin/login')
+        } else if (res.code === 200) {
             userInfo.value = res.data
         } else {
             userInfo.value = {}
@@ -40,8 +62,16 @@ export function useUserState() {
  * @methods getSystemInfo 获取系统信息
  * @methods setSystemUpdate 更新系统信息
  */
-export const useSystemState = () => {
+export const useSystemState = async() => {
     const systemInfo = ref<ISystemInfoData>()
+    if (!systemInfo.value) {
+        const { data: info, error, status } = await useCustomFetch<ISystemInfoData>('/api/v1/system/info')
+        // console.log(info, error, status)
+        if (info.value?.code === 200) {
+            systemInfo.value = info.value?.data
+            // console.log(info.value?.data)
+        }
+    }
 
     // 获取系统信息
     const getSystemInfo = async () => {

@@ -79,7 +79,7 @@ export const useVerifySign = async (event: H3Event) => {
     // 判断时间戳是否在1.5分钟内
     if (new Date().getTime() - Number(time) > 1.5 * 60 * 1000) return undefined
 
-    if (sign === await setSignRule(time)) {
+    if (sign === setSignRule(time)) {
         return { sign, time }
     } else {
         return undefined

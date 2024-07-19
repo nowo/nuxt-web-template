@@ -5,7 +5,7 @@ const props = defineProps<{
     data?: ISystemInfoData
 }>()
 
-const systemState = useSystemState()
+const { setSystemUpdate } = await useSystemState()
 
 const lang = ref<LanguageType>('cn')
 
@@ -94,7 +94,7 @@ const onSubmit = async () => {
         is_en: form.data.is_en,
     }
 
-    const res = await ApiFunc(systemState.setSystemUpdate(param))
+    const res = await ApiFunc(setSystemUpdate(param))
 
     if (res) ElMessage.success('设置成功')
 
@@ -135,8 +135,8 @@ onBeforeMount(() => {
             </el-col>
             <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
                 <el-form-item prop="seo_description" label="SEO描述：">
-                    <el-input v-model="form.data.seo_description" type="textarea" maxlength="150"
-                        clearable show-word-limit />
+                    <el-input v-model="form.data.seo_description" type="textarea" maxlength="150" clearable
+                        show-word-limit />
                 </el-form-item>
             </el-col>
             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">

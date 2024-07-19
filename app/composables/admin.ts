@@ -133,9 +133,8 @@ export const useAdminMenuState = () => {
 /**
  * 检查用户是否拥有权限
  */
-export function checkPermission(permissionName: PermissionType): boolean {
+export function checkPermission(permissionName: PermissionType) {
     const { userInfo } = useUserState()
-    // console.log(userInfo)
     // 超级管理员，拥有所有权限
     if (userInfo.value?.id === 1 || userInfo.value?.role === 1) return true
     const route = useRoute()

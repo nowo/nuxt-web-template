@@ -9,8 +9,7 @@ definePageMeta({
     sort: 1000,
 })
 
-const systemState = useSystemState()
-const systemInfo = await systemState.getSystemInfo()
+const {systemInfo} =await useSystemState()
 </script>
 
 <template>

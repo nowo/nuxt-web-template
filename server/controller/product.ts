@@ -8,13 +8,23 @@ export const getProductList = defineEventHandler(async (event) => {
     // if (!event.context.user) return ResponseMessage.token
 
     // 获取参数
-    const param = await getEventParams<Prisma.ProductCreateInput & IListPage>(event)
+    const param = await getEventParams<IProductListParams>(event)
 
     const where: Prisma.ProductWhereInput = {}
 
     if (param?.title) {
         where.title = {
             contains: param.title, // 包含
+        }
+    }
+    if(param?.startTime){
+        where.created_at = {
+            gte: param.startTime, // 大于等于
+        }
+    }
+    if(param?.endTime){
+        where.created_at = {
+            lte: param.endTime, // 小于等于
         }
     }
     // if (param?.href) {

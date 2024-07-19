@@ -5,7 +5,7 @@ const props = defineProps<{
     data?: ISystemInfoData
 }>()
 
-const systemState = useSystemState()
+const { setSystemUpdate } = await useSystemState()
 
 const lang = ref<LanguageType>('cn')
 
@@ -94,7 +94,7 @@ const onSubmit = async () => {
         is_en: form.data.is_en,
     }
 
-    const res = await ApiFunc(systemState.setSystemUpdate(param))
+    const res = await ApiFunc(setSystemUpdate(param))
 
     if (res) ElMessage.success('设置成功')
 

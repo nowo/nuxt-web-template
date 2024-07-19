@@ -13,7 +13,7 @@ const emits = defineEmits<{
 }>()
 
 const { adminRoutes } = useAdminMenuState()
-const { userInfo, setUserInfo } = useUserState()
+
 
 const lang = ref<LanguageType>('cn')
 const visible = ref(false)

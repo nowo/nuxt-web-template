@@ -16,7 +16,7 @@ interface ResponseDataType<T> {
  */
 export async function useCustomFetch<T>(url: NitroFetchRequest, options: UseFetchOptions<ResponseDataType<T>> = {}) {
     const time = Date.now().toString()
-    const sign = await setSignRule(time)
+    const sign = setSignRule(time)
     const headers: HeadersInit = { 'x-sign': `${sign}-${time}` }
 
     // cookie会自动发送到后端，所以这里不传token也可以
@@ -39,7 +39,7 @@ export async function useCustomFetch<T>(url: NitroFetchRequest, options: UseFetc
     // for nice deep defaults, please use unjs/defu
     const params = defu(options, defaults)
 
-    return useFetch(url, params)
+    return useFetch<ResponseDataType<T>>(url, params)
 }
 
 /**
@@ -50,7 +50,7 @@ export async function useCustomFetch<T>(url: NitroFetchRequest, options: UseFetc
 export async function useServerFetch<T = any>(...arg: Parameters<typeof $fetch>) {
     const [url, options] = arg
     const time = Date.now().toString()
-    const sign = await setSignRule(time)
+    const sign = setSignRule(time)
 
     const defaults: typeof options = {
         // baseURL: config.public.apiBase ?? 'https://api.nuxtjs.dev',
