@@ -33,8 +33,8 @@ function convertKeysToCamelCase(obj: Record<string, any>) {
     for (const key in obj) {
         // 排除原型链上的属性
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            const camelCaseKey = key.replace(/-([a-z])/g, (match) => {
-                return match[1].toUpperCase()
+            const camelCaseKey = key.replace(/-([a-z])/g, (substring, char) => {
+                return substring.toUpperCase()
             })
             newObj[camelCaseKey] = obj[key]
         }
