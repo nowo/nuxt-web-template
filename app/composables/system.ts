@@ -1,4 +1,4 @@
-import type { Admin } from "@prisma/client"
+import type { Admin } from '@prisma/client'
 
 /**
  * 设置用户登录信息，token相关
@@ -18,12 +18,12 @@ export function useUserState() {
     }
 
     // 设置用户信息
-    const setUserInfo=async()=>{
-        const res=await useServerFetch('/api/v1/user/info')
-        if(res.code===200){
-            userInfo.value=res.data
-        }else{
-            userInfo.value={}
+    const setUserInfo = async () => {
+        const res = await useServerFetch('/api/v1/user/info')
+        if (res.code === 200) {
+            userInfo.value = res.data
+        } else {
+            userInfo.value = {}
         }
     }
 
@@ -31,7 +31,7 @@ export function useUserState() {
         token,
         userInfo,
         setToken,
-        setUserInfo
+        setUserInfo,
     }
 }
 

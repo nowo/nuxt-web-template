@@ -23,8 +23,6 @@ export const getMenuList = defineEventHandler(async (event) => {
         }
     }
 
-
-
     // 查询用户姓"张"，1页显示20条
     let page: number | undefined
     let pageSize: number | undefined

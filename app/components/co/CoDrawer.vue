@@ -1,53 +1,29 @@
-<template>
-    <el-drawer ref="drawerRef" v-bind="$attrs" :size="width">
-        <template #header>
-            <slot v-if="$slots.header" name="header" />
-            <span v-else>{{ $attrs.title }}</span>
-            <button v-if="!props.hideFull" class="el-drawer__close-btn mr-5px" @click="fullscreen = !fullscreen">
-                <el-icon v-if="fullscreen" class="i-ep-copy-document rotate-180"></el-icon>
-                <el-icon v-else class="i-ep-full-screen"></el-icon>
-            </button>
-        </template>
-        <el-scrollbar class="px20px">
-            <slot />
-        </el-scrollbar>
-        <template #footer>
-            <slot v-if="$slots.footer" name="footer" />
-            <div v-else>
-                <el-button @click="onCancel">取消</el-button>
-                <el-button type="primary" :loading="props.loading" @click="onConfirm">确认</el-button>
-            </div>
-        </template>
-    </el-drawer>
-</template>
-
 <script lang="ts" setup>
-
 const props = defineProps<{
-    loading?: boolean,  // 确定按钮loading
-    width?: number | Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>>  // 各个尺寸的宽度大小
+    loading?: boolean // 确定按钮loading
+    width?: number | Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>> // 各个尺寸的宽度大小
     // width?: number | Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>
-    hideFull?:boolean   //  是否隐藏全屏按钮
+    hideFull?: boolean //  是否隐藏全屏按钮
 }>()
 
 const emits = defineEmits<{
-    cancel: [],
+    cancel: []
     confirm: []
 }>()
 
-const fullscreen=ref(false) // 是否最大
+const fullscreen = ref(false) // 是否最大
 
 const { width: wWid } = useWindowSize()
 
 const width = computed(() => {
     let wid = 30
-    if(fullscreen.value ) return '100%'
+    if (fullscreen.value) return '100%'
     if (typeof props.width === 'number') {
         wid = props.width
     } else if (typeof props.width === 'object') {
-        let winWidth = wWid.value
+        const winWidth = wWid.value
         // console.log('winWidth :>> ', winWidth);
-        const { xs, sm, md, lg, xl } = props.width;
+        const { xs, sm, md, lg, xl } = props.width
         if (xl && winWidth > 1200) {
             wid = xl
         } else if (lg && winWidth > 992) {
@@ -65,7 +41,6 @@ const width = computed(() => {
     // console.log(wid)
     return `${wid}%`
 })
-
 
 const drawerRef = ref<ComponentInstance['ElDrawer']>()
 
@@ -85,3 +60,30 @@ defineExpose({
     onConfirm,
 })
 </script>
+
+<template>
+    <el-drawer ref="drawerRef" v-bind="$attrs" :size="width">
+        <template #header>
+            <slot v-if="$slots.header" name="header" />
+            <span v-else>{{ $attrs.title }}</span>
+            <button v-if="!props.hideFull" class="el-drawer__close-btn mr-5px" @click="fullscreen = !fullscreen">
+                <el-icon v-if="fullscreen" class="i-ep-copy-document rotate-180" />
+                <el-icon v-else class="i-ep-full-screen" />
+            </button>
+        </template>
+        <el-scrollbar class="px20px">
+            <slot />
+        </el-scrollbar>
+        <template #footer>
+            <slot v-if="$slots.footer" name="footer" />
+            <div v-else>
+                <el-button @click="onCancel">
+                    取消
+                </el-button>
+                <el-button type="primary" :loading="props.loading" @click="onConfirm">
+                    确认
+                </el-button>
+            </div>
+        </template>
+    </el-drawer>
+</template>

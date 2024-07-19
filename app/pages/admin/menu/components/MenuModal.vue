@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Menu, Prisma } from '@prisma/client'
-import type { CheckboxValueType, FormInstance, FormRules } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { deepClone } from '@cooj/utils'
 
 const props = defineProps<{
@@ -67,7 +67,6 @@ const rules = reactive<FormRules>({
     ],
 })
 
-
 /**
  * 相同id，及子类设置禁用
  * @param data 树形数据
@@ -75,7 +74,7 @@ const rules = reactive<FormRules>({
  * @param key val对应的键名
  * @param children 子类集合
  * @param disable 设置禁用的字段，默认使用的是a_disable
- * @returns
+ * @returns T[]
  */
 function setDisableTree<T = any>(data: T[], val: number | string, key = 'id' as keyof T, children = 'children' as keyof T, disable = 'disabled'): (T & { disabled?: boolean })[] {
     const result = data.map((item: any) => {
@@ -138,7 +137,6 @@ const [ApiFunc, btnLoading] = useLoadingSubmit()
 // 确定
 const onConfirm = useThrottleFn(async () => {
     const isVerify = await useFormVerify(formRef.value)
-    console.log(isVerify)
     if (!isVerify) return
 
     const data: Prisma.MenuUncheckedCreateInput = {
@@ -182,7 +180,7 @@ defineExpose({
 </script>
 
 <template>
-    <CoDrawer v-model="stateData.visible" :title="comData.title" :loading="btnLoading" :width="{lg:40,md:50,sm:60}" @cancel="onCancel"
+    <CoDrawer v-model="stateData.visible" :title="comData.title" :loading="btnLoading" :width="{ lg: 40, md: 50, sm: 60 }" @cancel="onCancel"
         @confirm="onConfirm">
         <el-form ref="formRef" :model="form.data" :rules="rules" label-width="120px">
             <el-form-item label="上级菜单:" prop="p_id">

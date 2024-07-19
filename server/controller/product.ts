@@ -23,8 +23,6 @@ export const getProductList = defineEventHandler(async (event) => {
     //     }
     // }
 
-
-
     // 分页数量查询，1页显示20条
     let page: number | undefined
     let pageSize: number | undefined

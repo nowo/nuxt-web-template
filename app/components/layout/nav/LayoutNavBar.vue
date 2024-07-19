@@ -4,10 +4,10 @@ interface NavBarStateData {
 }
 
 const { themeConfig, isDrawer } = useThemeState()
-const { userInfo,setUserInfo } = useUserState()
+const { userInfo, setUserInfo } = useUserState()
 setUserInfo()
 
-const passwordRef=ref<ComponentInstance['LayoutOtherPassword']>()
+const passwordRef = ref<ComponentInstance['LayoutOtherPassword']>()
 
 const state = reactive<NavBarStateData>({
     configSizeData: {
@@ -53,8 +53,7 @@ function onHandleCommandClick(command: string) {
         }).catch(() => {
             // catch error
         })
-    }else if(command==='password'){// 修改密码
-        
+    } else if (command === 'password') { // 修改密码
         passwordRef.value?.openDialog()
     }
 }

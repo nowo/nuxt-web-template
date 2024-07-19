@@ -1,41 +1,7 @@
-<template>
-    <el-dialog v-model="defData.visible" draggable title="修改密码" width="450px">
-        <el-form ref="formRef" :model="formData" :rules="rules" label-width="100px">
-            <el-row>
-                <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23">
-                    <el-form-item label="原密码" prop="now_pwd">
-                        <el-input v-model="formData.now_pwd" class="w100%" placeholder="请输入原密码" type="password"
-                            clearable show-password />
-                    </el-form-item>
-                </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23">
-                    <el-form-item label="新密码" prop="new_pwd">
-                        <el-input v-model="formData.new_pwd" class="w100%" placeholder="请输入新密码" type="password" show-password
-                            clearable />
-                    </el-form-item>
-                </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23">
-                    <el-form-item label="确认密码" prop="confirm_pwd">
-                        <el-input v-model="formData.confirm_pwd" class="w100%" placeholder="请输入确认密码" type="password"
-                            show-password clearable />
-                    </el-form-item>
-                </el-col>
-            </el-row>
-        </el-form>
-        <template #footer>
-            <span class="dialog-footer">
-                <el-button @click="onCancel">取 消</el-button>
-                <el-button type="primary" :loading="loading" @click="onSubmit">确 定</el-button>
-            </span>
-        </template>
-    </el-dialog>
-</template>
-
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { Action, FormInstance, FormRules } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
-
 
 // 绑定表单
 const formRef = ref<FormInstance>()
@@ -84,34 +50,30 @@ const onCancel = () => {
     closeDialog()
 }
 
-
-const [ApiFunc,loading]=useLoadingSubmit()
+const [ApiFunc, loading] = useLoadingSubmit()
 
 // 确定
 const onSubmit = async () => {
-    
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return
 
     if (formData.new_pwd !== formData.confirm_pwd) return ElMessage.error('两次输入的密码不一致！')
 
-    const data:IAdminPasswordUpdate = {
+    const data: IAdminPasswordUpdate = {
         password: formData.now_pwd?.trim?.(),
         newPassword: formData.new_pwd?.trim?.(),
         // confirm_password: formData.confirm_pwd,
     }
-    const res = await ApiFunc(useServerFetch('/api/v1/password',{
-        method:'post',
-        body:data
+    const res = await ApiFunc(useServerFetch('/api/v1/password', {
+        method: 'post',
+        body: data,
     }))
     if (res.code !== 200) return ElMessage.error(res.msg)
-    ElMessage.success("修改成功");
+    ElMessage.success('修改成功')
 
     closeDialog()
 
     const token = useCookie('token')
-
-
 
     setTimeout(() => {
         token.value = ``
@@ -124,7 +86,6 @@ const onSubmit = async () => {
             window.location.reload() // 刷新页面
         },
     })
-
 }
 
 // 抛出方法
@@ -132,5 +93,38 @@ defineExpose({
     openDialog,
 })
 </script>
+
+<template>
+    <el-dialog v-model="defData.visible" draggable title="修改密码" width="450px">
+        <el-form ref="formRef" :model="formData" :rules="rules" label-width="100px">
+            <el-row>
+                <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23">
+                    <el-form-item label="原密码" prop="now_pwd">
+                        <el-input v-model="formData.now_pwd" class="w100%" placeholder="请输入原密码" type="password"
+                            clearable show-password />
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23">
+                    <el-form-item label="新密码" prop="new_pwd">
+                        <el-input v-model="formData.new_pwd" class="w100%" placeholder="请输入新密码" type="password" show-password
+                            clearable />
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="24" :lg="23" :xl="23">
+                    <el-form-item label="确认密码" prop="confirm_pwd">
+                        <el-input v-model="formData.confirm_pwd" class="w100%" placeholder="请输入确认密码" type="password"
+                            show-password clearable />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </el-form>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="onCancel">取 消</el-button>
+                <el-button type="primary" :loading="loading" @click="onSubmit">确 定</el-button>
+            </span>
+        </template>
+    </el-dialog>
+</template>
 
 <style lang="scss" scoped></style>

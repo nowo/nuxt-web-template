@@ -28,7 +28,6 @@ router.use('/menu/add', setMenuCreate) // 添加菜单
 router.use('/menu/edit', setMenuUpdate) // 修改菜单
 router.use('/menu/delete', setMenuDelete) // 删除菜单
 
-
 router.use('/product/list', getProductList) // 产品列表
 router.use('/product/add', setProductCreate) // 添加产品
 router.use('/product/edit', setProductUpdate) // 修改产品

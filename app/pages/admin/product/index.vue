@@ -88,7 +88,7 @@ const initTableData = async () => {
     tableData.loading = false
 
     if (res.code !== 200) return ElMessage.error(res.msg)
-console.log(res)
+
     tableData.data = res.data.list
     tableData.pagination.total = res.data.total || 0
 }

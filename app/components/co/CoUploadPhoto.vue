@@ -70,8 +70,7 @@ const initData = () => {
 
 // 是否隐藏添加图标
 const isHideIcon = computed(() => {
-    console.log(attrs)
-    console.log('propsAttr,', propsAttr)
+
     // 禁用时不显示添加图标
     if ('disabled' in attrs) return true
     // 已达到上传个数时不显示添加图标

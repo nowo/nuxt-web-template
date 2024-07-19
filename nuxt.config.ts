@@ -62,7 +62,7 @@ export default defineNuxtConfig({
 
     hooks: {
         'pages:extend': function (pages) {
-            const pagesToRemove = pages.filter((page) => page.path.includes('component'))
+            const pagesToRemove = pages.filter(page => page.path.includes('component'))
 
             pagesToRemove.forEach((page) => {
                 pages.splice(pages.indexOf(page), 1)

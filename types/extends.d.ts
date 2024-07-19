@@ -57,9 +57,9 @@ declare module '#app' {
         isAffix?: boolean // 是否固定在标签栏
 
         permissionList?: {
-            // Record<PermissionType,string> 
-            [K in PermissionType]?:string
-        },// 页面所有权限功能数据
+            // Record<PermissionType,string>
+            [K in PermissionType]?: string
+        }// 页面所有权限功能数据
         permissionCode?: PermissionType[] // 允许的权限码
     }
 }

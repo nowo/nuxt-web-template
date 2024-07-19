@@ -1,6 +1,6 @@
 <!-- 面包屑导航 -->
 <script lang="ts" setup>
-const { themeConfig, isDrawer } = useThemeState()
+const { themeConfig } = useThemeState()
 
 const isShowBreadcrumb = ref(true)
 

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import type { Admin, Prisma } from '@prisma/client'
+import type { Admin } from '@prisma/client'
 import type { CheckboxValueType, FormInstance, FormRules } from 'element-plus'
-
 
 const props = defineProps<{
     // type: number
@@ -42,7 +41,7 @@ const form = reactive({
         content: '',
         content_en: '',
         img: [] as string[],
-        sort: 1
+        sort: 1,
     },
 })
 

@@ -32,14 +32,14 @@ import { computed, reactive } from 'vue'
 //     }
 // })
 
-const props=defineProps<{
-    visible?: boolean;
-    title?: string;
-    autoHeight?: boolean;
-    hideFull?: boolean;
-    loading?: boolean;
-    noFooter?: boolean;
-    width?: number | Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>>  // 各个尺寸的宽度大小
+const props = defineProps<{
+    visible?: boolean
+    title?: string
+    autoHeight?: boolean
+    hideFull?: boolean
+    loading?: boolean
+    noFooter?: boolean
+    width?: number | Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>> // 各个尺寸的宽度大小
 }>()
 
 const emits = defineEmits<{
@@ -56,9 +56,9 @@ const width = computed(() => {
     if (typeof props.width === 'number') {
         wid = props.width
     } else if (typeof props.width === 'object') {
-        let winWidth = wWid.value
+        const winWidth = wWid.value
         // console.log('winWidth :>> ', winWidth);
-        const { xs, sm, md, lg, xl } = props.width;
+        const { xs, sm, md, lg, xl } = props.width
         if (xl && winWidth > 1200) {
             wid = xl
         } else if (lg && winWidth > 992) {
@@ -77,7 +77,6 @@ const width = computed(() => {
     return `${wid}%`
 })
 
-
 const defData = reactive({
     visible: props.visible,
     fullscreen: false,
@@ -91,9 +90,6 @@ const visible = computed({
     },
 })
 
-const iconName = computed(() => {
-    return defData.fullscreen ? 'ele-CopyDocument' : 'ele-FullScreen'
-})
 
 // 关闭弹窗
 const onClose = () => {
@@ -131,7 +127,6 @@ const onToggle = () => {
             <button v-if="!props.hideFull" class="el-dialog__headerbtn mr54px" @click="onToggle">
                 <i v-if="defData.fullscreen" class="el-dialog__close active i-ep-copy-document" />
                 <i v-else class="el-dialog__close i-ep-full-screen" />
-                <!-- <SvgIcon class="el-dialog__close" :class="{ active: iconName === 'ele-CopyDocument' }" :name="iconName" /> -->
             </button>
         </template>
         <slot />
