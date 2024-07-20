@@ -22,6 +22,7 @@
         "@cooj/utils": "^0.0.1",
         "@nowo/utils": "npm:@jsr/nowo__utils@^0.0.2",
         "@prisma/client": "^5.13.0",
+        "@prisma/nuxt": "^0.0.30",
         "@tinymce/tinymce-vue": "^5",
         "element-plus": "^2.7.4",
         "formidable": "^3.5.1",
@@ -73,8 +74,5 @@
         "*.{js,jsx,ts,tsx}": [
             "eslint --fix"
         ]
-    },
-    "prisma": {
-        "schema": "server/prisma/schema.prisma"
     }
 }

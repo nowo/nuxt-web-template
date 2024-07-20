@@ -184,8 +184,19 @@ export const getAdminList = defineEventHandler(async (event) => {
         }
     }
 
-    if (typeof param?.status === 'number') {
-        where.status = param.status
+    // 状态，判断是否为数字
+    if (/^\d+$/.test(param?.status?.toString() || '')) where.status = Number(param?.status)
+
+    // 时间范围查询
+    if (param?.startTime) {
+        where.created_at = {
+            gte: param.startTime, // 大于等于
+        }
+    }
+    if (param?.endTime) {
+        where.created_at = {
+            lte: param.endTime, // 小于等于
+        }
     }
 
     // 查询用户姓"张"，1页显示20条

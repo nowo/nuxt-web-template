@@ -22,7 +22,7 @@ useHead({
 html,
 body,
 #__nuxt {
-    height: 100vh;
+    // height: 100vh;
     margin: 0;
     padding: 0;
     font-size: 14px;

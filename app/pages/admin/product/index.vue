@@ -20,6 +20,9 @@ definePageMeta({
 
 const modalRef = ref<InstanceType<typeof OperateModal>>()
 // const modalRef = ref<any>()
+const stateData=reactive({
+
+})
 
 // form表单数据类型
 interface FormSearchData {
@@ -27,7 +30,7 @@ interface FormSearchData {
     title: '' // 标题
 
     time: DateRangeType // 时间范围
-    state: '' // 状态：1：启用，2：禁用
+    state: '' // 状态：1：启用，0：禁用
 }
 
 const searchData = reactive<CoFormToolProps<FormSearchData>>({
@@ -117,7 +120,7 @@ const onDel = (row: Admin) => {
         type: 'warning',
         buttonSize: 'default',
     }).then(async () => {
-        const res = await useServerFetch('/api/v1/admin/delete', {
+        const res = await useServerFetch('/api/v1/product/delete', {
             method: 'post',
             body: { id: row.id },
         })
@@ -138,7 +141,7 @@ initTableData()
             <template #state="{ row }">
                 <el-select v-model="row.state" filterable clearable>
                     <el-option label="启用" :value="1" />
-                    <el-option label="禁用" :value="2" />
+                    <el-option label="禁用" :value="0" />
                 </el-select>
             </template>
             <template #time="{ row }">
@@ -148,7 +151,7 @@ initTableData()
                 <el-icon class="i-ep-folder-add mr2px">
                     <!-- <ele-FolderAdd /> -->
                 </el-icon>
-                新增用户
+                新增产品
             </el-button>
         </CoFormTool>
         <CoTable v-model:option="tableData" auto-height border @refresh="initTableData">
@@ -175,7 +178,7 @@ initTableData()
                 <el-button v-if="checkPermission('edit')" type="primary" link @click="onOpenDialog('edit', row)">
                     修改
                 </el-button>
-                <el-button v-if="checkPermission('del')" type="danger" link :disabled="row.id === 1"
+                <el-button v-if="checkPermission('del')" type="danger" link
                     @click="onDel(row)">
                     删除
                 </el-button>

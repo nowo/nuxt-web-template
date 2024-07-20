@@ -146,7 +146,7 @@ initTableData()
             <template #state="{ row }">
                 <el-select v-model="row.state" filterable clearable>
                     <el-option label="启用" :value="1" />
-                    <el-option label="禁用" :value="2" />
+                    <el-option label="禁用" :value="0" />
                 </el-select>
             </template>
             <template #time="{ row }">

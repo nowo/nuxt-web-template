@@ -11,7 +11,7 @@ declare interface IAdminPasswordUpdate {
 declare interface IAdminListParams extends IListPage {
     account: string
     username: string
-    status: string
+    status: string|number
 }
 
 /**
@@ -20,5 +20,5 @@ declare interface IAdminListParams extends IListPage {
 declare interface IProductListParams extends IListPage {
     title: string
 
-    status: string
+    status: string|number
 }

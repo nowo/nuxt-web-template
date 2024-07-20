@@ -108,7 +108,7 @@ const openModal = (type: DialogOperate, row?: Menu) => {
         form.data.title_en = row.title_en || ''
         form.data.href = row.href || ''
         form.data.sort = row.sort || 0
-        form.data.p_id = row.p_id || ''
+        form.data.p_id = row.parent_id || ''
         form.data.status = row.status ? 1 : 0
 
         form.data.imgList = row.icon ? [row.icon] : []
@@ -140,7 +140,7 @@ const onConfirm = useThrottleFn(async () => {
     if (!isVerify) return
 
     const data: Prisma.MenuUncheckedCreateInput = {
-        p_id: Number(form.data.p_id),
+        parent_id: Number(form.data.p_id),
         title: form.data.title?.trim() ?? '',
         title_en: form.data.title_en?.trim() ?? '',
         href: form.data.href?.trim() ?? '',
@@ -220,19 +220,5 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.check-box {
-    >.el-checkbox {
-        margin-right: 15px;
-    }
 
-    :deep(.el-checkbox-group) {
-        .el-checkbox {
-            margin-right: 0;
-
-            +.el-checkbox {
-                margin-left: 15px;
-            }
-        }
-    }
-}
 </style>

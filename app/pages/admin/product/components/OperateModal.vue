@@ -20,8 +20,8 @@ const visible = ref(false)
 
 const operate = ref<DialogOperate>()
 const comData = computed(() => {
-    if (operate.value === 'add') return { title: '新增用户' }
-    return { title: '修改用户' }
+    if (operate.value === 'add') return { title: '新增'+props.title }
+    return { title: '修改'+props.title }
 })
 const formRef = ref<FormInstance>()
 const form = reactive({
@@ -324,19 +324,5 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.check-box {
-    >.el-checkbox {
-        margin-right: 15px;
-    }
 
-    :deep(.el-checkbox-group) {
-        .el-checkbox {
-            margin-right: 0;
-
-            +.el-checkbox {
-                margin-left: 15px;
-            }
-        }
-    }
-}
 </style>

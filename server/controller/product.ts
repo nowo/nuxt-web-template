@@ -17,6 +17,10 @@ export const getProductList = defineEventHandler(async (event) => {
             contains: param.title, // 包含
         }
     }
+    // 状态，判断是否为数字
+    if (/^\d+$/.test(param?.status?.toString() || '')) where.status = Number(param?.status)
+
+    // 时间范围查询
     if(param?.startTime){
         where.created_at = {
             gte: param.startTime, // 大于等于
@@ -49,11 +53,16 @@ export const getProductList = defineEventHandler(async (event) => {
             skip: pageSkip,
             take: pageSize,
             where,
-            orderBy: {
-                created_at: 'desc', // 按创建时间倒序排序
-                // updated_at: 'desc', // 按更新时间倒序排序
-                // id: 'asc', // 按id正序排序
-            },
+            orderBy: [
+                {
+                    sort: 'desc', // 按创建时间倒序排序
+                },
+                {
+                    created_at: 'desc', // 按创建时间倒序排序
+                    // updated_at: 'desc', // 按更新时间倒序排序
+                    // id: 'asc', // 按id正序排序
+                }
+            ],
             // include: {
             //     children: true,
             // },
