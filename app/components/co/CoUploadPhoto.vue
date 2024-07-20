@@ -88,7 +88,7 @@ const emitsUpdate = (val?: string[]) => {
  * 上传图片方法,配合下面的onUploadSuccess一起使用
  */
 const onUploadFile: UploadRequestHandler = async (options) => {
-    // console.log('options :>> ', options);
+
 
     const formData = new FormData()
     formData.append('file', options.file)
@@ -100,12 +100,12 @@ const onUploadFile: UploadRequestHandler = async (options) => {
 }
 // 上传成功操作,更新数据，去除前端预览的blob地址
 const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) => {
-    // console.log(response, file, files)
+  
     // 只有所有都上传成功了才处理
     const isSuccess = files.every(it => it.status === 'success')
-    // console.log('isSuccess :>> ', isSuccess);
+
     if (!isSuccess) return
-    // console.log('uploadList.value :>> ', uploadList.value);
+
     files.forEach((item) => {
         // 只取携带response的才是刚上传的
         const resData = item.response as { code: number, data: { src: string }, msg: string }
@@ -152,7 +152,6 @@ const onImageRemove = (file: UploadFile) => {
 
 // 图片预览
 const onImgPreview = (file: UploadFile) => {
-    // console.log('file :>> ', file)
 
     const findIndex = props.modelValue?.findIndex(item => item === file.url)
     imageState.index = findIndex && findIndex >= 0 ? findIndex : 0

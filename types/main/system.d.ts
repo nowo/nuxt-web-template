@@ -28,6 +28,7 @@ declare interface ISystemInfoData {
 declare interface ISystemEditParams {
     company: string // 公司名称
     logo: string // logo
+    logo2:string // logo2(移动端)
     email: string // 邮箱
     phone: string // 联系电话
     address: string // 地址

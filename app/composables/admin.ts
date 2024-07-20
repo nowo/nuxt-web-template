@@ -12,7 +12,6 @@ export const useAdminMenuState = () => {
     // 后台页面路由列表
     const adminRoutes = computed(() => {
         const list = routes.filter((item) => {
-            // console.log(item.path, 'startStr.startsWith(item.path) :>> ', item.path.startsWith(startStr));
             if (item.path.startsWith(appAdminPath) && !item?.meta?.isHide) {
                 return true
             } else {
@@ -96,14 +95,18 @@ export const useAdminMenuState = () => {
         // 固定的标签数组
         const fixArr = tagMenuList.value.filter(item => item.meta?.isAffix).map(v => v.path)
         if (type === 1) { // 刷新
-            // console.log(mainLoad)
             if (route.path === row.path) {
                 mainLoad?.()
             } else {
                 navigateTo(row)
             }
         } else if (type === 2) { // 关闭
+            // 只有一个标签页时，不关闭
+            if (storageMenuList.value.length <= 1) return
             if (storageIndex >= 0) storageMenuList.value.splice(storageIndex, 1)
+            // 如果关闭当前路由，跳转页面
+            const node = tagMenuList.value[tagMenuList.value.length - 1]
+            if (node) navigateTo(node)
         } else if (type === 3) { // 关闭其他
             if (!fixArr.includes(row.path)) fixArr.push(row.path)
             storageMenuList.value = fixArr

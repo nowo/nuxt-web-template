@@ -12,19 +12,17 @@ export const useUserState=()=> {
 
     const userInfo = useState<Partial<Admin>>('userInfo', () => ({}))
 
-    if (!userInfo.value) {
-        useCustomFetch<Admin>('/api/v1/system/info').then((res) => {
-            if (res.data.value?.code === 200) {
-                userInfo.value = res.data.value?.data
-            }
-        })
-        // const { data: info, error, status } = await useCustomFetch<Admin>('/api/v1/system/info')
-        // // console.log(info, error, status)
-        // if (info.value?.code === 200) {
-        //     userInfo.value = info.value?.data
-        //     // console.log(info.value?.data)
-        // }
-    }
+    // if (!userInfo.value) {
+    //     useCustomFetch<Admin>('/api/v1/system/info').then((res) => {
+    //         if (res.data.value?.code === 200) {
+    //             userInfo.value = res.data.value?.data
+    //         }
+    //     })
+    //     // const { data: info, error, status } = await useCustomFetch<Admin>('/api/v1/system/info')
+    //     // if (info.value?.code === 200) {
+    //     //     userInfo.value = info.value?.data
+    //     // }
+    // }
 
 
     const setToken = (token: string) => {
@@ -35,9 +33,9 @@ export const useUserState=()=> {
     // 获取登录用户信息
     const setUserInfo = async () => {
         // 未登录，且不在客户端，则不执行
-        if(!token.value || !process.client) return
+        if(!token.value || !import.meta.client) return
         const res = await useServerFetch<Admin>('/api/v1/user/info')
-        // console.log('res0000,',res)
+
         if(res.code===401){ // 账户登录失效
             ElMessage.error(res.msg)
             token.value = ''
@@ -66,10 +64,8 @@ export const useSystemState = async() => {
     const systemInfo = ref<ISystemInfoData>()
     if (!systemInfo.value) {
         const { data: info, error, status } = await useCustomFetch<ISystemInfoData>('/api/v1/system/info')
-        // console.log(info, error, status)
         if (info.value?.code === 200) {
             systemInfo.value = info.value?.data
-            // console.log(info.value?.data)
         }
     }
 

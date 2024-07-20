@@ -145,7 +145,7 @@ export const setPasswordUpdate = defineEventHandler(async (event) => {
  */
 export const getAdminInfo = defineEventHandler(async (event) => {
     const userInfo = event.context.user
-    // console.log('userInfo :>> ', userInfo);
+
     if (!userInfo) return { code: 401, msg: '账户登录失效，请重新登录' }
     const admin = await prisma.admin.findUnique({
         where: {

@@ -17,10 +17,9 @@ export const setSignRule = (str: string | number) => {
     // 将字符串反转（时间戳前面部分是同样的，进行反转能减少相似），然后转成数字类型
     const num = Number(numStr2.split('').reverse().join(''))
 
-    //    加密，使用数字对应的32进制+16进制
+    // 加密，使用数字对应的32进制+16进制
     const s = `${num.toString(32)}${num.toString(16)}`
-    // console.log('s :>> ', s);
-    // console.log('s00 :>> ', s.substring(0, 16));
+
     // 返回一个16位数的字符串
     return s.substring(0, 16)
 }

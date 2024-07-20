@@ -28,12 +28,12 @@ const popStyles = computed(() => {
 
 // 标签右键打开事件
 const openContextmenu = (e: MouseEvent, row: RouteRecordNormalized) => {
-    // console.log('e :>> ', e)
+
     state.top = e.pageY
     state.left = e.pageX
     state.currentRoute = row
 
-    dropdownList.value[1].isHide = !!row.meta?.isAffix
+    dropdownList.value[1]!.isHide = !!row.meta?.isAffix
 
     state.visible = false
     setTimeout(() => {

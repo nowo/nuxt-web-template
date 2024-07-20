@@ -22,7 +22,7 @@ const width = computed(() => {
         wid = props.width
     } else if (typeof props.width === 'object') {
         const winWidth = wWid.value
-        // console.log('winWidth :>> ', winWidth);
+
         const { xs, sm, md, lg, xl } = props.width
         if (xl && winWidth > 1200) {
             wid = xl
@@ -38,7 +38,7 @@ const width = computed(() => {
             wid = xs || sm || md || lg || xl || wid
         }
     }
-    // console.log(wid)
+
     return `${wid}%`
 })
 

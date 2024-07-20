@@ -13,9 +13,7 @@ export const getSystemInfo = defineEventHandler(async (event) => {
     // 获取参数
     // const param = await getEventParams<LoginDataType>(event)
     //    const res=await prisma.system.findFirst()
-    //    console.log(res)
-    // const p = getRequestURL(event)
-    // console.log(p)
+
 
     const [res1, res2] = await Promise.all([
         prisma.system.findUnique({ where: { id: 1 } }),
@@ -51,7 +49,7 @@ export const setSystemInfo = defineEventHandler(async (event) => {
 
     // 获取参数 ISystemEditParams
     const param = await getEventParams<ISystemEditParams>(event)
-    console.log(param)
+
     if (!param?.company) return { msg: '公司名称不能为空' }
 
     const [res1, res2] = await Promise.all([
@@ -61,6 +59,7 @@ export const setSystemInfo = defineEventHandler(async (event) => {
                 title: param.title,
                 address: param.address,
                 logo: param.logo,
+                logo2: param.logo2,
                 wx_code: param.wx_code,
                 phone: param.phone,
                 email: param.email,

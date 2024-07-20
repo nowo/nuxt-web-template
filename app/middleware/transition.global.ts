@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    // console.log(to)
+
 
     // if (to.params.id === '1') {
     //     return abortNavigation()
@@ -18,8 +18,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
         to.meta.pageTransition = { name: 'slide-right', mode: 'out-in' }
         // const token = useSessionStorage('token', '')
         const token = useCookie('token')
-        // console.log(token.value)
-        // console.log('to', to.path)
         if (!token.value && to.path !== '/admin/login') { // 没token，不在登录页的时候，转到登录页
             return navigateTo('/admin/login')
         } else if (token.value && to.path === '/admin/login') { // 有token，在登录页的时候，转到后台首页
@@ -27,7 +25,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
         } else {
 
             // const currentItem = menuList.value.find(item => item.path === to.path)
-            // console.log(currentItem)
             // // if (!currentItem) return abortNavigation('无权访问')  // 阻止跳转
 
             // if (!currentItem) return navigateTo('/', { redirectCode: 301 })

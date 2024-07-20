@@ -205,16 +205,9 @@ const rules = reactive<FormRules>({
     ],
 })
 
-const FetchLogin = async () => {
-    const { data } = await useFetch('/api/v1/system/info')
-    console.log('data.value :>> ', data.value)
-    return 1
-}
 
 const [ApiFunc, loading] = useLoadingSubmit()
 const onSignIn = async () => {
-    console.log(form.account)
-    console.log(form.password)
 
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return

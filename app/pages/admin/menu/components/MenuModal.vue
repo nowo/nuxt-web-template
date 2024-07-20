@@ -149,7 +149,6 @@ const onConfirm = useThrottleFn(async () => {
         icon: form.data.icon?.trim() ?? '',
     }
 
-    // // console.log(data)
     if (operate.value === 'add') {
         const res = await ApiFunc(useServerFetch('/api/v1/menu/add', {
             method: 'POST',
