@@ -41,6 +41,16 @@ export default defineNuxtConfig({
         //     routes: ['/'],
         //     ignore: ['/hi'],
         // },
+        storage: {
+            // redis: {
+            //     driver: 'redis',
+            //     /* redis connector options */
+            // },
+            prisma: {
+                driver: 'fs',
+                base: './.data/prisma',
+            },
+        },
     },
 
     app: {

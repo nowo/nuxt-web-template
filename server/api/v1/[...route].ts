@@ -4,8 +4,11 @@ import { getAdminInfo, getAdminList, setAdminCreate, setAdminDelete, setAdminUpd
 import { getSystemInfo, setSystemInfo } from '~~/server/controller/system'
 import { getMenuList, setMenuCreate, setMenuDelete, setMenuUpdate } from '~~/server/controller/menu'
 import { getProductList, setProductCreate, setProductDelete, setProductUpdate } from '~~/server/controller/product'
+import { getModelList } from '~~/server/controller/model'
 
 const router = createRouter()
+
+router.use('/model/list', getModelList) // 获取模型列表
 
 router.use('/file/upload', setSaveFile) // 文件上传保存
 router.use('/file/delete', setDeleteFile) // 文件删除
