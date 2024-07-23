@@ -67,7 +67,7 @@ function onHandleCommandClick(command: string) {
                 <i class="iconfont icon-ziti" title="组件大小" />
             </div> -->
                 <div class="layout-user-item">
-                    <i class="i-ic:sharp-text-fields" title="组件大小" />
+                    <i class="i-mdi:format-size" title="组件大小" />
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>

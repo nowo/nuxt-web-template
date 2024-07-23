@@ -138,6 +138,7 @@ export function useThemeState() {
         globalComponentSize: 'default',
     }
 
+    const localConfig = useLocalStorage<IThemeConfig>('themeConfigTheme', config)
     const themeConfig = useState<IThemeConfig>('themeConfig', () => config)
 
     // 是否打开布局配置弹窗
@@ -158,7 +159,7 @@ export function useThemeState() {
      * @param value
      */
     const saveThemeConfig = (value: IThemeConfig) => {
-        useLocalStorage<IThemeConfig>('themeConfig', value || themeConfig.value)
+        localConfig.value = value
     }
 
     return {

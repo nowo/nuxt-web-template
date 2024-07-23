@@ -10,12 +10,12 @@ const state = reactive({
 })
 
 // 获取布局配置信息
-const getThemeConfig = ref(themeConfig.value)
+// const getThemeConfig = ref(themeConfig.value)
 
 // 存储布局配置
 function setLocalThemeConfig() {
     // Local.remove('themeConfig')
-    // Local.set('themeConfig', getThemeConfig.value)
+    // Local.set('themeConfig', themeConfig.value)
 }
 
 // 存储布局配置全局主题样式（html根标签）
@@ -25,13 +25,13 @@ function setLocalThemeConfigStyle() {
 
 // 1、全局主题
 function onColorPickerChange() {
-    // if (!getThemeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
+    // if (!themeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
     // // 颜色加深
-    // document.documentElement.style.setProperty('--el-color-primary-dark-2', `${getDarkColor(getThemeConfig.value.primary, 0.1)}`)
-    // document.documentElement.style.setProperty('--el-color-primary', getThemeConfig.value.primary)
+    // document.documentElement.style.setProperty('--el-color-primary-dark-2', `${getDarkColor(themeConfig.value.primary, 0.1)}`)
+    // document.documentElement.style.setProperty('--el-color-primary', themeConfig.value.primary)
     // // 颜色变浅
     // for (let i = 1; i <= 9; i++) {
-    //     document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(getThemeConfig.value.primary, i / 10)}`)
+    //     document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(themeConfig.value.primary, i / 10)}`)
     // }
     // // setDispatchThemeConfig()
     // setLocalThemeConfig()
@@ -54,22 +54,22 @@ function setGradualFun(el: string, bool: boolean, color: string) {
 
 // 2、菜单 / 顶栏 --> 顶栏背景渐变
 function onTopBarGradualChange() {
-    setGradualFun('.layout-navbars-breadcrumb-index', getThemeConfig.value.isTopBarColorGradual, getThemeConfig.value.topBar)
+    setGradualFun('.layout-navbars-breadcrumb-index', themeConfig.value.isTopBarColorGradual, themeConfig.value.topBar)
 }
 // 2、菜单 / 顶栏 --> 菜单背景渐变
 function onMenuBarGradualChange() {
-    setGradualFun('.layout-container .el-aside', getThemeConfig.value.isMenuBarColorGradual, getThemeConfig.value.menuBar)
+    setGradualFun('.layout-container .el-aside', themeConfig.value.isMenuBarColorGradual, themeConfig.value.menuBar)
 }
 // 2、菜单 / 顶栏 --> 分栏菜单背景渐变
 function onColumnsMenuBarGradualChange() {
-    setGradualFun('.layout-container .layout-columns-aside', getThemeConfig.value.isColumnsMenuBarColorGradual, getThemeConfig.value.columnsMenuBar)
+    setGradualFun('.layout-container .layout-columns-aside', themeConfig.value.isColumnsMenuBarColorGradual, themeConfig.value.columnsMenuBar)
 }
 
 // 2、菜单 / 顶栏
 function onBgColorPickerChange(bg: keyof IThemeConfig) {
     document.documentElement.style.setProperty(`--next-bg-${bg}`, themeConfig.value[bg] as string)
     // if (bg === 'menuBar') {
-    //     document.documentElement.style.setProperty(`--next-bg-menuBar-light-1`, getLightColor(getThemeConfig.value.menuBar, 0.05))
+    //     document.documentElement.style.setProperty(`--next-bg-menuBar-light-1`, getLightColor(themeConfig.value.menuBar, 0.05))
     // }
     onTopBarGradualChange()
     onMenuBarGradualChange()
@@ -89,23 +89,23 @@ function onThemeConfigChange() {
 }
 // 3、界面设置 --> 固定 Header
 function onIsFixedHeaderChange() {
-    // getThemeConfig.value.isFixedHeaderChange = !getThemeConfig.value.isFixedHeader
+    // themeConfig.value.isFixedHeaderChange = !themeConfig.value.isFixedHeader
     setLocalThemeConfig()
 }
 // 3、界面设置 --> 经典布局分割菜单
 function onClassicSplitMenuChange() {
-    getThemeConfig.value.isBreadcrumb = false
+    themeConfig.value.isBreadcrumb = false
     setLocalThemeConfig()
     // mittBus.emit('getBreadcrumbIndexSetFilterRoutes')
 }
 // 4、界面显示 --> 侧边栏 Logo
 function onIsShowLogoChange() {
-    getThemeConfig.value.isShowLogoChange = !getThemeConfig.value.isShowLogo
+    themeConfig.value.isShowLogoChange = !themeConfig.value.isShowLogo
     setLocalThemeConfig()
 }
 // 4、界面显示 --> 面包屑 Breadcrumb
 function onIsBreadcrumbChange() {
-    if (getThemeConfig.value.layout === 'classic') getThemeConfig.value.isClassicSplitMenu = false
+    if (themeConfig.value.layout === 'classic') themeConfig.value.isClassicSplitMenu = false
 
     setLocalThemeConfig()
 }
@@ -122,12 +122,12 @@ function onShareTagsViewChange() {
 // 4、界面显示 --> 灰色模式/色弱模式
 function onAddFilterChange(attr: string) {
     if (attr === 'grayscale') {
-        if (getThemeConfig.value.isGrayscale) getThemeConfig.value.isInvert = false
+        if (themeConfig.value.isGrayscale) themeConfig.value.isInvert = false
     } else {
-        if (getThemeConfig.value.isInvert) getThemeConfig.value.isGrayscale = false
+        if (themeConfig.value.isInvert) themeConfig.value.isGrayscale = false
     }
     const cssAttr
-        = attr === 'grayscale' ? `grayscale(${getThemeConfig.value.isGrayscale ? 1 : 0})` : `invert(${getThemeConfig.value.isInvert ? '80%' : '0%'})`
+        = attr === 'grayscale' ? `grayscale(${themeConfig.value.isGrayscale ? 1 : 0})` : `invert(${themeConfig.value.isInvert ? '80%' : '0%'})`
     const appEle = document.body
     appEle.setAttribute('style', `filter: ${cssAttr}`)
     setLocalThemeConfig()
@@ -135,7 +135,7 @@ function onAddFilterChange(attr: string) {
 // 4、界面显示 --> 深色模式
 function onAddDarkChange() {
     const body = document.documentElement as HTMLElement
-    if (getThemeConfig.value.isIsDark) {
+    if (themeConfig.value.isIsDark) {
         body.setAttribute('data-theme', 'dark')
     } else {
         body.setAttribute('data-theme', '')
@@ -143,24 +143,24 @@ function onAddDarkChange() {
 }
 // 4、界面显示 --> 开启水印
 function onWatermarkChange() {
-    // getThemeConfig.value.isWatermark ? watermark.set(getThemeConfig.value.watermarkText) : watermark.del()
+    // themeConfig.value.isWatermark ? watermark.set(themeConfig.value.watermarkText) : watermark.del()
     // setLocalThemeConfig()
 }
 // 4、界面显示 --> 水印文案
 function onWatermarkTextInput(val: string) {
-    // getThemeConfig.value.watermarkText = verifyAndSpace(val)
-    // if (getThemeConfig.value.watermarkText === '') return false
-    // if (getThemeConfig.value.isWatermark) watermark.set(getThemeConfig.value.watermarkText)
+    // themeConfig.value.watermarkText = verifyAndSpace(val)
+    // if (themeConfig.value.watermarkText === '') return false
+    // if (themeConfig.value.isWatermark) watermark.set(themeConfig.value.watermarkText)
     // setLocalThemeConfig()
 }
 // 5、布局切换
 function onSetLayout(layout: any) {
     // Local.set('oldLayout', layout)
-    // if (getThemeConfig.value.layout === layout) return false
-    // if (layout === 'transverse') getThemeConfig.value.isCollapse = false
-    // getThemeConfig.value.layout = layout
+    // if (themeConfig.value.layout === layout) return false
+    // if (layout === 'transverse') themeConfig.value.isCollapse = false
+    // themeConfig.value.layout = layout
 
-    // getThemeConfig.value.isDrawer = false
+    // themeConfig.value.isDrawer = false
     // initLayoutChangeFun()
 }
 // 设置布局切换函数
@@ -177,8 +177,8 @@ function initLayoutChangeFun() {
 function onDrawerClose() {
     isDrawer.value = false
 
-    getThemeConfig.value.isFixedHeaderChange = false
-    getThemeConfig.value.isShowLogoChange = false
+    themeConfig.value.isFixedHeaderChange = false
+    themeConfig.value.isShowLogoChange = false
     isDrawer.value = false
     setLocalThemeConfig()
 }
@@ -221,7 +221,7 @@ onMounted(() => {
     //     Local.set('frequency', 1)
     //     // 监听窗口大小改变，非默认布局，设置成默认布局（适配移动端）
     //     mittBus.on('layoutMobileResize', (res: LayoutMobileResize) => {
-    //         getThemeConfig.value.layout = res.layout
+    //         themeConfig.value.layout = res.layout
     //         isDrawer.value = false
     //         initLayoutChangeFun()
     //         state.isMobile = isMobile()
@@ -230,11 +230,11 @@ onMounted(() => {
     //         // 默认样式
     //         onColorPickerChange()
     //         // 灰色模式
-    //         if (getThemeConfig.value.isGrayscale) onAddFilterChange('grayscale')
+    //         if (themeConfig.value.isGrayscale) onAddFilterChange('grayscale')
     //         // 色弱模式
-    //         if (getThemeConfig.value.isInvert) onAddFilterChange('invert')
+    //         if (themeConfig.value.isInvert) onAddFilterChange('invert')
     //         // 深色模式
-    //         if (getThemeConfig.value.isIsDark) onAddDarkChange()
+    //         if (themeConfig.value.isIsDark) onAddDarkChange()
     //         // 开启水印
     //         onWatermarkChange()
     //         // 初始化菜单样式等
@@ -262,7 +262,7 @@ defineExpose({
                     primary
                 </div>
                 <div>
-                    <el-color-picker v-model="getThemeConfig.primary" size="default" @change="onColorPickerChange" />
+                    <el-color-picker v-model="themeConfig.primary" size="default" @change="onColorPickerChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -270,7 +270,7 @@ defineExpose({
                     深色模式
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isIsDark" size="small" @change="onAddDarkChange" />
+                    <el-switch v-model="themeConfig.isIsDark" size="small" @change="onAddDarkChange" />
                 </div>
             </div>
 
@@ -283,7 +283,7 @@ defineExpose({
                     顶栏背景
                 </div>
                 <div>
-                    <el-color-picker v-model="getThemeConfig.topBar" size="default"
+                    <el-color-picker v-model="themeConfig.topBar" size="default"
                         @change="onBgColorPickerChange('topBar')" />
                 </div>
             </div>
@@ -292,7 +292,7 @@ defineExpose({
                     顶栏默认字体颜色
                 </div>
                 <div>
-                    <el-color-picker v-model="getThemeConfig.topBarColor" size="default"
+                    <el-color-picker v-model="themeConfig.topBarColor" size="default"
                         @change="onBgColorPickerChange('topBarColor')" />
                 </div>
             </div>
@@ -301,7 +301,7 @@ defineExpose({
                     顶栏背景渐变
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isTopBarColorGradual" size="small"
+                    <el-switch v-model="themeConfig.isTopBarColorGradual" size="small"
                         @change="onTopBarGradualChange" />
                 </div>
             </div>
@@ -315,7 +315,7 @@ defineExpose({
                     菜单背景
                 </div>
                 <div class="mb5px min-h32px flex items-center">
-                    <el-color-picker v-model="getThemeConfig.menuBar" size="default"
+                    <el-color-picker v-model="themeConfig.menuBar" size="default"
                         @change="onBgColorPickerChange('menuBar')" />
                 </div>
             </div>
@@ -324,7 +324,7 @@ defineExpose({
                     菜单默认字体颜色
                 </div>
                 <div>
-                    <el-color-picker v-model="getThemeConfig.menuBarColor" size="default"
+                    <el-color-picker v-model="themeConfig.menuBarColor" size="default"
                         @change="onBgColorPickerChange('menuBarColor')" />
                 </div>
             </div>
@@ -333,7 +333,7 @@ defineExpose({
                     菜单高亮背景色
                 </div>
                 <div>
-                    <el-color-picker v-model="getThemeConfig.menuBarActiveColor" size="default" show-alpha
+                    <el-color-picker v-model="themeConfig.menuBarActiveColor" size="default" show-alpha
                         @change="onBgColorPickerChange('menuBarActiveColor')" />
                 </div>
             </div>
@@ -342,7 +342,7 @@ defineExpose({
                     菜单背景渐变
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isMenuBarColorGradual" size="small"
+                    <el-switch v-model="themeConfig.isMenuBarColorGradual" size="small"
                         @change="onMenuBarGradualChange" />
                 </div>
             </div>
@@ -351,14 +351,14 @@ defineExpose({
             <el-divider content-position="left">
                 分栏设置
             </el-divider>
-            <div :style="{ opacity: getThemeConfig.layout !== 'columns' ? 0.5 : 1 }">
+            <div :style="{ opacity: themeConfig.layout !== 'columns' ? 0.5 : 1 }">
                 <div class="mb5px min-h32px flex items-center">
                     <div class="flex-1">
                         分栏菜单背景
                     </div>
                     <div>
-                        <el-color-picker v-model="getThemeConfig.columnsMenuBar" size="default"
-                            :disabled="getThemeConfig.layout !== 'columns'"
+                        <el-color-picker v-model="themeConfig.columnsMenuBar" size="default"
+                            :disabled="themeConfig.layout !== 'columns'"
                             @change="onBgColorPickerChange('columnsMenuBar')" />
                     </div>
                 </div>
@@ -367,8 +367,8 @@ defineExpose({
                         分栏菜单默认字体颜色
                     </div>
                     <div>
-                        <el-color-picker v-model="getThemeConfig.columnsMenuBarColor" size="default"
-                            :disabled="getThemeConfig.layout !== 'columns'"
+                        <el-color-picker v-model="themeConfig.columnsMenuBarColor" size="default"
+                            :disabled="themeConfig.layout !== 'columns'"
                             @change="onBgColorPickerChange('columnsMenuBarColor')" />
                     </div>
                 </div>
@@ -377,8 +377,8 @@ defineExpose({
                         分栏菜单背景渐变
                     </div>
                     <div>
-                        <el-switch v-model="getThemeConfig.isColumnsMenuBarColorGradual" size="small"
-                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuBarGradualChange" />
+                        <el-switch v-model="themeConfig.isColumnsMenuBarColorGradual" size="small"
+                            :disabled="themeConfig.layout !== 'columns'" @change="onColumnsMenuBarGradualChange" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
@@ -386,8 +386,8 @@ defineExpose({
                         分栏菜单鼠标悬停预加载
                     </div>
                     <div>
-                        <el-switch v-model="getThemeConfig.isColumnsMenuHoverPreload" size="small"
-                            :disabled="getThemeConfig.layout !== 'columns'" @change="onColumnsMenuHoverPreloadChange" />
+                        <el-switch v-model="themeConfig.isColumnsMenuHoverPreload" size="small"
+                            :disabled="themeConfig.layout !== 'columns'" @change="onColumnsMenuHoverPreloadChange" />
                     </div>
                 </div>
                 <div class="mb5px min-h32px flex items-center">
@@ -395,8 +395,8 @@ defineExpose({
                         分栏高亮风格
                     </div>
                     <div>
-                        <el-select v-model="getThemeConfig.columnsAsideStyle" placeholder="请选择" size="default"
-                            class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
+                        <el-select v-model="themeConfig.columnsAsideStyle" placeholder="请选择" size="default"
+                            class="w90px!" :disabled="themeConfig.layout !== 'columns' ? true : false"
                             @change="setLocalThemeConfig">
                             <el-option label="圆角" value="columns-round" />
                             <el-option label="卡片" value="columns-card" />
@@ -408,8 +408,8 @@ defineExpose({
                         分栏布局风格
                     </div>
                     <div>
-                        <el-select v-model="getThemeConfig.columnsAsideLayout" placeholder="请选择" size="default"
-                            class="w90px!" :disabled="getThemeConfig.layout !== 'columns' ? true : false"
+                        <el-select v-model="themeConfig.columnsAsideLayout" placeholder="请选择" size="default"
+                            class="w90px!" :disabled="themeConfig.layout !== 'columns' ? true : false"
                             @change="setLocalThemeConfig">
                             <el-option label="水平" value="columns-horizontal" />
                             <el-option label="垂直" value="columns-vertical" />
@@ -423,23 +423,23 @@ defineExpose({
                 界面设置
             </el-divider>
             <div class="mb5px min-h32px flex items-center"
-                :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                :style="{ opacity: themeConfig.layout === 'transverse' ? 0.5 : 1 }">
                 <div class="flex-1">
                     菜单水平折叠
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isCollapse" :disabled="getThemeConfig.layout === 'transverse'"
+                    <el-switch v-model="themeConfig.isCollapse" :disabled="themeConfig.layout === 'transverse'"
                         size="small" @change="onThemeConfigChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center"
-                :style="{ opacity: getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                :style="{ opacity: themeConfig.layout === 'transverse' ? 0.5 : 1 }">
                 <div class="flex-1">
                     菜单手风琴
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isUniqueOpened"
-                        :disabled="getThemeConfig.layout === 'transverse'" size="small" @change="setLocalThemeConfig" />
+                    <el-switch v-model="themeConfig.isUniqueOpened"
+                        :disabled="themeConfig.layout === 'transverse'" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -447,17 +447,17 @@ defineExpose({
                     固定 Header
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isFixedHeader" size="small" @change="onIsFixedHeaderChange" />
+                    <el-switch v-model="themeConfig.isFixedHeader" size="small" @change="onIsFixedHeaderChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center"
-                :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }">
+                :style="{ opacity: themeConfig.layout !== 'classic' ? 0.5 : 1 }">
                 <div class="flex-1">
                     经典布局分割菜单
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isClassicSplitMenu"
-                        :disabled="getThemeConfig.layout !== 'classic'" size="small"
+                    <el-switch v-model="themeConfig.isClassicSplitMenu"
+                        :disabled="themeConfig.layout !== 'classic'" size="small"
                         @change="onClassicSplitMenuChange" />
                 </div>
             </div>
@@ -466,7 +466,7 @@ defineExpose({
                     开启锁屏
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isLockScreen" size="small" @change="setLocalThemeConfig" />
+                    <el-switch v-model="themeConfig.isLockScreen" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -474,7 +474,7 @@ defineExpose({
                     自动锁屏(s/秒)
                 </div>
                 <div>
-                    <el-input-number v-model="getThemeConfig.lockScreenTime" controls-position="right" :min="1"
+                    <el-input-number v-model="themeConfig.lockScreenTime" controls-position="right" :min="1"
                         :max="9999" size="default" class="w90px!" @change="setLocalThemeConfig" />
                 </div>
             </div>
@@ -488,17 +488,17 @@ defineExpose({
                     侧边栏 Logo
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isShowLogo" size="small" @change="onIsShowLogoChange" />
+                    <el-switch v-model="themeConfig.isShowLogo" size="small" @change="onIsShowLogoChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center"
-                :style="{ opacity: getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse' ? 0.5 : 1 }">
+                :style="{ opacity: themeConfig.layout === 'classic' || themeConfig.layout === 'transverse' ? 0.5 : 1 }">
                 <div class="flex-1">
                     开启 Breadcrumb
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isBreadcrumb"
-                        :disabled="getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse'"
+                    <el-switch v-model="themeConfig.isBreadcrumb"
+                        :disabled="themeConfig.layout === 'classic' || themeConfig.layout === 'transverse'"
                         size="small" @change="onIsBreadcrumbChange" />
                 </div>
             </div>
@@ -507,7 +507,7 @@ defineExpose({
                     开启 Breadcrumb 图标
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isBreadcrumbIcon" size="small" @change="setLocalThemeConfig" />
+                    <el-switch v-model="themeConfig.isBreadcrumbIcon" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -515,7 +515,7 @@ defineExpose({
                     开启 TagsView
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isTagsView" size="small" @change="setLocalThemeConfig" />
+                    <el-switch v-model="themeConfig.isTagsView" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -523,7 +523,7 @@ defineExpose({
                     开启 TagsView 图标
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isTagsViewIcon" size="small" @change="setLocalThemeConfig" />
+                    <el-switch v-model="themeConfig.isTagsViewIcon" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -531,7 +531,7 @@ defineExpose({
                     开启 TagsView 缓存
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isCacheTagsView" size="small" @change="setLocalThemeConfig" />
+                    <el-switch v-model="themeConfig.isCacheTagsView" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center" :style="{ opacity: state.isMobile ? 0.5 : 1 }">
@@ -539,7 +539,7 @@ defineExpose({
                     开启 TagsView 拖拽
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isSortableTagsView" :disabled="state.isMobile ? true : false"
+                    <el-switch v-model="themeConfig.isSortableTagsView" :disabled="state.isMobile ? true : false"
                         size="small" @change="onSortableTagsViewChange" />
                 </div>
             </div>
@@ -548,7 +548,7 @@ defineExpose({
                     开启 TagsView 共用
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isShareTagsView" size="small" @change="onShareTagsViewChange" />
+                    <el-switch v-model="themeConfig.isShareTagsView" size="small" @change="onShareTagsViewChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -556,7 +556,7 @@ defineExpose({
                     开启 Footer
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isFooter" size="small" @change="setLocalThemeConfig" />
+                    <el-switch v-model="themeConfig.isFooter" size="small" @change="setLocalThemeConfig" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -564,7 +564,7 @@ defineExpose({
                     灰色模式
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isGrayscale" size="small"
+                    <el-switch v-model="themeConfig.isGrayscale" size="small"
                         @change="onAddFilterChange('grayscale')" />
                 </div>
             </div>
@@ -573,7 +573,7 @@ defineExpose({
                     色弱模式
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isInvert" size="small" @change="onAddFilterChange('invert')" />
+                    <el-switch v-model="themeConfig.isInvert" size="small" @change="onAddFilterChange('invert')" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -581,7 +581,7 @@ defineExpose({
                     开启水印
                 </div>
                 <div>
-                    <el-switch v-model="getThemeConfig.isWatermark" size="small" @change="onWatermarkChange" />
+                    <el-switch v-model="themeConfig.isWatermark" size="small" @change="onWatermarkChange" />
                 </div>
             </div>
             <div class="mb5px min-h32px flex items-center">
@@ -589,7 +589,7 @@ defineExpose({
                     水印文案
                 </div>
                 <div>
-                    <el-input v-model="getThemeConfig.watermarkText" size="default" class="w90px!"
+                    <el-input v-model="themeConfig.watermarkText" size="default" class="w90px!"
                         @input="onWatermarkTextInput($event)" />
                 </div>
             </div>
@@ -603,7 +603,7 @@ defineExpose({
                     TagsView 风格
                 </div>
                 <div>
-                    <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" class="w90px!"
+                    <el-select v-model="themeConfig.tagsStyle" placeholder="请选择" size="default" class="w90px!"
                         @change="setLocalThemeConfig">
                         <el-option label="风格1" value="tags-style-one" />
                         <el-option label="风格4" value="tags-style-four" />
@@ -616,7 +616,7 @@ defineExpose({
                     主页面切换动画
                 </div>
                 <div>
-                    <el-select v-model="getThemeConfig.animation" placeholder="请选择" size="default" class="w90px!"
+                    <el-select v-model="themeConfig.animation" placeholder="请选择" size="default" class="w90px!"
                         @change="setLocalThemeConfig">
                         <el-option label="slide-right" value="slide-right" />
                         <el-option label="slide-left" value="slide-left" />
@@ -631,7 +631,7 @@ defineExpose({
             </el-divider>
             <div class="grid grid-cols-[repeat(2,1fr)] mb15px gap-15px">
                 <!-- defaults 布局 -->
-                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'default' }"
+                <div class="layout-pane-item cursor-pointer" :class="{ on: themeConfig.layout === 'default' }"
                     @click="onSetLayout('default')">
                     <el-container class="h100%">
                         <el-aside width="20px" class="layout-pane-aside" />
@@ -645,7 +645,7 @@ defineExpose({
                     </div>
                 </div>
                 <!-- classic 布局 -->
-                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'classic' }"
+                <div class="layout-pane-item cursor-pointer" :class="{ on: themeConfig.layout === 'classic' }"
                     @click="onSetLayout('classic')">
                     <el-container class="h100%">
                         <el-header height="10px" class="layout-pane-header" />
@@ -659,7 +659,7 @@ defineExpose({
                     </div>
                 </div>
                 <!-- transverse 布局 -->
-                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'transverse' }"
+                <div class="layout-pane-item cursor-pointer" :class="{ on: themeConfig.layout === 'transverse' }"
                     @click="onSetLayout('transverse')">
                     <el-container class="h100%">
                         <el-header height="10px" class="layout-pane-header" />
@@ -672,7 +672,7 @@ defineExpose({
                     </div>
                 </div>
                 <!-- columns 布局 -->
-                <div class="layout-pane-item cursor-pointer" :class="{ on: getThemeConfig.layout === 'columns' }"
+                <div class="layout-pane-item cursor-pointer" :class="{ on: themeConfig.layout === 'columns' }"
                     @click="onSetLayout('columns')">
                     <el-container class="h100%">
                         <el-aside width="10px" class="layout-pane-aside-dark" />
