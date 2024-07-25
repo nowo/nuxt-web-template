@@ -8,12 +8,7 @@ definePageMeta({
     isAffix: true,
 })
 
-const item = {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-}
-const tableData = ref(Array.from({ length: 30 }).fill(item))
+
 </script>
 
 <template>

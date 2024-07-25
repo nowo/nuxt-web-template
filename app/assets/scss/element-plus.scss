@@ -1,6 +1,6 @@
 :root {
     --el-aside-width: auto;
-
+    --el-upload-image-width:120px;
 
     --co-menu-width: 200px;
 }
@@ -47,4 +47,14 @@
 
 .el-drawer__body {
     --el-drawer-padding-primary: 0;
+}
+
+
+.el-upload-list--picture-card {
+    &.el-upload-list{
+        --el-upload-list-picture-card-size: var(--el-upload-image-width);
+    }
+    .el-upload--picture-card{
+        --el-upload-picture-card-size: var(--el-upload-image-width);
+    }
 }
