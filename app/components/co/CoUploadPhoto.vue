@@ -8,12 +8,12 @@ defineOptions({
 })
 
 const props = defineProps<{
-    modelValue: string[] // 图片数组
+    modelValue: string[] | string // 图片数组
     delete?: boolean // 是否调用删除接口
 }>()
 
 const emits = defineEmits<{
-    (e: 'update:modelValue', param: string[]): void
+    (e: 'update:modelValue', param: string[] | string): void
 }>()
 
 const uploadRef = ref<UploadInstance>()
@@ -22,6 +22,11 @@ const imageState = reactive({
     viewer: false, // 是否显示预览
     index: 0, // 当前预览图片索引
     fileLength: 0, // 图片数量
+})
+
+const imgList = computed(() => {
+    let listArr = typeof props.modelValue === 'string' ? [props.modelValue] : props.modelValue
+    return listArr.filter(item => !!item)
 })
 
 const attrs = useAttrs()
@@ -58,7 +63,7 @@ const uploadList = ref<UploadUserFile[]>([])
 
 // props.modelValue处理，转成相应的数据内容
 const initData = () => {
-    const list = props.modelValue.filter(item => !!item).map((item) => {
+    const list = imgList.value.filter(item => !!item).map((item) => {
         const dat: UploadUserFile = { name: item, url: item, status: 'success' }
         return dat
     })
@@ -80,8 +85,9 @@ const isHideIcon = computed(() => {
 })
 // 更新父组件值
 const emitsUpdate = (val?: string[]) => {
-    const fileList = uploadList.value.filter(item => item.status === 'success').map(item => item.url as string)
-    emits('update:modelValue', val || fileList)
+    const fileList = val || uploadList.value.filter(item => item.status === 'success').map(item => item.url as string)
+    let updateData = typeof props.modelValue === 'string' ? fileList[0] : fileList
+    emits('update:modelValue', updateData || '')
 }
 
 /**
@@ -100,7 +106,7 @@ const onUploadFile: UploadRequestHandler = async (options) => {
 }
 // 上传成功操作,更新数据，去除前端预览的blob地址
 const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) => {
-  
+
     // 只有所有都上传成功了才处理
     const isSuccess = files.every(it => it.status === 'success')
 
@@ -112,7 +118,7 @@ const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) 
         if (resData) {
             if (resData.code === 200) { // 成功上传
                 item.url = resData.data.src
-                uploadList.value.push(item)
+                // uploadList.value.push(item)
             } else { // 失败上传
                 ElMessage.error(resData.msg)
             }
@@ -153,7 +159,7 @@ const onImageRemove = (file: UploadFile) => {
 // 图片预览
 const onImgPreview = (file: UploadFile) => {
 
-    const findIndex = props.modelValue?.findIndex(item => item === file.url)
+    const findIndex = imgList.value?.findIndex(item => item === file.url)
     imageState.index = findIndex && findIndex >= 0 ? findIndex : 0
     imageState.viewer = true
 }
@@ -176,17 +182,17 @@ defineExpose({
         :class="{ 'upload-hide-add': isHideIcon }" :on-preview="onImgPreview" :on-remove="onImageRemove"
         :http-request="onUploadFile" :on-success="onUploadSuccess" :on-exceed="onImageExceed">
         <slot v-if="$slots.default" />
-        <el-icon v-else-if="propsAttr.listType === 'picture-card'" class="i-ep-plus" />
         <div v-else-if="'drag' in propsAttr">
             <el-icon class="el-icon--upload i-ep-upload-filled" />
             <div class="el-upload__text">
                 将文件拖放至这里或<em>点击</em>
             </div>
         </div>
+        <el-icon v-else-if="propsAttr.listType === 'picture-card'" class="i-ep-plus" />
         <el-icon v-else-if="propsAttr.listType === 'picture' || propsAttr.listType === 'text'" class="i-ep-plus" />
     </el-upload>
-    <el-image-viewer v-if="imageState.viewer" :url-list="props.modelValue" :z-index="10000"
-        :initial-index="imageState.index" teleported @close="closeView" />
+    <el-image-viewer v-if="imageState.viewer" :url-list="imgList" :z-index="10000" :initial-index="imageState.index"
+        teleported @close="closeView" />
 </template>
 
 <style lang="scss" scoped>

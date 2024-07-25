@@ -20,8 +20,10 @@ const onChange = () => {
     list.value = ['https://files.codelife.cc/website/tmall.svg', 'https://files.codelife.cc/website/bilibili2.svg']
 }
 
+const img=ref('')
 watchEffect(() => {
     console.log('watch list :>> ', list.value)
+    console.log('watch list :>> ', img.value)
 })
 </script>
 
@@ -33,7 +35,8 @@ watchEffect(() => {
         </el-button>
 
         list-type="text" disabled
-        <CoUploadPhoto v-model="list" :limit="1" list-type="picture-card" drag multiple class="show-box1" />
+        <CoUploadPhoto v-model="list" :limit="9" drag multiple listType="text" class="show-box1" />
+        <CoUploadPhoto v-model="img" :limit="1" />
         <!-- <template #tip>上传提示信息</template> -->
     </LayoutBox>
 </template>
