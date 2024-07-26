@@ -20,6 +20,8 @@ const emits = defineEmits<{
 
 defineSlots<{ default: () => any } & Record<keyof T, (props: { row: T }) => any>>()
 
+const { themeConfig } = useThemeState()
+
 const formRef = ref<FormInstance>()
 const formItemRef = ref<FormItemInstance[]>([])
 const lastItemRef = ref<FormItemInstance>()
@@ -117,7 +119,10 @@ const setHideItem = async (show: boolean, wid: number) => {
         return count
     }, 0)
 
-    if (indexArr.length) defData.hideIndex = indexArr[0] > 0 ? indexArr[0] - 1 : 0
+    if (indexArr.length) {
+        let first = indexArr[0] || 0
+        defData.hideIndex = first ? first - 1 : 0
+    }
 }
 
 // 展开收起
@@ -155,7 +160,8 @@ defineExpose({
 </script>
 
 <template>
-    <el-form v-if="searchData.config.length" ref="formRef" v-bind="props" :model="searchData.data">
+    <el-form v-if="searchData.config.length" ref="formRef" v-bind="props" :size="themeConfig.globalComponentSize"
+        :model="searchData.data">
         <ClientOnly>
             <el-form-item v-for="(item, index) in searchData.config.filter(item => !item.isHide)" :key="index"
                 ref="formItemRef" :class="setFormItemClass(index)" v-bind="item.column" :prop="item.column.prop">

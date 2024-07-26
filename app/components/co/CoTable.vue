@@ -103,7 +103,7 @@ const defData = reactive({
 
 // 获取全局组件大小
 const smallSize = computed(() => {
-    return themeConfig.value.globalComponentSize === 'small' || size.value === 'small'
+    return themeConfig.value.globalComponentSize || size.value
 })
 
 // 属性透传，去除id、class、style，不传入el-table组件
@@ -254,9 +254,9 @@ defineExpose({
                 </el-table>
             </div>
             <el-pagination v-if="defData.pagination.total" ref="pageRef" v-model:current-page="defData.pagination.page"
-                v-model:page-size="defData.pagination.pageSize" :small="smallSize" :page-sizes="defData.pagination.pageSizes"
+                v-model:page-size="defData.pagination.pageSize" :size="smallSize" :page-sizes="defData.pagination.pageSizes"
                 :total="defData.pagination.total" :pager-count="5" background layout="total, sizes, prev, pager, next, jumper"
-                class="pt15px" @change="onPaginationChange" />
+                class="pt15px justify-end" @change="onPaginationChange" />
         </ClientOnly>
     </div>
 </template>
