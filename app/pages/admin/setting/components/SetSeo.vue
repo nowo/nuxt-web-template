@@ -16,8 +16,8 @@ const form = reactive({
         </el-form-item>
     </el-col>
     <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
-        <el-form-item prop="seo_keyword" label="SEO关键字：">
-            <el-input v-model="form.data.seo_keyword" maxlength="80" clearable placeholder="网站关键词，建议在80字以内，多个可用、隔开" />
+        <el-form-item prop="seo_keywords" label="SEO关键字：">
+            <el-input v-model="form.data.seo_keywords" maxlength="80" clearable placeholder="网站关键词，建议在80字以内，多个可用、隔开" />
         </el-form-item>
     </el-col>
     <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">

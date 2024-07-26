@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
+
+const { systemInfo } = await useSystemState()
 useHead({
-    title: appName,
+    title: `${systemInfo.value?.title || ''}`,
+    meta: [
+        { name: 'description', content: systemInfo.value?.description },
+        { name: 'keywords', content: systemInfo.value?.keywords },
+    ],
 })
 </script>
 

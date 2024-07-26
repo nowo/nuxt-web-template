@@ -4,9 +4,11 @@ import type { FormInstance, FormRules } from 'element-plus'
 
 definePageMeta({
     layout: 'blank',
-    title: '登录',
+    title: '登录页面',
     isHide: true,
 })
+
+const { systemInfo } = await useSystemState()
 
 // 可以在https://codepen.io/collection/DPOage, 这个网站上面选择喜欢的,把这个配置换了就可以
 const option: Partial<ParticlesOptions> = {
@@ -183,7 +185,7 @@ const onLoad = (container: Container) => {
 }
 
 const formRef = ref<FormInstance>()
-// const state = reactive({
+// const stateData = reactive({
 //     loading: false,
 // })
 
@@ -230,7 +232,7 @@ const onSignIn = async () => {
         <div class="relative z-10 h90% flex items-center justify-center">
             <div class="w400px">
                 <h3 class="color-info mb20px text-center text-24px">
-                    <!-- <img src="@/assets/images/logo.jpeg" alt=""> -->
+                    <img v-if="systemInfo?.logo" :src="systemInfo?.logo" alt="">
                     <br>
                     后台管理系统
                 </h3>
@@ -240,9 +242,7 @@ const onSignIn = async () => {
                         <el-input v-model.trim="form.account" type="text" maxlength="20" placeholder="请输入账号" clearable
                             tabindex="1" @keyup.enter="onSignIn">
                             <template #prefix>
-                                <el-icon class="el-input__icon">
-                                    <i class="i-ep-user" />
-                                </el-icon>
+                                <i class="i-ep-user" />
                             </template>
                         </el-input>
                     </el-form-item>
@@ -250,9 +250,7 @@ const onSignIn = async () => {
                         <el-input v-model.trim="form.password" type="password" maxlength="20" placeholder="请输入密码"
                             show-password tabindex="2" @keyup.enter="onSignIn">
                             <template #prefix>
-                                <el-icon class="el-input__icon">
-                                    <i class="i-ep-unlock" />
-                                </el-icon>
+                                <i class="i-ep-unlock" />
                             </template>
                         </el-input>
                     </el-form-item>
@@ -261,9 +259,7 @@ const onSignIn = async () => {
                             <el-input v-model.trim="form.code" type="text" maxlength="4" placeholder="请输入验证码" clearable
                                 tabindex="3" @keyup.enter="onSignIn">
                                 <template #prefix>
-                                    <el-icon class="el-input__icon">
-                                        <i class="i-ep-position" />
-                                    </el-icon>
+                                    <i class="i-ep-position" />
                                 </template>
                             </el-input>
                         </el-col>

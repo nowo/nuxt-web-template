@@ -62,7 +62,7 @@ export const setSystemInfo = defineEventHandler(async (event) => {
                 wx_code: param.wx_code,
                 phone: param.phone,
                 email: param.email,
-                keyword: param.keyword,
+                keywords: param.keywords,
                 description: param.description,
                 filing: param.filing,
                 icon: param.icon,

@@ -55,8 +55,8 @@ const lang = computed(() => props.type)
         </el-form-item>
     </el-col>
     <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
-        <el-form-item prop="seo_keyword" label="SEO关键字：">
-            <el-input v-model="form.data.seo_keyword" maxlength="80" clearable />
+        <el-form-item prop="seo_keywords" label="SEO关键字：">
+            <el-input v-model="form.data.seo_keywords" maxlength="80" clearable />
         </el-form-item>
     </el-col>
     <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">

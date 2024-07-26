@@ -15,7 +15,7 @@ useHead({
     title: `${systemInfo.value?.title || ''} - 后台管理系统`,
     meta: [
         { name: 'description', content: systemInfo.value?.description },
-        { name: 'keywords', content: systemInfo.value?.keyword },
+        { name: 'keywords', content: systemInfo.value?.keywords },
     ],
 })
 </script>

@@ -37,7 +37,7 @@ const form = reactive<{ data: ISystemFormBasic & ISystemFormSeo }>({
         is_en: true, // 是否开启英文版
 
         seo_title: '', // seo标题
-        seo_keyword: '', // 关键词
+        seo_keywords: '', // 关键词
         seo_description: '', // 描述
     },
 })
@@ -62,7 +62,7 @@ const initDefaultData = async () => {
     form.data.phone = propsData?.phone || ''
     form.data.email = propsData?.email || ''
     form.data.seo_title = propsData?.title || ''
-    form.data.seo_keyword = propsData?.keyword || ''
+    form.data.seo_keywords = propsData?.keywords || ''
     form.data.seo_description = propsData?.description || ''
     form.data.filing = propsData?.filing || ''
     form.data.icon = propsData?.icon || ''
@@ -89,7 +89,7 @@ const onSubmit = async () => {
         wx_code: form.data.qr_code?.trim() ?? '',
         // title_en: '',
         title: form.data.seo_title?.trim() ?? '',
-        keyword: form.data.seo_keyword?.trim() ?? '',
+        keywords: form.data.seo_keywords?.trim() ?? '',
         description: form.data.seo_description?.trim() ?? '',
         filing: form.data.filing?.trim() ?? '',
         // copyright: form.data.copyright?.trim() ?? '',

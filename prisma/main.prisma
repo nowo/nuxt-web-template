@@ -127,7 +127,7 @@ model System {
     id          Int     @id @default(autoincrement())
     company     String? @db.VarChar(100)
     title       String? @db.VarChar(100)
-    keyword     String? @db.VarChar(100)
+    keywords     String? @db.VarChar(100)
     description String? @db.VarChar(200)
     address     String? @db.VarChar(200)
     logo        String? @db.VarChar(255)
@@ -135,6 +135,7 @@ model System {
     wx_code     String? @db.VarChar(255)
     phone       String? @db.VarChar(20)
     email       String? @db.VarChar(50)
+    host       String? @db.VarChar(50)
 
     filing String?  @db.Text
     icon   String?  @db.VarChar(255)

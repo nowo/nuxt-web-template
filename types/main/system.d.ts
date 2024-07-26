@@ -10,7 +10,7 @@ declare interface ISystemInfoData {
     phone: string // 联系电话
     address: string // 地址
     title: string // 标题
-    keyword: string // 关键字
+    keywords: string // 关键字
     description: string // 描述
     wx_code: string // 二维码
     icon: string // 网站图标
@@ -34,7 +34,7 @@ declare interface ISystemEditParams {
     phone: string // 联系电话
     address: string // 地址
     title: string // 标题
-    keyword: string // 关键字
+    keywords: string // 关键字
     description: string // 描述
     wx_code: string // 二维码
     icon: string // 网站图标
@@ -77,7 +77,7 @@ declare interface ISystemFormBasic {
  */
 declare interface ISystemFormSeo {
     seo_title: string // 标题
-    seo_keyword: string // 关键字
+    seo_keywords: string // 关键字
     seo_description: string // 描述
 }
 
