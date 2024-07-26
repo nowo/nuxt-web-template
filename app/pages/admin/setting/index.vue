@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SetBasic from './components/SetBasic.vue'
-import SetSeo from './components/SetSeo.vue'
+import SetSystem from './components/SetSystem.vue'
+
 
 definePageMeta({
     layout: 'admin',
@@ -9,7 +9,7 @@ definePageMeta({
     sort: 1000,
 })
 
-const {systemInfo} =await useSystemState()
+
 </script>
 
 <template>
@@ -18,13 +18,13 @@ const {systemInfo} =await useSystemState()
             <el-tab-pane label="基本设置">
                 <el-scrollbar>
                     <client-only>
-                        <SetBasic :data="systemInfo" class="pl15px" />
+                        <SetSystem class="pl15px" />
                     </client-only>
                 </el-scrollbar>
             </el-tab-pane>
             <el-tab-pane label="SEO设置" lazy>
                 <el-scrollbar>
-                    <SetSeo :data="systemInfo" class="pl15px" />
+                    <SetSystem type="seo" class="pl15px" />
                 </el-scrollbar>
             </el-tab-pane>
             <!-- <el-tab-pane label="其他设置">
