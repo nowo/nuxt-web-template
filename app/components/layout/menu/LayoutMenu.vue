@@ -15,12 +15,10 @@ const props = defineProps({
 const { themeConfig } = useThemeState()
 const { adminRoutes } = useAdminMenuState()
 
-
 // 获取父级菜单数据
 const childList = computed(() => {
     return props.children
 })
-
 </script>
 
 <template>

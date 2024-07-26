@@ -13,8 +13,6 @@ const list = ref(tagMenuList.value)
 
 // 鼠标滚轮滚动
 function onHandleScroll(e: WheelEvent) {
-
-
     if (scrollbarRef.value?.$refs.wrapRef) {
         // scrollbarRef.value.setScrollLeft(e.wheelDelta)
         (scrollbarRef.value.$refs.wrapRef as HTMLDivElement).scrollLeft += e.deltaY / 4

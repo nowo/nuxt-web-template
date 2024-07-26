@@ -14,14 +14,13 @@ const emits = defineEmits<{
 
 const { adminRoutes } = useAdminMenuState()
 
-
 const lang = ref<LanguageType>('cn')
 const visible = ref(false)
 
 const operate = ref<DialogOperate>()
 const comData = computed(() => {
-    if (operate.value === 'add') return { title: '新增'+props.title }
-    return { title: '修改'+props.title }
+    if (operate.value === 'add') return { title: `新增${props.title}` }
+    return { title: `修改${props.title}` }
 })
 const formRef = ref<FormInstance>()
 const form = reactive({

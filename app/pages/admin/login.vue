@@ -9,7 +9,7 @@ definePageMeta({
 })
 
 // 可以在https://codepen.io/collection/DPOage, 这个网站上面选择喜欢的,把这个配置换了就可以
-const option: ParticlesOptions = {
+const option: Partial<ParticlesOptions> = {
     fps_limit: 60,
     background: {
         color: {
@@ -96,7 +96,7 @@ const option: ParticlesOptions = {
     retina_detect: true,
 }
 
-const options: ParticlesOptions = {
+const options: Partial<ParticlesOptions> = {
     // const option: ISourceOptions = {
     fps_limit: 60,
     interactivity: {
@@ -189,7 +189,7 @@ const formRef = ref<FormInstance>()
 
 const form = reactive({
     account: 'admin',
-    password: '123',
+    password: '123456',
     code: '',
 })
 
@@ -205,10 +205,8 @@ const rules = reactive<FormRules>({
     ],
 })
 
-
 const [ApiFunc, loading] = useLoadingSubmit()
 const onSignIn = async () => {
-
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return
     const res = await ApiFunc(useServerFetch<{ token: string }>('/api/v1/login', {

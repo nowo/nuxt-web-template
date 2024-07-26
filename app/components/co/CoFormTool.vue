@@ -120,7 +120,7 @@ const setHideItem = async (show: boolean, wid: number) => {
     }, 0)
 
     if (indexArr.length) {
-        let first = indexArr[0] || 0
+        const first = indexArr[0] || 0
         defData.hideIndex = first ? first - 1 : 0
     }
 }

@@ -1,19 +1,15 @@
 <script setup lang="ts">
-
 const props = defineProps<{
-    data: ISystemFormSeo,
+    data: ISystemFormSeo
     type: LanguageType
 }>()
-
 
 const form = reactive({
     data: props.data,
 })
-
 </script>
 
 <template>
-
     <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
         <el-form-item prop="seo_title" label="SEO标题：">
             <el-input v-model="form.data.seo_title" maxlength="50" clearable placeholder="网站标题，建议在50字以内" />
@@ -26,7 +22,8 @@ const form = reactive({
     </el-col>
     <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
         <el-form-item prop="seo_description" label="SEO描述：">
-            <el-input v-model="form.data.seo_description" type="textarea" maxlength="150" clearable show-word-limit  placeholder="网站描述内容，建议在150字以内" />
+            <el-input v-model="form.data.seo_description" type="textarea" maxlength="150" clearable show-word-limit
+                placeholder="网站描述内容，建议在150字以内" />
         </el-form-item>
     </el-col>
 </template>

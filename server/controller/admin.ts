@@ -53,11 +53,11 @@ export const setLoginSign = defineEventHandler(async (event) => {
 export const setRegister = defineEventHandler(async (event) => {
     // TODO 注册用户
 
-    interface LoginDataType {
-        account: string
-        password: string
-        username: string
-    }
+    // interface LoginDataType {
+    //     account: string
+    //     password: string
+    //     username: string
+    // }
     // const method = getMethod(event)
     // const query = getQuery(event) as unknown as LoginDataType
     // const body = await readBody<LoginDataType>(event)

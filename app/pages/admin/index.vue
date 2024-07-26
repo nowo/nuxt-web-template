@@ -7,8 +7,6 @@ definePageMeta({
     fixed: true,
     isAffix: true,
 })
-
-
 </script>
 
 <template>

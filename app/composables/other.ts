@@ -45,7 +45,7 @@ export const useFormVerify = async (formEl: FormInstance | undefined) => {
             console.warn(fields)
             const obj: any = fields
             const firstKey = Object.keys(obj)[0]
-            if(firstKey){
+            if (firstKey) {
                 const text = obj[firstKey][0].message
                 ElMessage.error(text)
             }
@@ -108,7 +108,6 @@ export const useTableSummaries = <T = any>(param: {
  */
 export const useTableScrollbarLoad = async (tableRef?: TableInstance) => {
     if (!tableRef) return
-
 
     function getTranslateValue(translateString: string) {
         const reg = /[1-9]\d*\.?\d*/g

@@ -25,7 +25,7 @@ const imageState = reactive({
 })
 
 const imgList = computed(() => {
-    let listArr = typeof props.modelValue === 'string' ? [props.modelValue] : props.modelValue
+    const listArr = typeof props.modelValue === 'string' ? [props.modelValue] : props.modelValue
     return listArr.filter(item => !!item)
 })
 
@@ -75,7 +75,6 @@ const initData = () => {
 
 // 是否隐藏添加图标
 const isHideIcon = computed(() => {
-
     // 禁用时不显示添加图标
     if ('disabled' in attrs) return true
     // 已达到上传个数时不显示添加图标
@@ -86,7 +85,7 @@ const isHideIcon = computed(() => {
 // 更新父组件值
 const emitsUpdate = (val?: string[]) => {
     const fileList = val || uploadList.value.filter(item => item.status === 'success').map(item => item.url as string)
-    let updateData = typeof props.modelValue === 'string' ? fileList[0] : fileList
+    const updateData = typeof props.modelValue === 'string' ? fileList[0] : fileList
     emits('update:modelValue', updateData || '')
 }
 
@@ -94,8 +93,6 @@ const emitsUpdate = (val?: string[]) => {
  * 上传图片方法,配合下面的onUploadSuccess一起使用
  */
 const onUploadFile: UploadRequestHandler = async (options) => {
-
-
     const formData = new FormData()
     formData.append('file', options.file)
     const res = await useServerFetch<{ src: string, list: string[] }>('/api/v1/file/upload', {
@@ -106,7 +103,6 @@ const onUploadFile: UploadRequestHandler = async (options) => {
 }
 // 上传成功操作,更新数据，去除前端预览的blob地址
 const onUploadSuccess: UploadProps['onSuccess'] = async (response, file, files) => {
-
     // 只有所有都上传成功了才处理
     const isSuccess = files.every(it => it.status === 'success')
 
@@ -158,7 +154,6 @@ const onImageRemove = (file: UploadFile) => {
 
 // 图片预览
 const onImgPreview = (file: UploadFile) => {
-
     const findIndex = imgList.value?.findIndex(item => item === file.url)
     imageState.index = findIndex && findIndex >= 0 ? findIndex : 0
     imageState.viewer = true

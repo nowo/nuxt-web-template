@@ -53,8 +53,8 @@ declare interface IListPage {
     isPage?: boolean
     page?: number
     pageSize?: number
-    startTime?:string|Date
-    endTime?:string|Date
+    startTime?: string | Date
+    endTime?: string | Date
 }
 
 declare type DialogOperate = 'add' | 'edit' // |'view'|'delete'

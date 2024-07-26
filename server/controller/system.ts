@@ -14,7 +14,6 @@ export const getSystemInfo = defineEventHandler(async (event) => {
     // const param = await getEventParams<LoginDataType>(event)
     //    const res=await prisma.system.findFirst()
 
-
     const [res1, res2] = await Promise.all([
         prisma.system.findUnique({ where: { id: 1 } }),
         prisma.system.findUnique({ where: { id: 2 } }),

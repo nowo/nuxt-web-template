@@ -4,7 +4,7 @@ import type { Admin } from '@prisma/client'
  * 设置用户登录信息，token相关
  * @returns user information
  */
-export const useUserState=()=> {
+export const useUserState = () => {
     // const token = useState<string>('token', () => {
     //     return process.client ? useSessionStorage('token', '') : ''
     // })
@@ -24,7 +24,6 @@ export const useUserState=()=> {
     //     // }
     // }
 
-
     const setToken = (token: string) => {
         useSessionStorage('token', token)
         userInfo.value = {}
@@ -33,10 +32,10 @@ export const useUserState=()=> {
     // 获取登录用户信息
     const setUserInfo = async () => {
         // 未登录，且不在客户端，则不执行
-        if(!token.value || !import.meta.client) return
+        if (!token.value || !import.meta.client) return
         const res = await useServerFetch<Admin>('/api/v1/user/info')
 
-        if(res.code===401){ // 账户登录失效
+        if (res.code === 401) { // 账户登录失效
             ElMessage.error(res.msg)
             token.value = ''
             navigateTo('/admin/login')
@@ -60,10 +59,10 @@ export const useUserState=()=> {
  * @methods getSystemInfo 获取系统信息
  * @methods setSystemUpdate 更新系统信息
  */
-export const useSystemState = async() => {
+export const useSystemState = async () => {
     const systemInfo = ref<ISystemInfoData>()
     if (!systemInfo.value) {
-        const { data: info, error, status } = await useCustomFetch<ISystemInfoData>('/api/v1/system/info')
+        const { data: info } = await useCustomFetch<ISystemInfoData>('/api/v1/system/info')
         if (info.value?.code === 200) {
             systemInfo.value = info.value?.data
         }

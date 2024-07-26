@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import SetSystem from './components/SetSystem.vue'
 
-
 definePageMeta({
     layout: 'admin',
     title: '系统设置',
     icon: 'i-ep-setting',
     sort: 1000,
 })
-
-
 </script>
 
 <template>

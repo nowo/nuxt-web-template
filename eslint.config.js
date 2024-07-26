@@ -63,6 +63,7 @@ export default withNuxt(antfu(
                     },
                 },
             ],
+            'vue/no-multiple-template-root': ['off'],
         },
     },
 ))

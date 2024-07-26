@@ -1,7 +1,6 @@
 <script setup lang="ts">
-
 const props = defineProps<{
-    data: ISystemFormSeo & ISystemFormBasic,
+    data: ISystemFormSeo & ISystemFormBasic
     type: LanguageType
 }>()
 
@@ -9,15 +8,12 @@ const form = reactive({
     data: props.data,
 })
 
-
 // const lang = ref<LanguageType>(props.type)
 
 const lang = computed(() => props.type)
-
 </script>
 
 <template>
-
     <template v-if="lang === 'cn'">
         <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
             <el-form-item prop="company" label="公司名称：">
@@ -42,7 +38,7 @@ const lang = computed(() => props.type)
             </el-form-item>
         </el-col>
     </template>
-    <div class="w100%"></div>
+    <div class="w100%" />
     <el-col :xs="24" :sm="12" :md="10" :lg="8" :xl="6">
         <el-form-item prop="phone" label="联系方式：">
             <el-input v-model="form.data.phone" maxlength="50" clearable />
@@ -111,7 +107,6 @@ const lang = computed(() => props.type)
             </el-radio-group>
         </el-form-item>
     </el-col> -->
-
 </template>
 
 <style lang="scss" scoped></style>

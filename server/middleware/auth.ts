@@ -1,8 +1,6 @@
 // 接口验证中间件
 
 export default eventHandler(async (event) => {
-
-
     // 跨域配置
     // const Origin = ['http://luotaiyiqi.com/', 'http://www.luotaiyiqi.com/']
     // const requestOrigin = getRequestHeaders(event).origin || ''

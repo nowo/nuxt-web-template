@@ -20,7 +20,7 @@ export const setSaveFile = defineEventHandler(async (event) => {
         if (item.type) {
             filename = item.filename || ''
             // await createWriteStream()
-            await writeFile(`${dir}/${filename}`, item.data, {
+            await writeFile(`${dir}/${filename}`, item.data as any, {
                 flag: 'w',
             })
             list.push(`/upload/${filename}`)
@@ -60,12 +60,10 @@ export const setSaveFile = defineEventHandler(async (event) => {
     //     fileDir, // 根据时间生成文件夹
     // )
 
-
     // // {OR}
 
     // // Parses a data URL and returns an object with the binary data and the file extension.
     // const { binaryString, ext } = parseDataUrl(file.content)
-
 
     // if (res) return `${host + fileDir}/${res}`
     // return res
@@ -82,5 +80,4 @@ export const setDeleteFile = defineEventHandler(async (event) => {
     const t = files.get('data') as string
 
     return JSON.parse(t)
-
 })

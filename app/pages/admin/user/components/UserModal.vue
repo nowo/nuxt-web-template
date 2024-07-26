@@ -110,7 +110,6 @@ const tableRowClassName = ({
 const openModal = (type: DialogOperate, row?: Admin) => {
     operate.value = type
     if (type === 'edit') {
-
         form.data.account = row?.account || ''
         form.data.password = ''
         form.data.name = row?.username || ''
@@ -120,7 +119,6 @@ const openModal = (type: DialogOperate, row?: Admin) => {
         const permission = JSON.parse(row?.permission || '[]') as { name: string, permission: PermissionType[] }[]
 
         tableData.data = adminRoutes.value.map((item) => {
- 
             const key = item.name as string
             const permissionList = item.meta.permissionList || {}
             const permissionListKeys = Object.keys(permissionList)
@@ -157,7 +155,6 @@ const openModal = (type: DialogOperate, row?: Admin) => {
             }
             return dat
         })
-
     }
     visible.value = true
 }
@@ -192,7 +189,6 @@ const onConfirm = useThrottleFn(async () => {
         permission: JSON.stringify(list),
         status: form.data.status || 1,
     }
-
 
     if (operate.value === 'add') {
         const res = await ApiFunc(useServerFetch('/api/v1/admin/add', {

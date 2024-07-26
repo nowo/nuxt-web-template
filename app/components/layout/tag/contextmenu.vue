@@ -28,7 +28,6 @@ const popStyles = computed(() => {
 
 // 标签右键打开事件
 const openContextmenu = (e: MouseEvent, row: RouteRecordNormalized) => {
-
     state.top = e.pageY
     state.left = e.pageX
     state.currentRoute = row

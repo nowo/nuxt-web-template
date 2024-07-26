@@ -19,10 +19,9 @@ definePageMeta({
 })
 
 const modalRef = ref<InstanceType<typeof OperateModal>>()
-// const modalRef = ref<any>()
-const stateData=reactive({
+// const stateData = reactive({
 
-})
+// })
 
 // form表单数据类型
 interface FormSearchData {
@@ -78,8 +77,8 @@ const initTableData = async () => {
     const params: IProductListParams = {
         title: searchData.data.title?.trim() ?? '',
         status: searchData.data.state || '',
-        startTime:searchData.data.time?.[0]||'',
-        endTime:searchData.data.time?.[1]||'',
+        startTime: searchData.data.time?.[0] || '',
+        endTime: searchData.data.time?.[1] || '',
         isPage: true,
         page: tableData.pagination.page,
         pageSize: tableData.pagination.pageSize,

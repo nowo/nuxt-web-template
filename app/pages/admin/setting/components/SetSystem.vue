@@ -3,11 +3,9 @@ import type { FormInstance, FormRules } from 'element-plus'
 import SetSeo from './SetSeo.vue'
 import SetBasic from './SetBasic.vue'
 
-
 const props = defineProps<{
     type?: 'basic' | 'seo'
 }>()
-
 
 const { systemInfo, setSystemUpdate } = await useSystemState()
 
@@ -29,7 +27,6 @@ const form = reactive<{ data: ISystemFormBasic & ISystemFormSeo }>({
         logo: '', // 网站logo
         logo2: '', // 网站logo
         qr_code: '', // 二维码
-
 
         filing: '', // 备案号
         copyright: '', // 版权信息
@@ -53,9 +50,7 @@ const rules = reactive<FormRules>({
 
 // 初始化数据
 const initDefaultData = async () => {
-
     const propsData = systemInfo.value
-    console.log(propsData)
 
     form.data.company = propsData?.company || ''
     form.data.company_en = propsData?.company_en || ''
@@ -77,7 +72,6 @@ const initDefaultData = async () => {
 const [ApiFunc, btnLoading] = useLoadingSubmit()
 // 确定
 const onSubmit = async () => {
-
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return
 

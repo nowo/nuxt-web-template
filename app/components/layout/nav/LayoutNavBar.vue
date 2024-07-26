@@ -4,7 +4,7 @@ interface NavBarStateData {
 }
 
 const { themeConfig, isDrawer } = useThemeState()
-const { userInfo,setUserInfo } = useUserState()
+const { userInfo, setUserInfo } = useUserState()
 await setUserInfo()
 
 const passwordRef = ref<ComponentInstance['LayoutOtherPassword']>()

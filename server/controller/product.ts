@@ -21,12 +21,12 @@ export const getProductList = defineEventHandler(async (event) => {
     if (/^\d+$/.test(param?.status?.toString() || '')) where.status = Number(param?.status)
 
     // 时间范围查询
-    if(param?.startTime){
+    if (param?.startTime) {
         where.created_at = {
             gte: param.startTime, // 大于等于
         }
     }
-    if(param?.endTime){
+    if (param?.endTime) {
         where.created_at = {
             lte: param.endTime, // 小于等于
         }
@@ -61,7 +61,7 @@ export const getProductList = defineEventHandler(async (event) => {
                     created_at: 'desc', // 按创建时间倒序排序
                     // updated_at: 'desc', // 按更新时间倒序排序
                     // id: 'asc', // 按id正序排序
-                }
+                },
             ],
             // include: {
             //     children: true,

@@ -256,7 +256,7 @@ defineExpose({
             <el-pagination v-if="defData.pagination.total" ref="pageRef" v-model:current-page="defData.pagination.page"
                 v-model:page-size="defData.pagination.pageSize" :size="smallSize" :page-sizes="defData.pagination.pageSizes"
                 :total="defData.pagination.total" :pager-count="5" background layout="total, sizes, prev, pager, next, jumper"
-                class="pt15px justify-end" @change="onPaginationChange" />
+                class="justify-end pt15px" @change="onPaginationChange" />
         </ClientOnly>
     </div>
 </template>

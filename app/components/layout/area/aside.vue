@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-const { themeConfig, isDrawer } = useThemeState()
-
+const { themeConfig } = useThemeState()
 </script>
 
 <template>
@@ -8,7 +7,7 @@ const { themeConfig, isDrawer } = useThemeState()
         <LayoutOtherLogo class="py10px" />
         <div class="min-h-0 flex-1">
             <el-scrollbar>
-                <LayoutMenu :background-color="themeConfig.menuBar"  :text-color="themeConfig.menuBarColor" />
+                <LayoutMenu :background-color="themeConfig.menuBar" :text-color="themeConfig.menuBarColor" />
             </el-scrollbar>
         </div>
     </el-aside>

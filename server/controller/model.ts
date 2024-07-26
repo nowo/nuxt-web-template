@@ -1,5 +1,5 @@
 import type { Prisma } from '@prisma/client'
-import { PrismaListItem } from '~~/prisma/type'
+import type { PrismaListItem } from '~~/prisma/type'
 // import { PrismaListItem } from '~/config/enum';
 
 /**
@@ -12,8 +12,8 @@ export const getModelList = defineEventHandler(async (event) => {
 
     // }
 
-    let prismaList = await useStorage('prisma').getItem<PrismaListItem[]>('prismaList', []) || []
-    console.log('prismaList :>> ', prismaList);
+    const prismaList = await useStorage('prisma').getItem<PrismaListItem[]>('prismaList', []) || []
+    console.log('prismaList :>> ', prismaList)
 
     // 获取参数
     const param = await getEventParams<IProductListParams>(event)
@@ -69,7 +69,7 @@ export const getModelList = defineEventHandler(async (event) => {
                     created_at: 'desc', // 按创建时间倒序排序
                     // updated_at: 'desc', // 按更新时间倒序排序
                     // id: 'asc', // 按id正序排序
-                }
+                },
             ],
             // include: {
             //     children: true,

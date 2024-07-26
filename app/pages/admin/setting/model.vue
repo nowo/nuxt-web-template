@@ -1,27 +1,5 @@
-<template>
-    <LayoutBox>
-        <CoFormTool v-model:option="searchData" :rules="rules" inline @search="onSearch" @reset="onReset">
-            <template #state="{ row }">
-                <el-select v-model="row.state" filterable clearable>
-                    <el-option label="启用" :value="1" />
-                    <el-option label="禁用" :value="0" />
-                </el-select>
-            </template>
-            <template #time="{ row }">
-                <CoDatePicker v-model="row.time" />
-            </template>
-            <el-button v-if="checkPermission('add')" type="success" @click="onOpenDialog('add')">
-                <el-icon class="i-ep-folder-add mr2px">
-                    <!-- <ele-FolderAdd /> -->
-                </el-icon>
-                新增产品
-            </el-button>
-        </CoFormTool>
-    </LayoutBox>
-</template>
-
 <script lang="ts" setup>
-import type { Product, Admin } from '@prisma/client'
+import type { Admin, Product } from '@prisma/client'
 import type { FormRules } from 'element-plus'
 
 // define
@@ -33,9 +11,8 @@ definePageMeta({
     isHide: !import.meta.dev,
     validate: () => {
         return import.meta.dev
-    }
+    },
 })
-
 
 // form表单数据类型
 interface FormSearchData {
@@ -86,21 +63,6 @@ const tableData = reactive<CoTableProps<Admin>>({
     pagination: paginationConfig,
     isTool: true,
 })
-let da = {
-    model: 'Link',
-    description: '模型描述',
-    name: '模型名称',
-    status: 1,
-    created_at: '2023-12-12 12:12:12',
-    updated_at: '2023-12-12 12:12:12',
-    list: [
-        { key: 'id', type: 'Int', primaryKey: true, length: 11 },
-        { key: 'title', type: 'String', primaryKey: false, length: 100 },
-        { key: 'status', type: 'Int', primaryKey: false, length: 11 },
-        { key: 'created_at', type: 'DateTime', primaryKey: false, length: 3 },
-        { key: 'updated_at', type: 'DateTime', primaryKey: false, length: 11 },
-    ]
-}
 
 const initTableData = async () => {
     const params: IProductListParams = {
@@ -118,14 +80,12 @@ const initTableData = async () => {
         body: params,
     })
     tableData.loading = false
-
+    console.warn(res)
     // if (res.code !== 200) return ElMessage.error(res.msg)
 
     // tableData.data = res.data.list
     // tableData.pagination.total = res.data.total || 0
 }
-
-
 
 // 搜索
 const onSearch = () => {
@@ -142,8 +102,29 @@ const onOpenDialog = (type: DialogOperate, row?: Admin) => {
     // modalRef.value?.openModal(type, row)
 }
 
-
 initTableData()
 </script>
+
+<template>
+    <LayoutBox>
+        <CoFormTool v-model:option="searchData" :rules="rules" inline @search="onSearch" @reset="onReset">
+            <template #state="{ row }">
+                <el-select v-model="row.state" filterable clearable>
+                    <el-option label="启用" :value="1" />
+                    <el-option label="禁用" :value="0" />
+                </el-select>
+            </template>
+            <template #time="{ row }">
+                <CoDatePicker v-model="row.time" />
+            </template>
+            <el-button v-if="checkPermission('add')" type="success" @click="onOpenDialog('add')">
+                <el-icon class="i-ep-folder-add mr2px">
+                    <!-- <ele-FolderAdd /> -->
+                </el-icon>
+                新增产品
+            </el-button>
+        </CoFormTool>
+    </LayoutBox>
+</template>
 
 <style lang="scss" scoped></style>

@@ -3,10 +3,10 @@ import Editor from '@tinymce/tinymce-vue'
 
 const props = defineProps<{
     height?: number
-    type?:'simple'
+    type?: 'simple'
 }>()
 
-const uploadFile=async(file:File)=>{
+const uploadFile = async (file: File) => {
     const formData = new FormData()
     formData.append('file', file)
     const res = await useServerFetch<{ src: string, list: string[] }>('/api/v1/file/upload', {
@@ -16,7 +16,7 @@ const uploadFile=async(file:File)=>{
     return res.data.src
 }
 
-const init =ref({
+const init = ref({
     license_key: 'gpl',
     language: 'zh_CN', // 语言类型
     placeholder: '在这里输入文字', // textarea中的提示信息
@@ -37,7 +37,7 @@ const init =ref({
         'styleselect formatselect fontselect fontsizeselect |  table image axupimgs media emoticons charmap hr pagebreak insertdatetime  selectall visualblocks searchreplace |  codesample code print preview | indent2em formatpainter',
     ], // 工具栏配置，设为false则隐藏
     // menubar: "file edit my1", //菜单栏配置，设为false则隐藏，不配置则默认显示全部菜单，也可自定义配置--查看 http://tinymce.ax-z.cn/configure/editor-appearance.php --搜索“自定义菜单”
-    menubar:true,
+    menubar: true,
     // images_upload_url: '/apib/api-upload/uploadimg',  //后端处理程序的url，建议直接自定义上传函数image_upload_handler，这个就可以不用了
     // images_upload_base_path: '/demo',  //相对基本路径--关于图片上传建议查看--http://tinymce.ax-z.cn/general/upload-images.php
     paste_data_images: true, // 图片是否可粘贴
@@ -103,9 +103,9 @@ const init =ref({
     },
 })
 
-if(props.type==='simple'){
-    init.value.menubar=false
-    init.value.toolbar=true as any
+if (props.type === 'simple') {
+    init.value.menubar = false
+    init.value.toolbar = true as any
 }
 </script>
 
