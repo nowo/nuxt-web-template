@@ -65,13 +65,15 @@ model News {
 }
 
 model Other {
-    id         Int     @id @default(autoincrement())
-    title      String? @db.VarChar(100)
-    title_en   String? @db.VarChar(100)
-    img        String? @db.VarChar(255)
-    content    String? @db.Text
-    content_en String? @db.Text
-    type       Int     @unique @default(0)
+    id          Int     @id @default(autoincrement())
+    title       String? @db.VarChar(100)
+    title_en    String? @db.VarChar(100)
+    subtitle    String? @db.VarChar(100)
+    subtitle_en String? @db.VarChar(100)
+    img         String? @db.VarChar(255)
+    content     String? @db.Text
+    content_en  String? @db.Text
+    type        String  @unique @db.VarChar(30)
 
     status     Int      @default(1) // 1:启用，0：禁用
     created_at DateTime @default(now())
@@ -127,7 +129,7 @@ model System {
     id          Int     @id @default(autoincrement())
     company     String? @db.VarChar(100)
     title       String? @db.VarChar(100)
-    keywords     String? @db.VarChar(100)
+    keywords    String? @db.VarChar(100)
     description String? @db.VarChar(200)
     address     String? @db.VarChar(200)
     logo        String? @db.VarChar(255)
@@ -135,7 +137,7 @@ model System {
     wx_code     String? @db.VarChar(255)
     phone       String? @db.VarChar(20)
     email       String? @db.VarChar(50)
-    host       String? @db.VarChar(50)
+    host        String? @db.VarChar(50)
 
     filing String?  @db.Text
     icon   String?  @db.VarChar(255)
@@ -143,4 +145,19 @@ model System {
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
+}
+
+// 留言表
+model Message {
+    id        Int      @id @default(autoincrement())
+    title     String   @db.VarChar(100)
+    phone     String?  @db.VarChar(100)
+    email     String?  @db.VarChar(100)
+    address   String?  @db.VarChar(200)
+    content   String?  @db.Text
+    status    Int?     @default(0)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+
+    @@map("message")
 }
