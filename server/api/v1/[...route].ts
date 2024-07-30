@@ -4,9 +4,11 @@ import { getAdminInfo, getAdminList, setAdminCreate, setAdminDelete, setAdminUpd
 import { getSystemInfo, setSystemInfo } from '~~/server/controller/system'
 import { getMenuList, setMenuCreate, setMenuDelete, setMenuUpdate } from '~~/server/controller/menu'
 import { getProductList, setProductCreate, setProductDelete, setProductUpdate } from '~~/server/controller/product'
+import { getNewsList, setNewsCreate, setNewsDelete, setNewsUpdate,getNewsInfo } from '~~/server/controller/news'
 import { getModelList } from '~~/server/controller/model'
 import { getOtherInfo, setOtherUpdate } from '~~/server/controller/other'
 import { getMessageList, setMessageCreate, setMessageDelete, setMessageUpdate } from '~~/server/controller/message'
+import { getLinkList, setLinkCreate, setLinkDelete, setLinkUpdate } from '~~/server/controller/link'
 
 const router = createRouter()
 
@@ -38,6 +40,12 @@ router.use('/product/add', setProductCreate) // 添加产品
 router.use('/product/edit', setProductUpdate) // 修改产品
 router.use('/product/delete', setProductDelete) // 删除产品
 
+
+router.use('/news/list', getNewsList) // 新闻列表
+router.use('/news/add', setNewsCreate) // 添加新闻
+router.use('/news/edit', setNewsUpdate) // 修改新闻
+router.use('/news/delete', setNewsDelete) // 删除新闻
+
 router.use('/other/info', getOtherInfo) // 获取其他信息
 router.use('/other/update', setOtherUpdate) // 修改其他信息
 
@@ -45,6 +53,11 @@ router.use('/message/list', getMessageList) // 留言列表
 router.use('/message/add', setMessageCreate) // 添加留言
 router.use('/message/edit', setMessageUpdate) // 修改留言
 router.use('/message/delete', setMessageDelete) // 删除留言
+
+router.use('/link/list', getLinkList) // 链接列表
+router.use('/link/add', setLinkCreate) // 添加链接
+router.use('/link/edit', setLinkUpdate) // 修改链接
+router.use('/link/delete', setLinkDelete) // 删除链接
 
 
 

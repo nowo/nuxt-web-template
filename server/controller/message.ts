@@ -17,10 +17,8 @@ export const getMessageList = defineEventHandler(async event => {
 
     // if (!param?.type) return { msg: '请传递类型' }
 
-    // const types = param?.type.toString().split(',').filter(item => !!item).map(item => Number(item))
     const where: Prisma.MessageWhereInput = {
-        // type: { in: types },
-        // isHide: false,
+
     }
 
     if (param?.title) where.title = { contains: param.title }
