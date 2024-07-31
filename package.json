@@ -19,6 +19,7 @@
         "typecheck": "vue-tsc --noEmit"
     },
     "dependencies": {
+        "@amap/amap-jsapi-loader": "^1.0.1",
         "@cooj/utils": "^0.0.1",
         "@nowo/utils": "npm:@jsr/nowo__utils@^0.0.2",
         "@prisma/client": "^5.13.0",
