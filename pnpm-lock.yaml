@@ -23,6 +23,9 @@ dependencies:
   '@tinymce/tinymce-vue':
     specifier: ^6.0.1
     version: 6.0.1(vue@3.4.34)
+  '@types/nodemailer':
+    specifier: ^6.4.15
+    version: 6.4.15
   element-plus:
     specifier: ^2.7.4
     version: 2.7.8(vue@3.4.34)
@@ -32,6 +35,9 @@ dependencies:
   jose:
     specifier: ^5.3.0
     version: 5.6.3
+  nodemailer:
+    specifier: ^6.9.14
+    version: 6.9.14
   vue-draggable-plus:
     specifier: ^0.5.2
     version: 0.5.2(@types/sortablejs@1.15.8)
@@ -4034,6 +4040,12 @@ packages:
     dependencies:
       undici-types: 6.11.1
 
+  /@types/nodemailer@6.4.15:
+    resolution: {integrity: sha512-0EBJxawVNjPkng1zm2vopRctuWVCxk34JcIlRuXSf54habUWdz1FB7wHDqOqvDa8Mtpt0Q3LTXQkAs2LNyK5jQ==}
+    dependencies:
+      '@types/node': 22.0.0
+    dev: false
+
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
     dev: true
@@ -4698,7 +4710,7 @@ packages:
       fast-glob: 3.3.2
       magic-string: 0.30.11
       unplugin: 1.12.0
-      webpack: 5.93.0(esbuild@0.21.5)
+      webpack: 5.93.0(esbuild@0.23.0)
       webpack-sources: 3.2.3
     transitivePeerDependencies:
       - rollup
@@ -9173,6 +9185,11 @@ packages:
   /node-releases@2.0.18:
     resolution: {integrity: sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==}
 
+  /nodemailer@6.9.14:
+    resolution: {integrity: sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==}
+    engines: {node: '>=6.0.0'}
+    dev: false
+
   /nopt@5.0.0:
     resolution: {integrity: sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==}
     engines: {node: '>=6'}
@@ -11054,7 +11071,7 @@ packages:
       unique-string: 2.0.0
     dev: true
 
-  /terser-webpack-plugin@5.3.10(esbuild@0.21.5)(webpack@5.93.0):
+  /terser-webpack-plugin@5.3.10(esbuild@0.23.0)(webpack@5.93.0):
     resolution: {integrity: sha512-BKFPWlPDndPs+NGGCr1U59t0XScL5317Y0UReNrHaw9/FwhPENlq6bfgs+4yPfyP51vqC1bQ4rp1EfXW5ZSH9w==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -11071,12 +11088,12 @@ packages:
         optional: true
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
-      esbuild: 0.21.5
+      esbuild: 0.23.0
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.31.3
-      webpack: 5.93.0(esbuild@0.21.5)
+      webpack: 5.93.0(esbuild@0.23.0)
     dev: true
 
   /terser@5.31.3:
@@ -12006,7 +12023,7 @@ packages:
   /webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
-  /webpack@5.93.0(esbuild@0.21.5):
+  /webpack@5.93.0(esbuild@0.23.0):
     resolution: {integrity: sha512-Y0m5oEY1LRuwly578VqluorkXbvXKh7U3rLoQCEO04M97ScRr44afGVkI0FQFsXzysk5OgFAxjZAb9rsGQVihA==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -12037,7 +12054,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(esbuild@0.21.5)(webpack@5.93.0)
+      terser-webpack-plugin: 5.3.10(esbuild@0.23.0)(webpack@5.93.0)
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:

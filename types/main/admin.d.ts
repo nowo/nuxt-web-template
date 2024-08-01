@@ -53,4 +53,29 @@ declare interface IOtherInfoUpdate {
 /**
  * 链接类型：外链、轮播图、文件、荣誉、 合作伙伴、公司介绍
  */
-declare type ILinkType = 'link' | 'banner' | 'file' | 'honor' | 'cooper' | 'company' 
+declare type ILinkType = 'link' | 'banner' | 'file' | 'honor' | 'cooper' | 'company'
+
+
+/**
+ * 配置类型：邮箱、安全
+ */
+declare type IConfigKeyType = 'email' | 'safe'
+
+
+/**
+ * 修改配置信息 - 请求参数
+ */
+declare interface IConfigInfoUpdate {
+
+    title: string,  // 标题
+    name: string,  // 名称
+    email: string,  // 邮箱
+    port: number,  // 端口
+    img: string; // 图片地址
+    href: string; // 地址
+    password:string; // 密码
+    content: string; // 内容
+    type: IConfigKeyType    // 类型 
+    status:number // 状态 0:禁用 1:启用
+}
+

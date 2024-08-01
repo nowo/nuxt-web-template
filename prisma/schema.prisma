@@ -171,3 +171,21 @@ model Message {
 
     @@map("message")
 }
+
+// 配置表（邮箱配置、安全配置、附件设置等等）
+model Config {
+    id       Int     @id @default(autoincrement())
+    title    String  @db.VarChar(100)
+    name     String? @db.VarChar(100)
+    email    String? @db.VarChar(100)
+    port     Int?    @db.Int
+    password String? @db.VarChar(100)
+    img      String? @db.VarChar(255)
+    href     String? @db.VarChar(255)
+    content  String? @db.Text
+    type     String  @unique @db.VarChar(30) // 唯一标识使用
+
+    status     Int?     @default(0)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}

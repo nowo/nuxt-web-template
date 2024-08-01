@@ -9,6 +9,7 @@ import { getModelList } from '~~/server/controller/model'
 import { getOtherInfo, setOtherUpdate } from '~~/server/controller/other'
 import { getMessageList, setMessageCreate, setMessageDelete, setMessageUpdate } from '~~/server/controller/message'
 import { getLinkList, setLinkCreate, setLinkDelete, setLinkUpdate } from '~~/server/controller/link'
+import { getConfigInfo, setConfigUpdate } from '~~/server/controller/config'
 
 const router = createRouter()
 
@@ -24,6 +25,9 @@ router.use('/user/info', getAdminInfo) // 用户登录账户信息
 
 router.use('/system/info', getSystemInfo) // 获取系统信息
 router.use('/system/edit', setSystemInfo) // 修改系统信息
+
+router.use('/config/info', getConfigInfo) // 获取配置信息
+router.use('/config/update', setConfigUpdate) // 修改配置信息
 
 router.use('/admin/list', getAdminList) // 用户列表
 router.use('/admin/add', setAdminCreate) // 添加用户

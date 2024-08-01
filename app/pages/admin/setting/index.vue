@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SetSystem from './components/SetSystem.vue'
+import SetEmail from './components/SetEmail.vue'
 
 definePageMeta({
     layout: 'admin',
@@ -15,33 +16,33 @@ definePageMeta({
             <el-tab-pane label="基本设置">
                 <el-scrollbar>
                     <client-only>
-                        <SetSystem class="pl15px" />
+                        <SetSystem />
                     </client-only>
                 </el-scrollbar>
             </el-tab-pane>
             <el-tab-pane label="SEO设置" lazy>
                 <el-scrollbar>
-                    <SetSystem type="seo" class="pl15px" />
+                    <SetSystem type="seo" />
+                </el-scrollbar>
+            </el-tab-pane>
+            <el-tab-pane label="邮件设置" lazy>
+                <el-scrollbar>
+                    <SetEmail />
                 </el-scrollbar>
             </el-tab-pane>
             <!-- <el-tab-pane label="其他设置">
                 <el-scrollbar>
-                    <SetBasic :data="systemInfo" class="pl15px" />
+                    <SetBasic :data="systemInfo" />
                 </el-scrollbar>
             </el-tab-pane>
             <el-tab-pane label="安全设置">
                 <el-scrollbar>
-                    <SetBasic :data="systemInfo" class="pl15px" />
-                </el-scrollbar>
-            </el-tab-pane>
-            <el-tab-pane label="邮件设置">
-                <el-scrollbar>
-                    <SetBasic :data="systemInfo" class="pl15px" />
+                    <SetBasic :data="systemInfo" />
                 </el-scrollbar>
             </el-tab-pane>
             <el-tab-pane label="附件设置">
                 <el-scrollbar>
-                    <SetBasic :data="systemInfo" class="pl15px" />
+                    <SetBasic :data="systemInfo" />
                 </el-scrollbar>
             </el-tab-pane> -->
         </el-tabs>
@@ -72,6 +73,7 @@ definePageMeta({
 
         .el-tab-pane {
             height:100%;
+            padding-left:15px;
         }
     }
 }
