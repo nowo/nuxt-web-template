@@ -118,10 +118,7 @@ onMounted(() => {
 
 <template>
     <el-form ref="formRef" :model="form.data" :rules="rules" label-position="top">
-        <el-tabs v-model="lang">
-            <el-tab-pane label="中文" name="cn" />
-            <el-tab-pane label="英文" name="en" />
-        </el-tabs>
+        <LayoutLang v-model="lang" />
         <div class="pr20px">
             <el-row :gutter="20">
                 <SetSeo v-if="props.type === 'seo'" :data="form.data" :type="lang" />

@@ -8,13 +8,10 @@ definePageMeta({
     isAffix: true,
 })
 
-const { systemInfo } =await useSystemState()
-
 </script>
 
 <template>
     <LayoutBox>
-            <CoMap :title="systemInfo?.company" :address="systemInfo?.address" class="h500px">
-            </CoMap>
+        hello
     </LayoutBox>
 </template>

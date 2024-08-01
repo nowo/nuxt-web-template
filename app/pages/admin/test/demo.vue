@@ -13,6 +13,10 @@ const item = {
 }
 
 const mainLoad = inject<() => void>('reload')
+
+
+const { systemInfo } =await useSystemState()
+
 </script>
 
 <template>
@@ -21,5 +25,7 @@ const mainLoad = inject<() => void>('reload')
             刷新页面
         </el-button>
         测试{{ item }}
+        <CoMap :title="systemInfo?.company" :address="systemInfo?.address" class="h500px">
+            </CoMap>
     </LayoutBox>
 </template>

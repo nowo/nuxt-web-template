@@ -91,10 +91,7 @@ onBeforeMount(() => {
 
 <template>
     <el-form ref="formRef" :model="form.data" :rules="rules" label-position="top">
-        <el-tabs v-model="lang">
-            <el-tab-pane label="中文" name="cn" />
-            <el-tab-pane label="英文" name="en" />
-        </el-tabs>
+        <LayoutLang v-model="lang" />
         <div class="pr15px">
             <el-row>
                 <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
