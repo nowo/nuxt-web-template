@@ -25,7 +25,7 @@ export const getLinkList = defineEventHandler(async event => {
     // 8: '合作伙伴',
     // 9: '公司介绍图',
     // 10: '荣誉资质',
-    const types = param?.type.toString().split(',').filter(item => !!item).map(item => Number(item))
+    const types = param?.type.toString().split(',').filter(item => !!item)
     const where: Prisma.LinkWhereInput = {
         type: { in: types },
         // isHide: false,

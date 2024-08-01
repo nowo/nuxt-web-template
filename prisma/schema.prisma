@@ -1,9 +1,173 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["prismaSchemaFolder"]
+    provider = "prisma-client-js"
+    //   previewFeatures = ["prismaSchemaFolder"] // 多文件模式
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Admin {
+    id         Int     @id @default(autoincrement())
+    account    String? @unique @db.VarChar(50)
+    username   String? @db.VarChar(30)
+    password   String? @db.VarChar(255)
+    avatar     String? @db.VarChar(255)
+    role       Int?    @default(0)
+    permission String? @db.Text
+
+    status     Int      @default(1)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+// 友情链接、轮播图
+model Link {
+    id       Int     @id @default(autoincrement())
+    title    String? @db.VarChar(100)
+    title_en String? @db.VarChar(100)
+    href     String? @db.VarChar(255)
+    img      String? @db.VarChar(255)
+    sort     Int?    @default(0)
+    type     String? @db.VarChar(100)
+
+    status     Int      @default(1)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model Menu {
+    id       Int     @id @default(autoincrement())
+    icon     String? @db.VarChar(50)
+    sort     Int?    @default(0)
+    title    String? @db.VarChar(100)
+    title_en String? @db.VarChar(100)
+    href     String? @db.VarChar(200)
+
+    status     Int      @default(1) // 1:启用，0：禁用
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+
+    // 自关联
+    parent_id Int?   @default(0)
+    parent    Menu?  @relation("childrens", fields: [parent_id], references: [id])
+    children  Menu[] @relation("childrens")
+}
+
+model News {
+    id          Int     @id @default(autoincrement())
+    title       String? @db.VarChar(100)
+    title_en    String? @db.VarChar(100)
+    author      String? @db.VarChar(100)
+    describe    String? @db.VarChar(200)
+    describe_en String? @db.VarChar(200)
+    content     String? @db.Text
+    content_en  String? @db.Text
+    img         String? @db.VarChar(255)
+    sort        Int?    @default(0)
+    type        Int     @default(0)
+    read        Int?    @default(0)
+
+    status     Int?     @default(1) // 1:启用，0：禁用
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model Other {
+    id          Int     @id @default(autoincrement())
+    title       String? @db.VarChar(100)
+    title_en    String? @db.VarChar(100)
+    subtitle    String? @db.VarChar(100)
+    subtitle_en String? @db.VarChar(100)
+    img         String? @db.VarChar(255)
+    content     String? @db.Text
+    content_en  String? @db.Text
+    type        String  @unique @db.VarChar(30)
+
+    status     Int      @default(1) // 1:启用，0：禁用
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model Product {
+    id          Int     @id @default(autoincrement())
+    title       String? @db.VarChar(100)
+    title_en    String? @db.VarChar(100)
+    author      String? @db.VarChar(100)
+    describe    String? @db.VarChar(200)
+    describe_en String? @db.VarChar(200)
+    content     String? @db.Text
+    content_en  String? @db.Text
+    sort        Int?    @default(0)
+    type        Int     @default(0)
+    read        Int?    @default(0)
+
+    status     Int      @default(1) // 1:启用，0：禁用
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+
+    classifyId Int?
+    classify   Classify? @relation(fields: [classifyId], references: [id])
+}
+
+model Classify {
+    id        Int     @id @default(autoincrement())
+    parent_id Int?    @default(0)
+    title     String? @db.VarChar(100)
+    title_en  String? @db.VarChar(100)
+
+    // img        String?  @db.VarChar(255)
+    // content    String?  @db.Text
+    // content_en String?  @db.Text
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    sort   Int? @default(0)
+    status Int? @default(1)
+    type   Int? @default(1)
+
+    parent   Classify?  @relation("ChildToParent", fields: [parent_id], references: [id])
+    children Classify[] @relation("ChildToParent")
+
+    products Product[] // 这里需要定义成一对多的关系，因为一个分类下可以有多个产品
+
+    @@map("classify")
+}
+
+model System {
+    id          Int     @id @default(autoincrement())
+    company     String? @db.VarChar(100)
+    title       String? @db.VarChar(100)
+    keywords    String? @db.VarChar(100)
+    description String? @db.VarChar(200)
+    address     String? @db.VarChar(200)
+    logo        String? @db.VarChar(255)
+    logo2       String? @db.VarChar(255)
+    wx_code     String? @db.VarChar(255)
+    phone       String? @db.VarChar(20)
+    email       String? @db.VarChar(50)
+    host        String? @db.VarChar(50)
+
+    filing String?  @db.Text
+    icon   String?  @db.VarChar(255)
+    is_en  Boolean? @db.Bit(1)
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+// 留言表
+model Message {
+    id         Int      @id @default(autoincrement())
+    title      String   @db.VarChar(100)
+    phone      String?  @db.VarChar(100)
+    email      String?  @db.VarChar(100)
+    address    String?  @db.VarChar(200)
+    content    String?  @db.Text
+    status     Int?     @default(0)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+
+    @@map("message")
 }

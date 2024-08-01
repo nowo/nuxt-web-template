@@ -11,7 +11,7 @@ export default defineNuxtConfig({
         '@vite-pwa/nuxt',
         '@element-plus/nuxt',
         'nuxt-particles',
-        '@prisma/nuxt',
+        // '@prisma/nuxt',
     ],
 
     experimental: {
