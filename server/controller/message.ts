@@ -1,4 +1,87 @@
 import type { Prisma } from '@prisma/client'
+import { createTransport } from 'nodemailer';
+import type SMTPTransport from 'nodemailer/lib/smtp-transport'
+
+// 发送邮件
+export const sendMessageMail = async (option: SMTPTransport.Options) => {
+    const res = await prisma.config.findUnique({
+        where: {
+            type: 'email',
+        },
+    })
+    if (!res) {
+        console.warn('未找到邮箱配置或未启用')
+        // return { code: 404, msg: '未找到邮箱配置或未启用' }
+        return
+    }
+    if (res.status !== 1) {
+        // return { code: 404, msg: '未找到邮箱配置或未启用' }
+        return
+    }
+
+
+
+    // 创建一个 SMTP 传输对象 
+    const transporter = createTransport({
+        service: res.title, //  SMTP 服务器地址
+        port: Number(res.port), // SMTP端口号，通常SMTP over SSL的端口是465  
+        //   secure: true, // 使用SSL连接  
+        secure: true, // 如果使用 587 端口，设置为 false；如果使用 465 端口，设置为 true
+        // secure:false,
+        // secureConnection:false,
+        auth: {
+            user: res.email || '',  // 发送方邮箱地址
+            pass: res.password || '', // 发送方邮箱密码（授权码，不是登录密码）
+        },
+    });
+
+    // // 验证 SMTP 服务器连接
+    // transporter.verify(function (error, success) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         console.log("Server is ready to take our messages");
+    //     }
+    // });
+
+    // return false
+
+    // 邮件的内容选项配置 
+    const mailOptions: SMTPTransport.Options = {
+        from: `"${res.name}" <${res.email}>`, // 发件人的邮箱地址和名称  
+        to: res.href || '', // 收件人的邮箱地址  
+        // subject: '邮件主题', // 邮件的标题  
+        // text: '纯文本内容', // 邮件的纯文本内容（如果同时定义了html，则html会被优先使用）  
+        // html: '<h1>HTML内容</h1>', // 邮件的HTML内容  
+        // // 如果需要添加附件，可以定义attachments数组  
+        // attachments: [
+        //     {
+        //         filename: '附件1.jpg', // 附件的文件名  
+        //         path: '附件1的本地路径或URL', // 附件的本地文件路径或网络URL  
+        //         cid: 'myImage1', // CID，用于在HTML内容中引用该图片  
+        //     },
+        //     {
+        //         filename: '附件2.docx',
+        //         path: '附件2的本地路径或URL',
+        //         cid: 'myDocument',
+        //     },
+        //     // 可以继续添加更多附件...  
+        // ],
+        ...option
+    };
+    // console.log(mailOptions)
+    // 发送邮件  
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            // 如果发送邮件过程中出错，则打印错误信息  
+            console.error('发送邮件时出错:', error);
+            return;
+        }
+        // 如果邮件发送成功，则打印相关信息  
+        console.log('邮件发送成功:', info);
+        // info对象包含了邮件发送的详细信息，如messageId等  
+    });
+}
 
 
 // banner
@@ -43,7 +126,7 @@ export const getMessageList = defineEventHandler(async event => {
             take: pageSize,
             where,
             orderBy: {
-                createdAt: 'desc', // 按id正序排序
+                created_at: 'desc', // 按id正序排序
             },
             // include: {
             //     Product: {
@@ -88,6 +171,9 @@ export const setMessageCreate = defineEventHandler(async event => {
     // 接口校验(是否登录)
     // if (!event.context.user) return ResponseMessage.token
 
+    // sendMessageMail({})
+    // return false
+
     // 获取参数
     const param = await getEventParams<Prisma.MessageCreateInput>(event)
 
@@ -98,6 +184,21 @@ export const setMessageCreate = defineEventHandler(async event => {
     })
 
     if (res) {
+        // 发送邮件
+        sendMessageMail({
+            subject: `[官网]客户：${res.title}的留言信息`, // 邮件的标题  
+            text: `${res.content}\n\n时间：${res.created_at}\n名称：${res.title}\n邮箱：${res.email}\n电话：${res.phone}\n地址：${res.address}`, // 邮件的纯文本内容（如果同时定义了html，则html会被优先使用）  
+            html: `
+                <h3>${res.content}</h3>
+                <hr />
+                <p>时间：${res.created_at}</p>
+                <p>名称：${res.title}</p>
+                <p>邮箱：<b>${res.email}</b></p>
+                <p>电话：${res.phone}</p>
+                <p>地址：${res.address}</p>
+            `, // 邮件的HTML内容 
+            // attachments:[], // 附件
+        })
         return { code: 200, msg: '添加成功' }
     } else {
         return { msg: '网络错误' }
