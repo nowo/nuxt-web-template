@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         '@element-plus/nuxt',
         'nuxt-particles',
         // '@prisma/nuxt',
+        'nuxt-file-save'
     ],
 
     experimental: {
@@ -20,6 +21,17 @@ export default defineNuxtConfig({
         // payloadExtraction: false,
         // renderJsonPayloads: true,
         typedPages: true,
+    },
+    vite:{
+        build: {
+            minify: 'terser',
+            terserOptions: {
+                compress: {
+                    drop_console: true, // remove console
+                    drop_debugger: true, // remove debugger
+                },
+            },
+        },
     },
 
     css: [
