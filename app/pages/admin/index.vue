@@ -12,6 +12,6 @@ definePageMeta({
 
 <template>
     <LayoutBox>
-        hello
+        <img src="/apple-touch-icon.png" alt="apple-touch-icon" />
     </LayoutBox>
 </template>

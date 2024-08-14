@@ -184,15 +184,18 @@ const onLoad = (container: Container) => {
     setTimeout(() => container.play(), 2000)
 }
 
+const stateData = reactive({
+    verify: ''
+})
+
 const formRef = ref<FormInstance>()
-// const stateData = reactive({
-//     loading: false,
-// })
+
 
 const form = reactive({
     account: 'admin',
     password: '123456',
     code: '',
+    key: '',
 })
 
 const rules = reactive<FormRules>({
@@ -207,16 +210,29 @@ const rules = reactive<FormRules>({
     ],
 })
 
+const getVerifyCode = async () => {
+    const res = await useServerFetch<{ key: string, code: string }>('/api/v1/common/code')
+    if (res.code !== 200) return ElMessage.error(res.msg)
+    // console.log(res)
+    form.key = res.data.key
+    stateData.verify = res.data.code
+
+}
+
+
 const [ApiFunc, loading] = useLoadingSubmit()
 const onSignIn = async () => {
     const isVerify = await useFormVerify(formRef.value)
     if (!isVerify) return
+    const params: IAdminLoginParams = {
+        account: form.account?.trim(),
+        password: form.password?.trim(),
+        code: form.code?.trim(),
+        key: form.key
+    }
     const res = await ApiFunc(useServerFetch<{ token: string }>('/api/v1/login', {
         method: 'POST',
-        body: {
-            account: form.account?.trim(),
-            password: form.password?.trim(),
-        },
+        body: params,
     }))
     if (res.code !== 200) return ElMessage.error(res.msg)
 
@@ -224,6 +240,9 @@ const onSignIn = async () => {
     token.value = `${res.data?.token}`
     navigateTo('/admin')
 }
+onBeforeMount(() => {
+    getVerifyCode()
+})
 </script>
 
 <template>
@@ -265,9 +284,11 @@ const onSignIn = async () => {
                         </el-col>
                         <el-col :span="1" />
                         <el-col :span="8">
-                            <!-- <el-button class="login-content-code" @click="getCode">
-                    {{ state.verify }}
-                </el-button> -->
+                            <el-button v-html="stateData.verify" class="login-content-code w100%"
+                                @click="getVerifyCode">
+
+
+                            </el-button>
                         </el-col>
                     </el-form-item>
                     <el-form-item class="login-animation4">
@@ -282,4 +303,13 @@ const onSignIn = async () => {
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.login-content-code {
+    padding: 0;
+
+    :deep(>svg) {
+        width: 100%;
+        height: 100%;
+    }
+}
+</style>

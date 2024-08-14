@@ -99,3 +99,29 @@ export const useVerifyToken = async (event: H3Event) => {
     if (!token) return false
     return verifyToken<ILoginUserInfo>(token)
 }
+
+/**
+ * 验证码验证
+ * @param type 验证码类型，可选值为 'add'、'del'、'check',默认使用add
+ * @param key 验证码key值
+ * @param code 验证码
+ * @returns 
+ */
+export const setCaptchaList = async (type = 'add' as 'add' | 'del' | 'check', key?: string | number, code?: string) => {
+    const codeList = await useStorage('data').getItem<{ key: number, data: string }[]>('code') || []
+    // 取得5分钟前的验证码列表
+    const newArr = codeList.filter(item => Date.now() - item.key < 5 * 60 * 1000)
+    if (type === 'add' && key && code) newArr.push({ key: key as number, data: code })
+    if (type === 'check' && key && code) {
+        const index = newArr.findIndex(item => item.key === key && item.data.toLocaleLowerCase() === code.toLocaleLowerCase())
+        if (index >= 0) {
+            newArr.splice(index, 1)
+            await useStorage('data').setItem('code', newArr)
+            return true
+        } else {
+            return false
+        }
+    }
+    await useStorage('data').setItem('code', newArr)
+    return newArr
+}

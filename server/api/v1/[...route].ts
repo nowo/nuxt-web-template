@@ -1,5 +1,5 @@
 import { createRouter, defineEventHandler, useBase } from 'h3'
-import { setDeleteFile, setSaveFile } from '~~/server/controller/common'
+import { getVerifyCode, setDeleteFile, setSaveFile,setFileUpload } from '~~/server/controller/common'
 import { getAdminInfo, getAdminList, setAdminCreate, setAdminDelete, setAdminUpdate, setLoginSign, setPasswordUpdate, setRegister } from '~~/server/controller/admin'
 import { getSystemInfo, setSystemInfo } from '~~/server/controller/system'
 import { getMenuList, setMenuCreate, setMenuDelete, setMenuUpdate } from '~~/server/controller/menu'
@@ -17,6 +17,9 @@ router.use('/model/list', getModelList) // 获取模型列表
 
 router.use('/file/upload', setSaveFile) // 文件上传保存
 router.use('/file/delete', setDeleteFile) // 文件删除
+
+router.use('/common/upload', setFileUpload) // 文件上传
+router.use('/common/code', getVerifyCode) // 获取验证码
 
 router.use('/login', setLoginSign) // 用户登录
 router.use('/signup', setRegister) // 用户注册

@@ -1,3 +1,11 @@
+// 用户登录
+declare interface IAdminLoginParams {
+    account: string
+    password: string
+    key?: string|number // 验证码key
+    code?: string   // 验证码
+}
+
 // 修改密码
 declare interface IAdminPasswordUpdate {
     account?: string
@@ -73,9 +81,9 @@ declare interface IConfigInfoUpdate {
     port: number,  // 端口
     img: string; // 图片地址
     href: string; // 地址
-    password:string; // 密码
+    password: string; // 密码
     content: string; // 内容
     type: IConfigKeyType    // 类型 
-    status:number // 状态 0:禁用 1:启用
+    status: number // 状态 0:禁用 1:启用
 }
 

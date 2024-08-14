@@ -5,10 +5,15 @@ import type { Prisma } from '@prisma/client'
  */
 export const setLoginSign = defineEventHandler(async (event) => {
     // 获取参数
-    const param = await getEventParams<Prisma.AdminWhereUniqueInput>(event)
+    const param = await getEventParams<IAdminLoginParams>(event)
 
     if (!param?.account) return { msg: '请输入登录账号' }
     if (!param?.password) return { msg: '请输入登录密码' }
+
+    if (!param?.key) return { msg: '未获取到key值' }
+    if (!param?.code) return { msg: '请输入验证码' }
+    const isVerify = await setCaptchaList('check', param.key, param.code)
+    if (isVerify !== true) return { msg: '验证码错误' }
 
     const user = await prisma.admin.findUnique({
         where: {

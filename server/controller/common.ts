@@ -1,4 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises'
+import svgCaptcha from 'svg-captcha'
+
 /**
  * 保存文件信息
  */
@@ -80,4 +82,78 @@ export const setDeleteFile = defineEventHandler(async (event) => {
     const t = files.get('data') as string
 
     return JSON.parse(t)
+})
+
+
+/**
+ * 保存文件信息
+ */
+export const setFileUpload = defineEventHandler(async (event) => {
+
+    try {
+        const form = await readFormData(event);
+        console.log('form :>> ', form);
+        // let list = form.getAll('files')
+        // console.log('list :>> ', list);
+        // return list
+        // multiple
+        // const files = await receiveFiles(form, {
+        //     multiple: 3, // Max 20 files at a time for now
+        //     ensure: {
+        //         maxSize: '50MB', // Max 50 MB each file
+        //         types: ['audio', 'csv', 'image', 'video', 'pdf', 'text'],
+        //     },
+        // });
+
+        // for (const file of files) {
+        //     await handleFileUpload(file);
+        // }
+
+        // single
+
+        const [file] = await useFileVerify(form, {
+            formKey: 'files',
+            multiple: false,
+            ensure: {
+                maxSize: '25.6MB',
+                types: ['audio', 'csv', 'image', 'video', 'pdf', 'text', 'zip', 'exe'],
+            },
+            lang: 'zh'
+        });
+        console.log('file :>> ', file);
+        const date = new Date()
+        // // 根据时间生成文件夹
+        const dateDir = date.toLocaleDateString('zh-cn') // 2023/01/02
+        // const dateDir = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+        const randomStr = Math.random().toString(36).substring(2, 6 + 2) // 随机字符串6位
+        const fileDir = `/upload/${dateDir}`
+        // randomStr
+        let url = await useFileSave(file, `${Date.now()}${randomStr}`, fileDir);
+        if (!url) return { code: 500, msg: '上传失败' }
+        return { code: 200, msg: '上传成功', data: url }
+    } catch (error: any) {
+        console.log('error :>> ', error);
+        return { code: 500, msg: error.message || '上传失败' }
+    }
+
+
+})
+
+/**
+ * 获取验证码
+ */
+export const getVerifyCode = defineEventHandler(async (event) => {
+
+    const captcha = svgCaptcha.create();
+    let key = Date.now()
+    setCaptchaList('add', key, captcha.text)
+
+    return {
+        code: 200,
+        data: {
+            key, 
+            code: captcha.data
+        },
+        msg: '获取成功'
+    }
 })
