@@ -12,7 +12,8 @@ export default defineNuxtConfig({
         '@element-plus/nuxt',
         'nuxt-particles',
         // '@prisma/nuxt',
-        'nuxt-file-save'
+        'nuxt-file-save',
+        '@nuxtjs/i18n'
     ],
 
     experimental: {
@@ -22,7 +23,7 @@ export default defineNuxtConfig({
         // renderJsonPayloads: true,
         typedPages: true,
     },
-    vite:{
+    vite: {
         build: {
             minify: 'terser',
             terserOptions: {
@@ -58,9 +59,9 @@ export default defineNuxtConfig({
             //     driver: 'redis',
             //     /* redis connector options */
             // },
-            prisma: {
+            data: {
                 driver: 'fs',
-                base: './.data/prisma',
+                base: './.data',
             },
         },
     },
@@ -132,6 +133,7 @@ export default defineNuxtConfig({
     features: {
         // For UnoCSS
         inlineStyles: false,
+        // devLogs:'silent'
     },
 
     future: {
@@ -145,4 +147,31 @@ export default defineNuxtConfig({
     },
 
     compatibilityDate: '2024-07-03',
+    i18n: {
+        // legacy: false,
+        // locale: 'cn',
+        locales: [
+            {
+                code: 'cn',
+                name: '简体中文',
+                file: 'cn.json',
+            },
+            {
+                code: 'en',
+                name: 'English',
+                file: 'en.json',
+            },
+        ],
+        langDir: 'lang',
+        detectBrowserLanguage: {
+            useCookie: false
+        },
+        defaultLocale: 'cn',
+        // fallbackLocale: 'cn',
+        customRoutes: 'config',
+        pages: {
+            // 'admin/[all]': false
+            'admin': false
+        }
+    }
 })
