@@ -32,6 +32,20 @@ const onSignVerify = async () => {
     })
     console.log(tab)
 }
+
+
+const onTestMail = async () => {
+    const res = await useServerFetch('/api/test', {
+        method: 'POST',
+        body: {
+            email: 'zhangyue@zhipuai.cn',
+            subject: '测试',
+            content: '测试',
+        },
+    })
+    console.log(res)
+}
+
 </script>
 
 <template>
@@ -41,6 +55,7 @@ const onSignVerify = async () => {
         <Suspense>
             <ClientOnly>
                 1231
+                {{ $t('hello') }}
             </ClientOnly>
             <template #fallback>
                 <div italic op50>
@@ -66,5 +81,8 @@ const onSignVerify = async () => {
             <el-table-column prop="end" label="end" />
             <el-table-column prop="length" label="length" width="100" />
         </el-table>
+        <el-button @click="onTestMail">
+            验证
+        </el-button>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
-import SetSeo from './SetSeo.vue'
-import SetBasic from './SetBasic.vue'
+import SetSeo from './SystemSeo.vue'
+import SetBasic from './SystemBasic.vue'
 
 const props = defineProps<{
     type?: 'basic' | 'seo'

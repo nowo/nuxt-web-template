@@ -2,7 +2,7 @@
 declare interface IAdminLoginParams {
     account: string
     password: string
-    key?: string|number // 验证码key
+    key?: string | number // 验证码key
     code?: string   // 验证码
 }
 
@@ -67,7 +67,7 @@ declare type ILinkType = 'link' | 'banner' | 'file' | 'honor' | 'cooper' | 'comp
 /**
  * 配置类型：邮箱、安全
  */
-declare type IConfigKeyType = 'email' | 'safe'
+declare type IConfigKeyType = 'email' | 'safe' | 'theme'
 
 
 /**

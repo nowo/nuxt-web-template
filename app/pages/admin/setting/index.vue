@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import SetSystem from './components/SetSystem.vue'
-import SetEmail from './components/SetEmail.vue'
+
+const SetEmail = defineAsyncComponent(() => import('./components/SetEmail.vue'))
+const SetTheme = defineAsyncComponent(() => import('./components/SetTheme.vue'))
 
 definePageMeta({
     layout: 'admin',
@@ -30,12 +32,12 @@ definePageMeta({
                     <SetEmail />
                 </el-scrollbar>
             </el-tab-pane>
-            <!-- <el-tab-pane label="其他设置">
+            <el-tab-pane label="主题设置">
                 <el-scrollbar>
-                    <SetBasic :data="systemInfo" />
+                    <SetTheme />
                 </el-scrollbar>
             </el-tab-pane>
-            <el-tab-pane label="安全设置">
+            <!-- <el-tab-pane label="安全设置">
                 <el-scrollbar>
                     <SetBasic :data="systemInfo" />
                 </el-scrollbar>
