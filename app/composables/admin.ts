@@ -135,6 +135,7 @@ export const useAdminMenuState = () => {
 
 /**
  * 检查用户是否拥有权限
+ * @param permissionName 权限名称，(eg:'add')
  */
 export function checkPermission(permissionName: PermissionType) {
     const { userInfo } = useUserState()

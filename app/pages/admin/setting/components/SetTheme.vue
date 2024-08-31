@@ -1,7 +1,25 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 
+const isEdit = ref(import.meta.env.DEV)
+
 const { systemInfo } = await useSystemState()
+
+type ContentComponentType = 'input' | 'color' | 'number'   // 组件使用输入控件类型
+interface ContentDataType {
+    key: string
+    value: string
+    name: string
+    type: ContentComponentType   // 组件使用输入控件类型
+}
+
+const stateData = reactive({
+    varList: [
+        { name: '主题色', key: '--co-main-color' },
+        { name: '主题色', key: '--co-main-color' },
+    ],
+    typeList: ['input', 'color', 'number'] as ContentComponentType[],
+})
 
 
 const formRef = ref<FormInstance>()
@@ -14,36 +32,66 @@ const form = reactive({
         name: '',   // 发送方姓名
         status: 1,   // 状态 1：启用，0：禁用
         toEmail: '', // 收件人邮箱
+        contentData: [] as ContentDataType[]
     },
 })
 
 const rules = reactive<FormRules>({
     service: [{ required: true, whitespace: true, message: '请输入SMTP服务器地址', trigger: 'blur' }],
-    port: [{ required: true,  message: '请输入端口号', trigger: 'blur' }],
+    port: [{ required: true, message: '请输入端口号', trigger: 'blur' }],
     email: [{ required: true, whitespace: true, message: '请输入授权码', trigger: 'blur' }],
     pass: [{ required: true, whitespace: true, message: '请输入发送方邮箱', trigger: 'blur' }],
+    required: [{ required: true, message: '必填项不能为空' }],
+})
+
+const tableData = reactive<CoTableProps<ContentDataType>>({
+    data: [],
+    tableHeader: [
+        { property: 'name', label: '标题名称', width: '180' },
+        { property: 'key', label: '变量名', width: '180', other: { isHide: !isEdit.value } },
+        { property: 'type', label: '组件类型', width: '180', other: { isHide: !isEdit.value } },
+        { property: 'value', label: '值', minWidth: '180' },
+        { property: 'operate', label: '操作', width: '100', align: 'center', fixed: 'right', other: { isHide: !isEdit.value } },
+
+    ],
+    pagination: paginationConfig,
+    isTool: false,
 })
 
 // 初始化数据
 const initDefaultData = async () => {
     const res = await useServerFetch<IConfigInfoUpdate>('/api/v1/config/info', {
         method: 'post',
-        body: { type: 'email' },
+        body: { type: 'theme' },
     })
 
     // console.log('res :>> ', res)
     if (res.code !== 200) return ElMessage.error('网络错误')
     const propsData = res.data
+    try {
+        let content = propsData?.content ? JSON.parse(propsData?.content) : []
+        form.data.contentData = Array.isArray(content) ? content : []
+    } catch (e) {
+        form.data.contentData = []
+    }
 
-    form.data.service = propsData?.title || ''
-    form.data.port = propsData?.port || undefined
-
-    form.data.email = propsData?.email || ''
-    form.data.pass = propsData?.password || ''
-    form.data.name = propsData?.name || ''
-    form.data.status = propsData?.status || 0
-    form.data.toEmail = propsData?.href || systemInfo.value?.company||''
 }
+
+
+const onAddItem = () => {
+    let item: ContentDataType = {
+        key: '',
+        value: '',
+        name: '',
+        type: 'input'
+    }
+    form.data.contentData.push(item)
+}
+
+const onRemoveItem = (index: number) => {
+    if (index >= 0) form.data.contentData.splice(index, 1)
+}
+
 
 const [ApiFunc, btnLoading] = useLoadingSubmit()
 // 确定
@@ -53,15 +101,15 @@ const onSubmit = async () => {
 
     const param: IConfigInfoUpdate = {
         title: form.data.service?.trim() ?? '',
-        port: form.data.port||0,
+        port: form.data.port || 0,
         password: form.data.pass?.trim() ?? '',
         name: form.data.name?.trim() ?? '',
         status: form.data.status || 0,
         email: form.data.email?.trim() ?? '',
         href: form.data.toEmail?.trim() ?? '',
-        type:'email',
-        img:'',
-        content:'',
+        type: 'theme',
+        img: '',
+        content: JSON.stringify(form.data.contentData),
 
     }
 
@@ -87,57 +135,44 @@ onMounted(() => {
     <el-form ref="formRef" :model="form.data" :rules="rules" label-width="130px" label-position="right">
         <div class="pr20px pt20px">
             <el-row :gutter="20">
-                <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                    <el-form-item label="是否启用：" prop="status">
-                        <el-radio-group v-model="form.data.status">
-                            <el-radio :value="1">
-                                启用
-                            </el-radio>
-                            <el-radio :value="0">
-                                禁用
-                            </el-radio>
-                        </el-radio-group>
-                    </el-form-item>
+                <el-col :xs="24" :sm="22" :md="18" :lg="18" :xl="16">
+                    <CoTable v-model:option="tableData" :data="form.data.contentData" auto-height border>
+                        <template #name="{ row, $index }">
+                            <el-form-item v-if="isEdit" :prop="`contentData.${$index}.name`" label-width="auto"
+                                :rules="$index >= 0 ? rules.required : []">
+                                <el-select v-model="row.name" filterable allow-create default-first-option>
+                                    <el-option v-for="item in stateData.varList" :key="item.key" :label="item.name"
+                                        :value="item.name" />
+                                </el-select>
+                            </el-form-item>
+                            <span v-else>{{ row.name }}</span>
+                        </template>
+                        <template #key="{ row, $index }">
+                            <el-form-item v-if="isEdit" :prop="`contentData.${$index}.key`" label-width="auto"
+                                :rules="$index >= 0 ? rules.required : []">
+                                <el-input v-model="row.key" maxlength="100" clearable />
+                            </el-form-item>
+                            <span v-else>{{ row.key }}</span>
+                        </template>
+                        <template #value="{ row, $index }">
+                            <el-form-item :prop="`contentData.${$index}.value`" label-width="auto"
+                                :rules="$index >= 0 ? rules.required : []">
+                            <el-input v-model="row.value" maxlength="100" clearable />
+                        </el-form-item>
+                        </template>
+                        <template #operateHeader>
+                            <el-button @click="onAddItem()">
+                                <i class="i-ep-plus" />
+                            </el-button>
+                        </template>
+                        <template #operate="{ $index }">
+                            <el-button type="danger" plain @click="onRemoveItem($index)">
+                                <i class="i-ep-delete" />
+                            </el-button>
+                        </template>
+                    </CoTable>
                 </el-col>
-                <template v-if="form.data.status === 1">
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-                        <el-form-item prop="service" label="SMTP服务器：">
-                            <el-input v-model="form.data.service" maxlength="100" clearable
-                                placeholder="邮件服务器地址，如http://smtp.163.com、http://smtp.qq.com" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="24" />
-                    <el-col :xs="24" :sm="12" :md="10" :lg="10" :xl="10">
-                        <el-form-item prop="port" label="端口：">
-                            <el-input-number v-model="form.data.port" :min="0" :precision="0" controls-position="right"
-                                clearable />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="24" />
-                    <el-col :xs="24" :sm="16" :md="12" :lg="10" :xl="10">
-                        <el-form-item prop="pass" label="授权码：">
-                            <el-input v-model="form.data.pass" maxlength="100" clearable placeholder="SMTP授权码" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="24" />
-                    <el-col :xs="24" :sm="16" :md="12" :lg="10" :xl="10">
-                        <el-form-item prop="email" label="发送方邮箱：">
-                            <el-input v-model="form.data.email" maxlength="100" clearable placeholder="发件人邮箱地址" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="24" />
-                    <el-col :xs="24" :sm="16" :md="12" :lg="10" :xl="10">
-                        <el-form-item prop="name" label="发件人名称：">
-                            <el-input v-model="form.data.name" maxlength="100" clearable placeholder="发件人名称" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="24" />
-                    <el-col :xs="24" :sm="16" :md="12" :lg="10" :xl="10">
-                        <el-form-item prop="toEmail" label="收件人邮箱：">
-                            <el-input v-model="form.data.toEmail" maxlength="100" clearable placeholder="收件人邮箱" />
-                        </el-form-item>
-                    </el-col>
-                </template>
+
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mt15px">
                     <el-form-item>
                         <el-button type="primary" :loading="btnLoading" @click="onSubmit">
