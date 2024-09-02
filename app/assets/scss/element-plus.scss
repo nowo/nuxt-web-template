@@ -58,3 +58,11 @@
         --el-upload-picture-card-size: var(--el-upload-image-width);
     }
 }
+
+.el-table{
+    .el-table__body-wrapper{
+        .el-form-item{
+            margin-bottom: 0;
+        }
+    }
+}
