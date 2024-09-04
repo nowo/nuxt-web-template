@@ -221,17 +221,32 @@ onMounted(() => {
                             重置
                         </el-button>
 
-                        <el-popover placement="right" :width="1250" :visible="visible">
-                            <template #reference>
-                                <el-button @click="onToggleVisible">预览</el-button>
-                            </template>
-                            <iframe class="w100% h80vh" ref="iframeRef" src="/" frameborder="0"></iframe>
-                        </el-popover>
+                        <el-button @click="onToggleVisible">预览</el-button>
                     </el-form-item>
                 </el-col>
             </el-row>
+            <div class="dialog-container">
+                <el-dialog v-model="visible" :modal="false" :close-on-click-modal="false" title="主题预览" width="1250"
+                    top="10vh" draggable overflow>
+                    <iframe class="w100% h80vh" ref="iframeRef" src="/" frameborder="0"></iframe>
+                </el-dialog>
+            </div>
         </div>
     </el-form>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.dialog-container{
+    :deep(>div){
+        height:0;
+        >div{
+            height: 0;
+            overflow: unset;
+        }
+        .el-dialog{
+            margin-top:0;
+            margin-right:0;
+        }
+    }
+}
+</style>
