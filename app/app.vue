@@ -10,6 +10,20 @@ useHead({
         { name: 'keywords', content: systemInfo.value?.keywords },
     ],
 })
+
+onMounted(() => {
+    // document.body.style.zIndex = '1000'
+    // console.log('window.self !== window.top :>> ', window.self !== window.top);
+    window.childDefineFunction = (message) => {
+        // console.log(message);
+        const list = message as { key: string, value: string }[]
+        const el = document.documentElement
+        list.forEach(item => {
+            el.style.setProperty(item.key, item.value)
+        })
+    };
+
+})
 </script>
 
 <template>

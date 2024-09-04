@@ -16,7 +16,7 @@ interface ContentDataType {
 const stateData = reactive({
     varList: [
         { name: '主题色', key: '--co-main-color' },
-        { name: '主题色', key: '--co-main-color' },
+        { name: '次文本色', key: '--co-main-color' },
     ],
     typeList: ['input', 'color', 'number'] as ContentComponentType[],
 })
@@ -37,10 +37,6 @@ const form = reactive({
 })
 
 const rules = reactive<FormRules>({
-    service: [{ required: true, whitespace: true, message: '请输入SMTP服务器地址', trigger: 'blur' }],
-    port: [{ required: true, message: '请输入端口号', trigger: 'blur' }],
-    email: [{ required: true, whitespace: true, message: '请输入授权码', trigger: 'blur' }],
-    pass: [{ required: true, whitespace: true, message: '请输入发送方邮箱', trigger: 'blur' }],
     required: [{ required: true, message: '必填项不能为空' }],
 })
 
@@ -77,6 +73,12 @@ const initDefaultData = async () => {
 
 }
 
+const onChangeName = (row: ContentDataType) => {
+    if (row.key) return
+    let node = stateData.varList.find(item => item.name === row.name)
+    if (node) row.key = node.key
+}
+
 
 const onAddItem = () => {
     let item: ContentDataType = {
@@ -90,6 +92,28 @@ const onAddItem = () => {
 
 const onRemoveItem = (index: number) => {
     if (index >= 0) form.data.contentData.splice(index, 1)
+}
+
+const visible = ref(false)
+const iframeRef = ref<HTMLIFrameElement>()
+
+// 向iframe发送样式数据
+const sendIframeData = useDebounceFn(() => {
+    let data = form.data.contentData.map(item => {
+        return {
+            key: item.key,
+            value: item.value
+        }
+    })
+    // console.log('data :>> ', data);
+    // 发送，需在同一个域
+    iframeRef.value?.contentWindow?.childDefineFunction(data)
+
+}, 1000, { maxWait: 5000 })
+const onToggleVisible = () => {
+    visible.value = !visible.value
+    if (visible.value) sendIframeData()
+
 }
 
 
@@ -126,21 +150,27 @@ const onReset = async () => {
     initDefaultData()
 }
 
+// 监听表单变化
+watch(() => form.data.contentData, () => {
+    if (visible.value) sendIframeData()
+}, { deep: true })
+
 onMounted(() => {
     initDefaultData()
 })
 </script>
 
 <template>
-    <el-form ref="formRef" :model="form.data" :rules="rules" label-width="130px" label-position="right">
+    <el-form ref="formRef" :model="form.data" :rules="rules" label-width="120px" label-position="right">
         <div class="pr20px pt20px">
             <el-row :gutter="20">
-                <el-col :xs="24" :sm="22" :md="18" :lg="18" :xl="16">
+                <el-col :xs="24" :sm="22" :md="18" :lg="18" :xl="isEdit ? 16 : 12">
                     <CoTable v-model:option="tableData" :data="form.data.contentData" auto-height border>
                         <template #name="{ row, $index }">
                             <el-form-item v-if="isEdit" :prop="`contentData.${$index}.name`" label-width="auto"
                                 :rules="$index >= 0 ? rules.required : []">
-                                <el-select v-model="row.name" filterable allow-create default-first-option>
+                                <el-select v-model="row.name" filterable allow-create default-first-option
+                                    @change="onChangeName(row)">
                                     <el-option v-for="item in stateData.varList" :key="item.key" :label="item.name"
                                         :value="item.name" />
                                 </el-select>
@@ -148,17 +178,26 @@ onMounted(() => {
                             <span v-else>{{ row.name }}</span>
                         </template>
                         <template #key="{ row, $index }">
-                            <el-form-item v-if="isEdit" :prop="`contentData.${$index}.key`" label-width="auto"
+                            <el-form-item :prop="`contentData.${$index}.key`" label-width="auto"
                                 :rules="$index >= 0 ? rules.required : []">
                                 <el-input v-model="row.key" maxlength="100" clearable />
                             </el-form-item>
-                            <span v-else>{{ row.key }}</span>
+                        </template>
+                        <template #type="{ row, $index }">
+                            <el-form-item :prop="`contentData.${$index}.type`" label-width="auto"
+                                :rules="$index >= 0 ? rules.required : []">
+                                <el-select v-model="row.type" filterable clearable>
+                                    <el-option v-for="item in stateData.typeList" :key="item" :label="item"
+                                        :value="item" />
+                                </el-select>
+                            </el-form-item>
                         </template>
                         <template #value="{ row, $index }">
                             <el-form-item :prop="`contentData.${$index}.value`" label-width="auto"
                                 :rules="$index >= 0 ? rules.required : []">
-                            <el-input v-model="row.value" maxlength="100" clearable />
-                        </el-form-item>
+                                <el-color-picker v-if="row.type == 'color'" v-model="row.value" show-alpha />
+                                <el-input v-else v-model="row.value" maxlength="100" clearable />
+                            </el-form-item>
                         </template>
                         <template #operateHeader>
                             <el-button @click="onAddItem()">
@@ -174,13 +213,20 @@ onMounted(() => {
                 </el-col>
 
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mt15px">
-                    <el-form-item>
+                    <el-form-item label-width="50px">
                         <el-button type="primary" :loading="btnLoading" @click="onSubmit">
                             确定
                         </el-button>
                         <el-button @click="onReset">
                             重置
                         </el-button>
+
+                        <el-popover placement="right" :width="1250" :visible="visible">
+                            <template #reference>
+                                <el-button @click="onToggleVisible">预览</el-button>
+                            </template>
+                            <iframe class="w100% h80vh" ref="iframeRef" src="/" frameborder="0"></iframe>
+                        </el-popover>
                     </el-form-item>
                 </el-col>
             </el-row>

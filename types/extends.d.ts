@@ -44,6 +44,11 @@ declare global {
     //     props: { props?: CascaderProps } & Record<string, any>
     // }
 
+
+    interface Window {
+        childDefineFunction: <T>(message: T) => void
+        fatherDefineFunction: <T>(message: T) => void
+    }
 }
 
 declare module '#app' {

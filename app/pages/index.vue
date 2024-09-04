@@ -81,7 +81,7 @@ const onTestMail = async () => {
             <el-table-column prop="end" label="end" />
             <el-table-column prop="length" label="length" width="100" />
         </el-table>
-        <el-button @click="onTestMail">
+        <el-button type="primary" @click="onTestMail">
             验证
         </el-button>
     </div>
