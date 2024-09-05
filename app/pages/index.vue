@@ -45,7 +45,10 @@ const onTestMail = async () => {
     })
     console.log(res)
 }
-
+const val=ref('')
+const onLink = () => {
+   if(val.value) navigateTo(val.value)
+}
 </script>
 
 <template>
@@ -63,6 +66,8 @@ const onTestMail = async () => {
                 </div>
             </template>
         </Suspense>
+        <el-input v-model="val" />
+        <el-button type="primary" @click="onLink">跳</el-button>
         <InputEntry />
         首页
         <button @click="onTest">

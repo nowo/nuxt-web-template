@@ -15,6 +15,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
         // admin页面使用slide-right过渡
         to.meta.pageTransition = { name: 'slide-right', mode: 'out-in' }
         // const token = useSessionStorage('token', '')
+        // 页面被嵌入iframe中，则跳转到首页
+        if(import.meta.client && window.self !== window.top){
+            return navigateTo('/')
+        }
         const token = useCookie('token')
         if (!token.value && to.path !== '/admin/login') { // 没token，不在登录页的时候，转到登录页
             return navigateTo('/admin/login')
