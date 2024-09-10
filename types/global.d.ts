@@ -1,4 +1,5 @@
 declare module 'element-plus/dist/locale/zh-cn.mjs';
+declare module 'element-plus/dist/locale/en.mjs';
 
 // search搜索项 数据格式公共类型
 declare interface CoFormToolProps<T = Record<string, any>> {

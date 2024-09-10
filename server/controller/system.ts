@@ -67,6 +67,7 @@ export const setSystemInfo = defineEventHandler(async (event) => {
                 filing: param.filing,
                 icon: param.icon,
                 is_en: !!param.is_en,
+                hm_url:param.hm_url||'',
             },
             where: { id: 1 },
         }),

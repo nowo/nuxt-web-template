@@ -152,6 +152,7 @@ model System {
     filing String?  @db.Text
     icon   String?  @db.VarChar(255)
     is_en  Boolean? @db.Bit(1)
+    hm_url        String? @db.VarChar(255)
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
