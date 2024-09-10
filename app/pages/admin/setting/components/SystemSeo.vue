@@ -26,6 +26,11 @@ const form = reactive({
                 placeholder="网站描述内容，建议在150字以内" />
         </el-form-item>
     </el-col>
+    <el-col :xs="24" :sm="24" :md="20" :lg="18" :xl="16">
+        <el-form-item prop="hm_url" label="百度统计代码url地址：">
+            <el-input v-model="form.data.hm_url" maxlength="250" clearable placeholder="https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx" />
+        </el-form-item>
+    </el-col>
 </template>
 
 <style lang="scss" scoped></style>

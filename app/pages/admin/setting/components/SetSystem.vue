@@ -39,6 +39,7 @@ const form = reactive<{ data: ISystemFormBasic & ISystemFormSeo }>({
         seo_title: '', // seo标题
         seo_keywords: '', // 关键词
         seo_description: '', // 描述
+        hm_url:'',  // 百度统计js地址
     },
 })
 
@@ -67,6 +68,8 @@ const initDefaultData = async () => {
     form.data.filing = propsData?.filing || ''
     form.data.icon = propsData?.icon || ''
     form.data.is_en = !!propsData?.is_en
+
+    form.data.hm_url = propsData?.hm_url || ''
 }
 
 const [ApiFunc, btnLoading] = useLoadingSubmit()
@@ -97,6 +100,7 @@ const onSubmit = async () => {
         // copyright_en: form.data.copyright_en?.trim() ?? '',
         icon: form.data.icon?.trim() ?? '',
         is_en: form.data.is_en,
+        hm_url: form.data.hm_url?.trim() ?? '',
     }
 
     const res = await ApiFunc(setSystemUpdate(param))

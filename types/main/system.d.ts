@@ -43,7 +43,7 @@ declare interface ISystemEditParams {
     filing: string // 备案信息
     // copyright:string; // 版权信息
     hm_url:string   // 百度统计js文件地址
-    
+
     company_en: string //
     address_en: string //
     filing_en: string //
@@ -81,6 +81,7 @@ declare interface ISystemFormSeo {
     seo_title: string // 标题
     seo_keywords: string // 关键字
     seo_description: string // 描述
+    hm_url:string // 百度统计地址
 }
 
 type LanguageType = 'cn' | 'en'
