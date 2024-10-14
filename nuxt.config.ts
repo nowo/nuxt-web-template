@@ -24,6 +24,13 @@ export default defineNuxtConfig({
         typedPages: true,
     },
     vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    api: "modern-compiler" // or 'modern'
+                }
+            }
+        },
         build: {
             minify: 'terser',
             terserOptions: {
